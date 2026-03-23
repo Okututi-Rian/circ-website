@@ -50,80 +50,109 @@ export default async function TeamPage() {
             {execs.map((member) => {
               const isChair = member.role === "CHAIRPERSON"
               return (
-                <div key={member.id} className="group relative bg-surface rounded-2xl border border-border overflow-hidden hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(30,58,138,0.14)] transition-all duration-300">
-                  
-                  {/* CHAIR badge */}
+                <div key={member.id} className="group bg-surface rounded-2xl border border-border p-6 flex flex-col items-center text-center hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(30,58,138,0.12)] transition-all duration-300 relative overflow-hidden">
+
+                  {/* Chairperson only — orange accent badge */}
                   {isChair && (
-                    <div className="absolute top-3 right-3 z-20 bg-accent-orange text-white font-body text-[10px] font-bold px-2.5 py-1 rounded-full tracking-wider">
+                    <div className="absolute top-3 right-3 bg-accent-orange text-white font-mono text-[9px] font-bold px-2.5 py-1 rounded-full tracking-wider z-10">
                       CHAIR
                     </div>
                   )}
 
-                  {/* Photo area */}
-                  <div className={`relative ${isChair ? 'h-52' : 'h-44'} overflow-hidden bg-gradient-to-br from-primary to-[#0F2460]`}>
-                    {member.photo ? (
-                      <Image
-                        src={member.photo}
-                        alt={member.name}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="font-display text-white font-bold text-5xl opacity-30">
-                          {member.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2)}
-                        </span>
-                      </div>
-                    )}
-                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/40 to-transparent" />
+                  {/* Circular photo — the key element */}
+                  <div className="relative mb-5">
+                    {/* Outer glow ring — animates on hover */}
+                    <div className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{
+                        background: isChair
+                          ? "linear-gradient(135deg, #F97316, #1E3A8A)"
+                          : "linear-gradient(135deg, #1E3A8A, #38BDF8)"
+                      }}
+                    />
+
+                    {/* Photo circle */}
+                    <div
+                      className="relative rounded-full overflow-hidden border-4 border-surface flex-shrink-0"
+                      style={{
+                        width: isChair ? "120px" : "96px",
+                        height: isChair ? "120px" : "96px",
+                      }}
+                    >
+                      {member.photo ? (
+                        <Image
+                          src={member.photo}
+                          alt={member.name}
+                          fill
+                          sizes="120px"
+                          className="object-cover object-top"
+                        />
+                      ) : (
+                        /* Fallback: initials on gradient background */
+                        <div
+                          className="w-full h-full flex items-center justify-center"
+                          style={{ background: "linear-gradient(135deg, #0F2460, #1E3A8A)" }}
+                        >
+                          <span className="font-display text-white font-bold"
+                            style={{ fontSize: isChair ? "36px" : "28px" }}>
+                            {member.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2).toUpperCase()}
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
-                  {/* Accent bar */}
+                  {/* Member details below the circle */}
+                  <div className="flex flex-col items-center gap-1 flex-1">
+                    <h3 className="font-display text-primary text-base font-bold leading-tight">
+                      {member.name}
+                    </h3>
+                    <p className="font-mono text-[10px] tracking-widest uppercase"
+                      style={{ color: isChair ? "#F97316" : "rgba(56,189,248,0.8)" }}>
+                      {formatRole(member.role)}
+                    </p>
+                    {member.bio && (
+                      <p className="font-body text-muted text-xs leading-relaxed line-clamp-2 mt-2 max-w-[180px]">
+                        {member.bio}
+                      </p>
+                    )}
+
+                    {/* Social links — conditional, only shown if values exist */}
+                    {(member.linkedin || member.github || member.twitter) && (
+                      <div className="flex items-center justify-center gap-2 mt-3">
+                        {member.linkedin && (
+                          <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
+                            className="w-7 h-7 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface-2 transition-colors border border-border"
+                            aria-label="LinkedIn">
+                            <Linkedin size={12} />
+                          </a>
+                        )}
+                        {member.github && (
+                          <a href={member.github} target="_blank" rel="noopener noreferrer"
+                            className="w-7 h-7 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface-2 transition-colors border border-border"
+                            aria-label="GitHub">
+                            <Github size={12} />
+                          </a>
+                        )}
+                        {member.twitter && (
+                          <a href={member.twitter} target="_blank" rel="noopener noreferrer"
+                            className="w-7 h-7 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface-2 transition-colors border border-border"
+                            aria-label="Twitter / X">
+                            <Twitter size={12} />
+                          </a>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Bottom accent line — slides in on hover */}
                   <div
-                    className="h-0.5 w-full"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
                     style={{
                       background: isChair
                         ? "#F97316"
                         : "linear-gradient(90deg, #1E3A8A, #38BDF8)"
                     }}
                   />
-
-                  {/* Card body */}
-                  <div className="p-5">
-                    <h3 className="font-display text-primary text-lg font-bold mb-0.5">{member.name}</h3>
-                    <p className="font-body text-muted text-xs font-medium uppercase tracking-wider mb-3">
-                      {formatRole(member.role)}
-                    </p>
-                    {member.bio && (
-                      <p className="font-body text-main text-sm leading-relaxed line-clamp-2 mb-4 opacity-80">
-                        {member.bio}
-                      </p>
-                    )}
-                    <div className="flex items-center gap-2">
-                      {member.linkedin && (
-                        <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
-                          className="w-8 h-8 rounded-lg bg-surface-2 flex items-center justify-center text-muted hover:text-primary hover:bg-blue-50 transition-colors duration-150"
-                          aria-label="LinkedIn">
-                          <Linkedin size={13} />
-                        </a>
-                      )}
-                      {member.github && (
-                        <a href={member.github} target="_blank" rel="noopener noreferrer"
-                          className="w-8 h-8 rounded-lg bg-surface-2 flex items-center justify-center text-muted hover:text-primary transition-colors duration-150"
-                          aria-label="GitHub">
-                          <Github size={13} />
-                        </a>
-                      )}
-                      {member.twitter && (
-                        <a href={member.twitter} target="_blank" rel="noopener noreferrer"
-                          className="w-8 h-8 rounded-lg bg-surface-2 flex items-center justify-center text-muted hover:text-primary transition-colors duration-150"
-                          aria-label="Twitter / X">
-                          <Twitter size={13} />
-                        </a>
-                      )}
-                    </div>
-                  </div>
                 </div>
               )
             })}
@@ -150,48 +179,56 @@ export default async function TeamPage() {
               return (
                 <div
                   key={member.id}
-                  className="lead-card group relative rounded-2xl overflow-hidden transition-all duration-300"
-                  style={{
-                    background: "#0A1628",
-                    border: "1px solid rgba(56,189,248,0.1)",
-                  }}
+                  className="group rounded-2xl p-6 flex flex-col items-center text-center hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden group-hover:border-[rgba(56,189,248,0.3)] border border-[rgba(56,189,248,0.1)]"
+                  style={{ background: "#0A1628" }}
                 >
-                  {/* Photo area */}
-                  <div className="relative h-36 overflow-hidden bg-gradient-to-br from-primary to-[#0F2460]">
-                    {member.photo ? (
-                      <Image
-                        src={member.photo}
-                        alt={member.name}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="font-display text-white font-bold text-4xl opacity-30">
-                          {member.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2)}
-                        </span>
-                      </div>
-                    )}
-                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/40 to-transparent" />
+                  {/* Circular photo */}
+                  <div className="relative mb-5">
+                    {/* Outer glow ring */}
+                    <div className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ background: "linear-gradient(135deg, #1E3A8A, #38BDF8)" }}
+                    />
+                    {/* Photo circle */}
+                    <div
+                      className="relative rounded-full overflow-hidden border-4 border-[#0A1628] flex-shrink-0"
+                      style={{ width: "96px", height: "96px" }}
+                    >
+                      {member.photo ? (
+                        <Image
+                          src={member.photo}
+                          alt={member.name}
+                          fill
+                          sizes="96px"
+                          className="object-cover object-top"
+                        />
+                      ) : (
+                        <div
+                          className="w-full h-full flex items-center justify-center"
+                          style={{ background: "linear-gradient(135deg, #0F2460, #1E3A8A)" }}
+                        >
+                          <span className="font-display text-white font-bold" style={{ fontSize: "28px" }}>
+                            {member.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2).toUpperCase()}
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
-                  {/* Accent bar */}
-                  <div className="h-0.5 w-full" style={{ background: "linear-gradient(90deg, #1E3A8A, #38BDF8)" }} />
-
-                  {/* Card body */}
-                  <div className="p-5">
-                    <h3 className="font-display text-white text-lg font-bold mb-0.5">{member.name}</h3>
-                    <p className="font-mono text-[rgba(56,189,248,0.6)] text-[9px] tracking-wider uppercase mb-2">
+                  {/* Member details below the circle */}
+                  <div className="flex flex-col items-center gap-1 flex-1">
+                    <h3 className="font-display text-white text-base font-bold leading-tight">
+                      {member.name}
+                    </h3>
+                    <p className="font-mono text-[10px] tracking-widest uppercase text-[rgba(56,189,248,0.8)]">
                       {formatRole(member.role)}
                     </p>
-
+                    
                     {member.community && (
                       <span
-                        className="inline-block font-body text-[10px] font-semibold px-2.5 py-1 rounded-full mb-3"
+                        className="inline-block font-mono text-[9px] font-bold px-2.5 py-1 rounded-full mt-1"
                         style={{
-                          background: COMMUNITY_COLORS[communitySlug]?.bg || "rgba(30,58,138,0.05)",
-                          color: COMMUNITY_COLORS[communitySlug]?.text || "#1E3A8A"
+                          background: COMMUNITY_COLORS[communitySlug]?.bg ?? "#F0F4FF",
+                          color: COMMUNITY_COLORS[communitySlug]?.text ?? "#1E3A8A",
                         }}
                       >
                         {member.community.replace(/_/g, " ")}
@@ -199,38 +236,44 @@ export default async function TeamPage() {
                     )}
 
                     {member.bio && (
-                      <p className="font-body text-white/50 text-sm leading-relaxed line-clamp-2 mb-4">
+                      <p className="font-body text-white/50 text-xs leading-relaxed line-clamp-2 mt-2 max-w-[180px]">
                         {member.bio}
                       </p>
                     )}
 
-                    <div className="flex items-center gap-2">
-                      {member.linkedin && (
-                        <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
-                          className="w-8 h-8 rounded-lg flex items-center justify-center text-white/30 hover:text-white/70 transition-colors duration-150"
-                          style={{ background: "rgba(56,189,248,0.05)", border: "1px solid rgba(56,189,248,0.1)" }}
-                          aria-label="LinkedIn">
-                          <Linkedin size={13} />
-                        </a>
-                      )}
-                      {member.github && (
-                        <a href={member.github} target="_blank" rel="noopener noreferrer"
-                          className="w-8 h-8 rounded-lg flex items-center justify-center text-white/30 hover:text-white/70 transition-colors duration-150"
-                          style={{ background: "rgba(56,189,248,0.05)", border: "1px solid rgba(56,189,248,0.1)" }}
-                          aria-label="GitHub">
-                          <Github size={13} />
-                        </a>
-                      )}
-                      {member.twitter && (
-                        <a href={member.twitter} target="_blank" rel="noopener noreferrer"
-                          className="w-8 h-8 rounded-lg flex items-center justify-center text-white/30 hover:text-white/70 transition-colors duration-150"
-                          style={{ background: "rgba(56,189,248,0.05)", border: "1px solid rgba(56,189,248,0.1)" }}
-                          aria-label="Twitter / X">
-                          <Twitter size={13} />
-                        </a>
-                      )}
-                    </div>
+                    {/* Social links */}
+                    {(member.linkedin || member.github || member.twitter) && (
+                      <div className="flex items-center justify-center gap-2 mt-3">
+                        {member.linkedin && (
+                          <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
+                            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors border border-[rgba(56,189,248,0.1)] text-[rgba(56,189,248,0.5)] hover:text-[rgba(56,189,248,0.9)] bg-[rgba(56,189,248,0.07)]"
+                            aria-label="LinkedIn">
+                            <Linkedin size={12} />
+                          </a>
+                        )}
+                        {member.github && (
+                          <a href={member.github} target="_blank" rel="noopener noreferrer"
+                            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors border border-[rgba(56,189,248,0.1)] text-[rgba(56,189,248,0.5)] hover:text-[rgba(56,189,248,0.9)] bg-[rgba(56,189,248,0.07)]"
+                            aria-label="GitHub">
+                            <Github size={12} />
+                          </a>
+                        )}
+                        {member.twitter && (
+                          <a href={member.twitter} target="_blank" rel="noopener noreferrer"
+                            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors border border-[rgba(56,189,248,0.1)] text-[rgba(56,189,248,0.5)] hover:text-[rgba(56,189,248,0.9)] bg-[rgba(56,189,248,0.07)]"
+                            aria-label="Twitter / X">
+                            <Twitter size={12} />
+                          </a>
+                        )}
+                      </div>
+                    )}
                   </div>
+
+                  {/* Bottom accent line */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+                    style={{ background: "linear-gradient(90deg, #1E3A8A, #38BDF8)" }}
+                  />
                 </div>
               )
             })}

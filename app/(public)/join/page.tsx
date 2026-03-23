@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma"
 import { ApplicationForm } from "@/components/public/join/application-form"
 import { PageHero } from "@/components/public/page-hero"
 
+export const dynamic = 'force-dynamic'
+
 export default async function JoinPage() {
   const communities = await prisma.community.findMany({
     select: {

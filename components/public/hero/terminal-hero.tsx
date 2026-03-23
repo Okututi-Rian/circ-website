@@ -1,12 +1,23 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { ChevronDown } from "lucide-react"
 
 export function TerminalHero() {
   const terminalRef = useRef<HTMLDivElement>(null)
   const hasAnimated = useRef(false)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [nextSlide, setNextSlide] = useState(1)
+  const [transitioning, setTransitioning] = useState(false)
+
+  const SLIDES = [
+    "/hero/hero-bg-1.jpg",
+    "/hero/hero-bg-2.jpg",
+    "/hero/hero-bg-3.jpg",
+    "/hero/hero-bg-4.jpg",
+    "/hero/hero-bg-5.jpg",
+  ]
 
   useEffect(() => {
     if (hasAnimated.current) return
@@ -76,8 +87,68 @@ export function TerminalHero() {
     }
   }, [])
 
+  useEffect(() => {
+    SLIDES.forEach(src => {
+      const img = new window.Image()
+      img.src = src
+    })
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTransitioning(true)
+      setTimeout(() => {
+        setCurrentSlide(prev => (prev + 1) % SLIDES.length)
+        setNextSlide(prev => (prev + 1) % SLIDES.length)
+        setTransitioning(false)
+      }, 1500)
+    }, 6000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
-    <section className="relative min-h-screen bg-[#070F1E] flex flex-col items-center justify-center px-4 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden" style={{ background: "#020818" }}>
+
+      {/* ── LAYER 0: Background photo slideshow — sits below ALL other layers ── */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Current photo */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-[1500ms] ease-in-out"
+          style={{
+            backgroundImage: `url(${SLIDES[currentSlide]})`,
+            opacity: transitioning ? 0 : 1,
+          }}
+        />
+        {/* Next photo — fades in while current fades out */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-[1500ms] ease-in-out"
+          style={{
+            backgroundImage: `url(${SLIDES[nextSlide]})`,
+            opacity: transitioning ? 1 : 0,
+          }}
+        />
+        {/* Dark overlay — this is what makes Mission Control readable over any photo */}
+        {/* It has THREE layers to ensure perfect readability at all times */}
+        {/* Layer A: base dark tint */}
+        <div
+          className="absolute inset-0"
+          style={{ background: "rgba(2, 8, 24, 0.72)" }}
+        />
+        {/* Layer B: gradient from bottom (where metrics bar is) to ensure metrics always readable */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to top, rgba(2,8,24,0.95) 0%, rgba(2,8,24,0.3) 40%, rgba(2,8,24,0.5) 100%)"
+          }}
+        />
+        {/* Layer C: subtle vignette on edges */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(ellipse at center, transparent 40%, rgba(2,8,24,0.6) 100%)"
+          }}
+        />
+      </div>
 
       {/* === LAYER 1: Precision dot grid === */}
       <div
