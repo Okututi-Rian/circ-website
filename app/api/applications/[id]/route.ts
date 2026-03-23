@@ -1,0 +1,27 @@
+import { NextRequest } from "next/server"
+import { prisma } from "@/lib/prisma"
+import { successResponse, errorResponse } from "@/lib/api"
+import { requireAdmin } from "@/lib/auth"
+
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const { id } = await params
+    const { error } = await requireAdmin()
+    if (error) return error
+    const body = await req.json()
+    const { status } = body
+
+    if (!["PENDING", "APPROVED", "REJECTED"].includes(status)) {
+      return errorResponse("Invalid status", 400)
+    }
+
+    const application = await prisma.application.update({
+      where: { id },
+      data: { status: status as any },
+    })
+
+    return successResponse(application)
+  } catch (error: any) {
+    return errorResponse(error.message, 500)
+  }
+}

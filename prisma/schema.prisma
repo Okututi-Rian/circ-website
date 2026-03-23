@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id          String         @id @default(cuid())
+  title       String
+  description String
+  date        DateTime
+  venue       String
+  type        EventType
+  coverImage  String
+  regLink     String?
+  published   Boolean        @default(false)
+  createdAt   DateTime       @default(now())
+  communityId String?
+  community   Community?     @relation(fields: [communityId], references: [id])
+  gallery     GalleryImage[]
+}
+
+model TeamMember {
+  id           String         @id @default(cuid())
+  name         String
+  role         MemberRole
+  community    CommunityType?
+  bio          String
+  photo        String
+  linkedin     String?
+  github       String?
+  twitter      String?
+  displayOrder Int            @default(0)
+  createdAt    DateTime       @default(now())
+  ledCommunity Community?     @relation("CommunityLead")
+}
+
+model Community {
+  id          String      @id @default(cuid())
+  name        String
+  slug        String      @unique
+  description String
+  focusTags   String[]
+  heroImage   String?
+  leadId      String?     @unique
+  activities  String[]
+  lead        TeamMember? @relation("CommunityLead", fields: [leadId], references: [id])
+  events      Event[]
+}
+
+model GalleryImage {
+  id        String   @id @default(cuid())
+  url       String
+  caption   String?
+  eventId   String?
+  createdAt DateTime @default(now())
+  event     Event?   @relation(fields: [eventId], references: [id])
+}
+
+model Application {
+  id          String    @id @default(cuid())
+  fullName    String
+  studentId   String
+  department  String
+  year        String
+  email       String
+  phone       String
+  communities String[]
+  whyJoin     String
+  skills      String
+  status      AppStatus @default(PENDING)
+  submittedAt DateTime  @default(now())
+}
+
+model Settings {
+  id           String  @id @default("singleton")
+  contactEmail String  @default("")
+  linkedin     String  @default("")
+  twitter      String  @default("")
+  instagram    String  @default("")
+  github       String  @default("")
+  aboutText    String  @default("")
+  maintenance  Boolean @default(false)
+}
+
+enum EventType {
+  HACKATHON
+  WORKSHOP
+  TALK
+  MENTORSHIP
+  RESEARCH
+  OTHER
+}
+
+enum MemberRole {
+  CHAIRPERSON
+  VICE_CHAIRPERSON
+  SECRETARY
+  TREASURER
+  EVENT_ORGANIZER
+  COMMUNITY_LEAD
+  COMMUNITY_CO_LEADER
+}
+
+enum CommunityType {
+  WEB_DEV
+  DATA_SCIENCE
+  AI_ML
+  WEB3_BLOCKCHAIN
+  PROGRAMMING
+  IOT
+}
+
+enum AppStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
