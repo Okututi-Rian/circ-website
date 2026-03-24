@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Globe2, BarChart2, Brain, Link2, Code2, Wifi, ArrowRight } from "lucide-react"
+import { Globe2, BarChart2, Brain, Link2, Code2, Wifi, ArrowRight, Shield } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const iconMap = {
@@ -9,6 +9,7 @@ const iconMap = {
   WEB3_BLOCKCHAIN: Link2,
   PROGRAMMING: Code2,
   IOT: Wifi,
+  NETWORKING_CYBERSECURITY: Shield,
 }
 
 interface CommunityCardProps {

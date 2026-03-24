@@ -53,49 +53,33 @@ export default function AdminGalleryPage() {
     fetchData()
   }, [])
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || [])
-    if (!files.length) return
+  async function handleUpload(files: FileList | File[]) {
+    const fileArray = Array.from(files)
+    for (const file of fileArray) {
+      const formData = new FormData()
+      formData.append("file", file)
 
-    for (const file of files) {
-      setUploading(prev => [...prev, { name: file.name, progress: 10 }])
-      
-      try {
-        // 1. Get upload URL / Upload to ImageKit via API
-        const formData = new FormData()
-        formData.append("file", file)
-        
-        const uploadRes = await fetch("/api/upload", {
-          method: "POST",
-          body: formData
-        })
-        
-        if (!uploadRes.ok) throw new Error("Upload failed")
-        const { url } = await uploadRes.json()
-        
-        setUploading(prev => prev.map(u => u.name === file.name ? { ...u, progress: 60 } : u))
+      // IMPORTANT: Do NOT set Content-Type header manually for FormData
+      const uploadRes = await fetch("/api/upload", { method: "POST", body: formData })
+      const uploadData = await uploadRes.json()
 
-        // 2. Create Gallery record
-        const createRes = await fetch("/api/gallery", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url, caption: "" })
-        })
-        
-        if (createRes.ok) {
-          const resJson = await createRes.json()
-          if (resJson.success && resJson.data) {
-            setImages(prev => [resJson.data, ...prev])
-            showToast("Image uploaded successfully", "success")
-          }
-        } else {
-          showToast("Upload failed", "error")
-        }
-      } catch (err) {
-        console.error(err)
-        showToast("Upload failed", "error")
-      } finally {
-        setUploading(prev => prev.filter(u => u.name !== file.name))
+      if (!uploadData.success) {
+        showToast("Upload failed: " + uploadData.error, "error")
+        continue
+      }
+
+      const saveRes = await fetch("/api/gallery", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: uploadData.url, caption: "", eventId: null }),
+      })
+
+      const saveData = await saveRes.json()
+      if (saveData.success) {
+        setImages(prev => [saveData.data, ...prev])
+        showToast("Photo uploaded successfully", "success")
+      } else {
+        showToast("Failed to save image record", "error")
       }
     }
   }
@@ -173,7 +157,7 @@ export default function AdminGalleryPage() {
           className="hidden" 
           multiple 
           accept="image/*" 
-          onChange={handleUpload} 
+          onChange={(e) => e.target.files && handleUpload(e.target.files)} 
         />
       </div>
 

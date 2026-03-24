@@ -107,24 +107,33 @@ export function TerminalHero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden" style={{ background: "#020818" }}>
+    <section className="relative h-[100dvh] min-h-[600px] w-full flex flex-col items-center justify-center overflow-hidden" style={{ background: "#020818" }}>
 
       {/* ── LAYER 0: Background photo slideshow — sits below ALL other layers ── */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Current photo */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-[1500ms] ease-in-out"
+          className="absolute inset-0 transition-opacity duration-[1500ms] ease-in-out"
           style={{
             backgroundImage: `url(${SLIDES[currentSlide]})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            backgroundRepeat: "no-repeat",
             opacity: transitioning ? 0 : 1,
+            width: "100%",
+            height: "100%",
           }}
         />
-        {/* Next photo — fades in while current fades out */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-[1500ms] ease-in-out"
+          className="absolute inset-0 transition-opacity duration-[1500ms] ease-in-out"
           style={{
             backgroundImage: `url(${SLIDES[nextSlide]})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            backgroundRepeat: "no-repeat",
             opacity: transitioning ? 1 : 0,
+            width: "100%",
+            height: "100%",
           }}
         />
         {/* Dark overlay — this is what makes Mission Control readable over any photo */}
@@ -215,7 +224,7 @@ export function TerminalHero() {
       ))}
 
       {/* === MAIN CONTENT === */}
-      <div className="relative z-10 w-full max-w-3xl mx-auto text-center">
+      <div className="relative z-10 w-full max-w-3xl mx-auto text-center px-6">
 
         {/* Status badge */}
         <div

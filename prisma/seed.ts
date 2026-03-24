@@ -48,6 +48,13 @@ async function main() {
       description: "Connect the physical world to the digital. From Arduino prototypes to industrial IoT systems, this community builds hardware-software solutions that interact with reality.",
       focusTags: ["Arduino", "Raspberry Pi", "MQTT", "C", "Sensors", "Edge Computing"],
       activities: []
+    },
+    {
+      name: "Networking and Cybersecurity",
+      slug: "networking-cybersecurity",
+      description: "Defend, protect, and understand digital infrastructure. This community explores network architecture, ethical hacking, penetration testing, cryptography, and the principles of securing systems in an increasingly connected world.",
+      focusTags: ["Network Security", "Ethical Hacking", "Cryptography", "Wireshark", "Kali Linux", "Firewalls"],
+      activities: [],
     }
   ];
 

@@ -3,28 +3,25 @@ import { requireAdmin } from "@/lib/auth"
 import { uploadToImageKit } from "@/lib/imagekit"
 
 export async function POST(req: NextRequest) {
+  const { error } = await requireAdmin()
+  if (error) return error
+
   try {
-    const { error } = await requireAdmin()
-    if (error) return error
-
     const formData = await req.formData()
-    const file = formData.get("file") as File
+    const file = formData.get("file") as File | null
 
-    if (!file) {
+    if (!file || typeof file === "string") {
       return NextResponse.json({ success: false, error: "No file provided" }, { status: 400 })
     }
 
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
-    
-    // Clean filename — remove spaces, special chars
     const cleanName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_")
-    
-    const url = await uploadToImageKit(buffer, cleanName, "/circ")
 
+    const url = await uploadToImageKit(buffer, cleanName, "/circ/gallery")
     return NextResponse.json({ success: true, url })
-  } catch (err) {
+  } catch (err: any) {
     console.error("Upload error:", err)
-    return NextResponse.json({ success: false, error: "Upload failed" }, { status: 500 })
+    return NextResponse.json({ success: false, error: err.message ?? "Upload failed" }, { status: 500 })
   }
 }

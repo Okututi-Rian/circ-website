@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import Image from "next/image"
 import Link from "next/link"
-import { Globe2, BarChart2, Brain, Link2, Code2, Wifi } from "lucide-react"
+import { Globe2, BarChart2, Brain, Link2, Code2, Wifi, Shield } from "lucide-react"
 import { formatRole } from "@/lib/utils"
 import { PageHero } from "@/components/public/page-hero"
 
@@ -12,7 +12,19 @@ const iconMap: Record<string, any> = {
   WEB3_BLOCKCHAIN: Link2,
   PROGRAMMING: Code2,
   IOT: Wifi,
+  NETWORKING_CYBERSECURITY: Shield,
 }
+
+// ... in the map function
+            const typeMap: Record<string, string> = {
+              "web-development": "WEB_DEV",
+              "data-science-and-modelling": "DATA_SCIENCE",
+              "ai-and-machine-learning": "AI_ML",
+              "web3-and-blockchain": "WEB3_BLOCKCHAIN",
+              "programming-community": "PROGRAMMING",
+              "internet-of-things": "IOT",
+              "networking-cybersecurity": "NETWORKING_CYBERSECURITY",
+            }
 
 const TECH_TAGS = [
   {
@@ -128,9 +140,9 @@ export default async function CommunitiesPage() {
   return (
     <div className="flex flex-col">
       <PageHero
-        badge="6 ACTIVE COMMUNITIES"
+        badge="7 ACTIVE COMMUNITIES"
         title="Our Communities"
-        subtitle="Six disciplines. One shared mission. Find your people and build something meaningful."
+        subtitle="Seven disciplines. One shared mission. Find your people and build something meaningful."
         size="lg"
       />
 

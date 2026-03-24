@@ -15,6 +15,7 @@ const enumToSlug: Record<string, string> = {
   WEB3_BLOCKCHAIN: "web3-blockchain",
   PROGRAMMING: "programming",
   IOT: "iot",
+  NETWORKING_CYBERSECURITY: "networking-cybersecurity",
 }
 
 export default async function TeamPage() {
@@ -231,7 +232,7 @@ export default async function TeamPage() {
                           color: COMMUNITY_COLORS[communitySlug]?.text ?? "#1E3A8A",
                         }}
                       >
-                        {member.community.replace(/_/g, " ")}
+                        {member.community === "NETWORKING_CYBERSECURITY" ? "Networking and Cybersecurity" : member.community.replace(/_/g, " ")}
                       </span>
                     )}
 

@@ -14,6 +14,9 @@ interface CommunitiesSectionProps {
 }
 
 export function CommunitiesSection({ communities }: CommunitiesSectionProps) {
+  const visibleCommunities = communities.slice(0, 6)
+  const totalCount = communities.length
+
   return (
     <section className="py-24 bg-surface">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -22,7 +25,7 @@ export function CommunitiesSection({ communities }: CommunitiesSectionProps) {
             — our communities —
           </p>
           <h2 className="section-heading text-4xl lg:text-5xl">
-            Six Communities.<br />One Mission.
+            Seven Communities.<br />One Mission.
           </h2>
           <p className="section-subheading mt-4 max-w-xl mx-auto">
             Find your discipline. Build with purpose. Connect with people who think like you.
@@ -30,7 +33,7 @@ export function CommunitiesSection({ communities }: CommunitiesSectionProps) {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {communities.map((community) => {
+          {visibleCommunities.map((community) => {
             const colors = COMMUNITY_COLORS[community.slug] ?? COMMUNITY_COLORS["programming"]
             const Icon = COMMUNITY_ICONS[community.slug]
 
@@ -99,6 +102,20 @@ export function CommunitiesSection({ communities }: CommunitiesSectionProps) {
             )
           })}
         </div>
+
+        {totalCount > 6 && (
+          <div className="text-center mt-8">
+            <Link
+              href="/communities"
+              className="inline-flex items-center gap-2 font-body text-sm font-medium px-6 py-3 rounded-xl border border-border text-primary hover:bg-surface-2 hover:border-primary transition-all duration-200"
+            >
+              Explore All {totalCount} Communities
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   )

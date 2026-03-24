@@ -17,15 +17,14 @@ interface Event {
 
 interface EventsClientProps {
   events: Event[]
+  featuredEvent: Event | null
 }
 
-export function EventsClient({ events }: EventsClientProps) {
+export function EventsClient({ events, featuredEvent }: EventsClientProps) {
   const [activeTab, setActiveTab] = useState<string>("ALL")
   const [timeLeft, setTimeLeft] = useState<{ d: number, h: number, m: number, s: number } | null>(null)
 
   const now = new Date()
-  const upcomingEvents = events.filter(e => isAfter(new Date(e.date), now) || isSameDay(new Date(e.date), now))
-  const featuredEvent = upcomingEvents[0]
 
   useEffect(() => {
     if (!featuredEvent) return

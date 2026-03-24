@@ -68,13 +68,12 @@ export function GalleryClient({ images, eventNames }: GalleryClientProps) {
                   className="w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
                 />
                 
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-4">
-                  <p className="font-body text-white text-sm font-medium">
-                    {img.caption || "Club Activity"}
-                  </p>
-                  {img.event && (
-                    <span className="tag-sky mt-2 inline-block w-fit bg-accent-sky/20 border-accent-sky/30 text-white">
+                <div className="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-4 rounded-xl">
+                  {img.caption && (
+                    <p className="font-body text-white text-sm font-medium leading-snug">{img.caption}</p>
+                  )}
+                  {img.event?.title && (
+                    <span className="font-mono text-[10px] tracking-widest uppercase mt-1" style={{ color: "rgba(56,189,248,0.8)" }}>
                       {img.event.title}
                     </span>
                   )}

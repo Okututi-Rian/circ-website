@@ -22,21 +22,25 @@ export async function GET(req: Request) {
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
+  const { error } = await requireAdmin()
+  if (error) return error
+
   try {
-    const { error } = await requireAdmin()
-    if (error) return error
     const body = await req.json()
-    const validatedData = gallerySchema.parse(body)
+    const { url, caption, eventId } = body
+
+    if (!url) {
+      return NextResponse.json({ success: false, error: "Image URL required" }, { status: 400 })
+    }
 
     const image = await prisma.galleryImage.create({
-      data: validatedData,
+      data: { url, caption: caption || null, eventId: eventId || null },
     })
 
     revalidatePath("/gallery")
-
-    return successResponse(image, 201)
-  } catch (error: any) {
-    return errorResponse(error.message, error.name === "ZodError" ? 400 : 500)
+    return NextResponse.json({ success: true, data: image }, { status: 201 })
+  } catch (err: any) {
+    return NextResponse.json({ success: false, error: "Failed to save image" }, { status: 500 })
   }
 }

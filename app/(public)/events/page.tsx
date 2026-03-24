@@ -3,10 +3,20 @@ import { EventsClient } from "@/components/public/events/events-client"
 import { PageHero } from "@/components/public/page-hero"
 
 export default async function EventsPage() {
-  const events = await prisma.event.findMany({
-    where: { published: true },
+  const now = new Date()
+
+  const upcomingEvents = await prisma.event.findMany({
+    where: { published: true, date: { gte: now } },
     orderBy: { date: "asc" },
   })
+
+  const pastEvents = await prisma.event.findMany({
+    where: { published: true, date: { lt: now } },
+    orderBy: { date: "desc" },
+  })
+
+  const events = [...upcomingEvents, ...pastEvents]
+  const featuredEvent = upcomingEvents[0] ?? null
 
   return (
     <div className="flex flex-col min-h-screen" style={{ background: "#020818" }}>
@@ -17,7 +27,7 @@ export default async function EventsPage() {
         size="md"
       />
       <div className="bg-white flex-1 pb-20 lg:pb-32">
-        <EventsClient events={events} />
+        <EventsClient events={events} featuredEvent={featuredEvent} />
       </div>
     </div>
   )

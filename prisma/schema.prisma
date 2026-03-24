@@ -112,6 +112,7 @@ enum CommunityType {
   WEB3_BLOCKCHAIN
   PROGRAMMING
   IOT
+  NETWORKING_CYBERSECURITY
 }
 
 enum AppStatus {

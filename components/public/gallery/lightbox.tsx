@@ -73,14 +73,16 @@ export function Lightbox({ images, currentIndex, onClose, onNext, onPrev }: Ligh
           />
         </div>
         
-        <p className="font-body text-white/80 text-sm text-center mt-6 px-4 max-w-2xl">
-          {currentImage.caption || "Club Activity"}
-          {currentImage.event && (
-            <span className="block text-accent-sky text-xs mt-1 uppercase tracking-widest font-bold">
-              {currentImage.event.title}
-            </span>
-          )}
-        </p>
+        {currentImage.caption && (
+          <p className="font-body text-white/80 text-sm text-center mt-3 max-w-2xl mx-auto">
+            {currentImage.caption}
+          </p>
+        )}
+        {currentImage.event?.title && (
+          <p className="font-mono text-center mt-1" style={{ color: "rgba(56,189,248,0.6)", fontSize: "10px", letterSpacing: "0.1em" }}>
+            {currentImage.event.title}
+          </p>
+        )}
 
         <div className="mt-4 text-white/30 text-xs font-mono">
           {currentIndex + 1} / {images.length}

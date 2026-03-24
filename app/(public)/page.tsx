@@ -9,9 +9,7 @@ import { UnauthorizedToast } from "@/components/public/unauthorized-toast"
 
 export default async function HomePage() {
   // Fetch communities
-  const communities = await prisma.community.findMany({
-    take: 6,
-  })
+  const communities = await prisma.community.findMany()
 
   // Fetch upcoming events (next 3)
   const upcomingEvents = await prisma.event.findMany({

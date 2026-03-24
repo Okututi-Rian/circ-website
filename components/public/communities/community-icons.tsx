@@ -75,6 +75,14 @@ export const COMMUNITY_ICONS: Record<string, React.FC<{ className?: string; styl
       <path d="M14.5 3.5l-5 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"/>
     </svg>
   ),
+  "networking-cybersecurity": ({ className }) => (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <circle cx="12" cy="16" r="1.5" fill="currentColor"/>
+      <path d="M12 17.5v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>
+  ),
 }
 
 export const COMMUNITY_COLORS: Record<string, { bg: string; text: string; icon: string }> = {
@@ -84,4 +92,5 @@ export const COMMUNITY_COLORS: Record<string, { bg: string; text: string; icon: 
   "web3-blockchain":  { bg: "#F5F3FF", text: "#6D28D9", icon: "#8B5CF6" },
   "iot":              { bg: "#F0FDFA", text: "#0F766E", icon: "#14B8A6" },
   "programming":      { bg: "#FFF1F2", text: "#BE123C", icon: "#F43F5E" },
+  "networking-cybersecurity": { bg: "#FFF1F2", text: "#BE123C", icon: "#E11D48" },
 }
