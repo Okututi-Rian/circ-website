@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { Suspense } from "react"
 import { ClerkProvider } from "@clerk/nextjs"
 import { Analytics } from "@/components/analytics"
 import "./globals.css"
@@ -68,7 +69,9 @@ export default function RootLayout({
         <body className="font-body antialiased">
           {children}
         </body>
-        <Analytics />
+        <Suspense fallback={null}>
+          <Analytics />
+        </Suspense>
       </html>
     </ClerkProvider>
   )
