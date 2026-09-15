@@ -1,0 +1,19 @@
+# CIRC
+
+> Computing Innovation & Research Club at Mama Ngina University College.
+
+CIRC is a student-led technology community focused on practical computing, innovation, research, events, and peer learning.
+
+## Public pages
+
+- [Home](/): Club overview, current activity, and highlights.
+- [Communities](/communities): Technology communities and their focus areas.
+- [Events](/events): Upcoming and past club events.
+- [Gallery](/gallery): Photos from CIRC activities.
+- [Team](/team): Executive committee and community leads.
+- [Join](/join): Membership application.
+- [Privacy policy](/privacy): How personal information is handled.
+- [Terms and conditions](/terms): Terms for using this website and club services.
+- [Cookie policy](/cookies): Information about cookies and analytics.
+
+The `/admin` and `/api` paths are private operational interfaces and should not be indexed.

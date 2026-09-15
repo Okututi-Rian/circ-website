@@ -65,6 +65,11 @@ export async function Footer() {
               {link.name}
             </Link>
           ))}
+          <div className="flex flex-wrap gap-x-4 gap-y-2 mt-5 pt-4 border-t border-white/10">
+            <Link href="/privacy" className="font-body text-white/30 text-xs hover:text-white/70 transition-colors">Privacy</Link>
+            <Link href="/terms" className="font-body text-white/30 text-xs hover:text-white/70 transition-colors">Terms</Link>
+            <Link href="/cookies" className="font-body text-white/30 text-xs hover:text-white/70 transition-colors">Cookies</Link>
+          </div>
         </div>
 
         {/* Column 3 — Communities */}
