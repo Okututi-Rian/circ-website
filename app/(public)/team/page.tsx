@@ -43,7 +43,7 @@ export default async function TeamPage() {
       <section className="bg-surface py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-12">
-            <p className="font-mono text-accent-sky text-[10px] tracking-widest uppercase mb-2">EXECUTIVE COMMITTEE</p>
+            <p className="font-body text-accent-orange text-xs font-semibold tracking-wide uppercase mb-2">Executive Committee</p>
             <h2 className="font-display text-primary text-3xl font-bold">Club Officers</h2>
           </div>
           
@@ -55,7 +55,7 @@ export default async function TeamPage() {
 
                   {/* Chairperson only — orange accent badge */}
                   {isChair && (
-                    <div className="absolute top-3 right-3 bg-accent-orange text-white font-mono text-[9px] font-bold px-2.5 py-1 rounded-full tracking-wider z-10">
+                    <div className="absolute top-3 right-3 bg-accent-orange text-white font-body text-[10px] font-bold px-2.5 py-1 rounded-full tracking-wide z-10">
                       CHAIR
                     </div>
                   )}
@@ -107,8 +107,8 @@ export default async function TeamPage() {
                     <h3 className="font-display text-primary text-base font-bold leading-tight">
                       {member.name}
                     </h3>
-                    <p className="font-mono text-[10px] tracking-widest uppercase"
-                      style={{ color: isChair ? "#F97316" : "rgba(56,189,248,0.8)" }}>
+                    <p className="font-body text-xs font-semibold tracking-wide uppercase"
+                      style={{ color: isChair ? "#F97316" : "#1E3A8A" }}>
                       {formatRole(member.role)}
                     </p>
                     {member.bio && (
@@ -167,11 +167,11 @@ export default async function TeamPage() {
       </div>
 
       {/* Community Leads Section */}
-      <section className="py-20" style={{ background: "#020818" }}>
+      <section className="py-20 bg-surface-2">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-12">
-            <p className="font-mono text-[#38BDF8] text-[10px] tracking-widest uppercase mb-2">COMMUNITY LEADS</p>
-            <h2 className="font-display text-white text-3xl font-bold">Domain Specialists</h2>
+            <p className="font-body text-accent-orange text-xs font-semibold tracking-wide uppercase mb-2">Community Leads</p>
+            <h2 className="font-display text-primary text-3xl font-bold">Domain Specialists</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -180,8 +180,7 @@ export default async function TeamPage() {
               return (
                 <div
                   key={member.id}
-                  className="group rounded-2xl p-6 flex flex-col items-center text-center hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden group-hover:border-[rgba(56,189,248,0.3)] border border-[rgba(56,189,248,0.1)]"
-                  style={{ background: "#0A1628" }}
+                  className="group bg-surface rounded-2xl border border-border p-6 flex flex-col items-center text-center hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(30,58,138,0.12)] transition-all duration-300 relative overflow-hidden"
                 >
                   {/* Circular photo */}
                   <div className="relative mb-5">
@@ -191,7 +190,7 @@ export default async function TeamPage() {
                     />
                     {/* Photo circle */}
                     <div
-                      className="relative rounded-full overflow-hidden border-4 border-[#0A1628] flex-shrink-0"
+                      className="relative rounded-full overflow-hidden border-4 border-surface flex-shrink-0"
                       style={{ width: "96px", height: "96px" }}
                     >
                       {member.photo ? (
@@ -217,16 +216,16 @@ export default async function TeamPage() {
 
                   {/* Member details below the circle */}
                   <div className="flex flex-col items-center gap-1 flex-1">
-                    <h3 className="font-display text-white text-base font-bold leading-tight">
+                    <h3 className="font-display text-primary text-base font-bold leading-tight">
                       {member.name}
                     </h3>
-                    <p className="font-mono text-[10px] tracking-widest uppercase text-[rgba(56,189,248,0.8)]">
+                    <p className="font-body text-xs font-semibold tracking-wide uppercase text-primary/70">
                       {formatRole(member.role)}
                     </p>
                     
                     {member.community && (
                       <span
-                        className="inline-block font-mono text-[9px] font-bold px-2.5 py-1 rounded-full mt-1"
+                        className="inline-block font-body text-[11px] font-medium px-2.5 py-1 rounded-full mt-1"
                         style={{
                           background: COMMUNITY_COLORS[communitySlug]?.bg ?? "#F0F4FF",
                           color: COMMUNITY_COLORS[communitySlug]?.text ?? "#1E3A8A",
@@ -237,7 +236,7 @@ export default async function TeamPage() {
                     )}
 
                     {member.bio && (
-                      <p className="font-body text-white/50 text-xs leading-relaxed line-clamp-2 mt-2 max-w-[180px]">
+                      <p className="font-body text-muted text-xs leading-relaxed line-clamp-2 mt-2 max-w-[180px]">
                         {member.bio}
                       </p>
                     )}
@@ -247,21 +246,21 @@ export default async function TeamPage() {
                       <div className="flex items-center justify-center gap-2 mt-3">
                         {member.linkedin && (
                           <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
-                            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors border border-[rgba(56,189,248,0.1)] text-[rgba(56,189,248,0.5)] hover:text-[rgba(56,189,248,0.9)] bg-[rgba(56,189,248,0.07)]"
+                            className="w-7 h-7 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface-2 transition-colors border border-border"
                             aria-label="LinkedIn">
                             <Linkedin size={12} />
                           </a>
                         )}
                         {member.github && (
                           <a href={member.github} target="_blank" rel="noopener noreferrer"
-                            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors border border-[rgba(56,189,248,0.1)] text-[rgba(56,189,248,0.5)] hover:text-[rgba(56,189,248,0.9)] bg-[rgba(56,189,248,0.07)]"
+                            className="w-7 h-7 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface-2 transition-colors border border-border"
                             aria-label="GitHub">
                             <Github size={12} />
                           </a>
                         )}
                         {member.twitter && (
                           <a href={member.twitter} target="_blank" rel="noopener noreferrer"
-                            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors border border-[rgba(56,189,248,0.1)] text-[rgba(56,189,248,0.5)] hover:text-[rgba(56,189,248,0.9)] bg-[rgba(56,189,248,0.07)]"
+                            className="w-7 h-7 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface-2 transition-colors border border-border"
                             aria-label="Twitter / X">
                             <Twitter size={12} />
                           </a>
