@@ -73,7 +73,7 @@ export function GalleryClient({ images, eventNames }: GalleryClientProps) {
                     <p className="font-body text-white text-sm font-medium leading-snug">{img.caption}</p>
                   )}
                   {img.event?.title && (
-                    <span className="font-mono text-[10px] tracking-widest uppercase mt-1" style={{ color: "rgba(56,189,248,0.8)" }}>
+                    <span className="font-body text-[11px] font-semibold tracking-wide uppercase mt-1" style={{ color: "#1E3A8A" }}>
                       {img.event.title}
                     </span>
                   )}

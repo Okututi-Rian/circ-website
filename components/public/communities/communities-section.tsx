@@ -21,7 +21,7 @@ export function CommunitiesSection({ communities }: CommunitiesSectionProps) {
     <section className="py-24 bg-surface">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16">
-          <p className="font-mono text-accent-sky text-xs tracking-widest uppercase mb-3">
+          <p className="font-body text-accent-orange text-xs font-semibold tracking-wide uppercase mb-3">
             — our communities —
           </p>
           <h2 className="section-heading text-4xl lg:text-5xl">

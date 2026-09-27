@@ -15,7 +15,7 @@ export default async function JoinPage() {
   })
 
   return (
-    <div className="flex flex-col min-h-screen" style={{ background: "#020818" }}>
+    <div className="flex flex-col min-h-screen">
       <PageHero
         badge="MEMBERSHIP APPLICATION"
         title={
