@@ -1,6 +1,6 @@
 import ImageKit from "imagekit"
 
-let imagekitInstance: ImageKit | null = null
+let imagekitInstance: InstanceType<typeof ImageKit> | null = null
 
 function getImageKit() {
   if (!imagekitInstance) {
