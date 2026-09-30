@@ -1,6 +1,14 @@
 import { prisma } from "@/lib/prisma"
 import { GalleryClient } from "@/components/public/gallery/gallery-client"
 import { PageHero } from "@/components/public/page-hero"
+import { createPageMetadata } from "@/lib/seo"
+
+export const metadata = createPageMetadata({
+  title: "CIRC Projects and Event Gallery",
+  description: "Photos and highlights from CIRC computing projects, student workshops, research activities, and events at Mama Ngina University College.",
+  path: "/gallery",
+  keywords: ["student technology projects Kenya", "computing project gallery", "university hackathon photos", "CIRC workshops", "MNUC student projects"],
+})
 
 export default async function GalleryPage() {
   let images: any[] = []
@@ -32,7 +40,7 @@ export default async function GalleryPage() {
   ).sort()
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen" style={{ background: "#020818" }}>
       <PageHero
         badge="CIRC IN ACTION"
         title="Gallery"
@@ -41,11 +49,14 @@ export default async function GalleryPage() {
       />
 
       {images.length === 0 ? (
-        <div className="py-32 text-center bg-surface">
-          <div className="font-body text-xs font-semibold tracking-wide uppercase text-muted mb-3">
-            No Images Found
+        <div className="py-32 text-center" style={{ background: "#020818" }}>
+          <div
+            className="font-mono text-[10px] tracking-widest mb-4"
+            style={{ color: "rgba(56,189,248,0.2)" }}
+          >
+            NO IMAGES FOUND
           </div>
-          <p className="font-body text-sm text-muted">
+          <p className="font-body text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>
             No photos yet. Check back after our next event.
           </p>
         </div>

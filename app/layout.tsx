@@ -7,10 +7,39 @@ import "@fontsource/jetbrains-mono/400.css"
 import "@fontsource/jetbrains-mono/700.css"
 
 export const metadata: Metadata = {
-  title: "CIRC — Computing Innovation & Research Club",
-  description: "Empowering students with practical computing, innovation, and research skills at Mama Ngina University College.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke"),
+  title: {
+    default: "CIRC — Computing & Technology at Mama Ngina University College",
+    template: "%s | CIRC",
+  },
+  description: "Computing Innovation & Research Club at Mama Ngina University College: student communities for software development, AI, data science, cybersecurity, and technology research.",
+  openGraph: {
+    type: "website",
+    locale: "en_KE",
+    siteName: "Computing Innovation & Research Club (CIRC)",
+    title: "Computing Innovation & Research Club (CIRC)",
+    description: "Student technology communities, events, and research at Mama Ngina University College, Kenya.",
+    url: "/",
+    images: [{ url: "/android-chrome-512x512.png", alt: "CIRC at Mama Ngina University College" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Computing Innovation & Research Club (CIRC)",
+    description: "Student technology communities, events, and research at Mama Ngina University College, Kenya.",
+    images: ["/android-chrome-512x512.png"],
+  },
+  alternates: { canonical: "/" },
   applicationName: "CIRC",
-  keywords: ["CIRC", "Computing Innovation and Research Club", "Mama Ngina University College", "student technology club"],
+  keywords: [
+    "Computing Innovation and Research Club",
+    "CIRC Kenya",
+    "Mama Ngina University College",
+    "MNUC technology club",
+    "Kenyatta University constituent college",
+    "School of Pure and Applied Sciences SPAS",
+    "computer science and information technology Kenya",
+    "software development, AI, data science, cybersecurity",
+  ],
   authors: [{ name: "Computing Innovation & Research Club" }],
   creator: "Computing Innovation & Research Club",
   publisher: "Computing Innovation & Research Club",
@@ -25,18 +54,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
       "max-video-preview": -1,
     },
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_KE",
-    siteName: "CIRC — Computing Innovation & Research Club",
-    title: "CIRC — Computing Innovation & Research Club",
-    description: "Empowering students with practical computing, innovation, and research skills at Mama Ngina University College.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "CIRC — Computing Innovation & Research Club",
-    description: "Empowering students with practical computing, innovation, and research skills at Mama Ngina University College.",
   },
   icons: {
     icon: [
@@ -67,11 +84,43 @@ export default function RootLayout({
           />
         </head>
         <body className="font-body antialiased">
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "Computing Innovation & Research Club (CIRC)",
+                url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke",
+                logo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke"}/logo.png`,
+                email: "circ@mnu.ac.ke",
+                description: "A student computing, technology, innovation, and research club at Mama Ngina University College in Kenya.",
+                parentOrganization: {
+                  "@type": "CollegeOrUniversity",
+                  name: "Mama Ngina University College",
+                  url: "https://mnu.ac.ke/",
+                },
+                knowsAbout: ["Computing", "Software development", "Artificial intelligence", "Data science", "Cybersecurity", "Internet of Things", "Technology research"],
+              }).replace(/</g, "\\u003c"),
+            }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: "Computing Innovation & Research Club (CIRC)",
+                url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke",
+                inLanguage: "en-KE",
+              }).replace(/</g, "\\u003c"),
+            }}
+          />
           {children}
+          <Suspense fallback={null}>
+            <Analytics />
+          </Suspense>
         </body>
-        <Suspense fallback={null}>
-          <Analytics />
-        </Suspense>
       </html>
     </ClerkProvider>
   )

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Globe2, BarChart2, Brain, Link2, Code2, Wifi, Shield } from "lucide-react"
 import { formatRole } from "@/lib/utils"
 import { PageHero } from "@/components/public/page-hero"
+import { createPageMetadata } from "@/lib/seo"
 
 const iconMap: Record<string, any> = {
   WEB_DEV: Globe2,
@@ -129,6 +130,13 @@ const TECH_TAGS = [
     ),
   },
 ]
+
+export const metadata = createPageMetadata({
+  title: "Technology Communities at Mama Ngina University College",
+  description: "Explore CIRC student communities in web development, programming, AI and machine learning, data science, Web3, IoT, networking, and cybersecurity.",
+  path: "/communities",
+  keywords: ["web development community", "programming club", "AI and machine learning", "data science", "Web3 and blockchain", "Internet of Things", "networking and cybersecurity", "SPAS", "Kenyatta University technology"],
+})
 
 export default async function CommunitiesPage() {
   const communities = await prisma.community.findMany({

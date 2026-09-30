@@ -5,6 +5,23 @@ import Link from "next/link"
 import { Github, Linkedin, Twitter, ArrowRight } from "lucide-react"
 import { formatRole } from "@/lib/utils"
 import { PageHero } from "@/components/public/page-hero"
+import { createPageMetadata, plainTextDescription } from "@/lib/seo"
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const community = await prisma.community.findUnique({
+    where: { slug },
+    select: { name: true, description: true, focusTags: true },
+  })
+  if (!community) return { title: "Community Not Found", robots: { index: false, follow: false } }
+
+  return createPageMetadata({
+    title: `${community.name} Community`,
+    description: plainTextDescription(`${community.description} Join this CIRC technology community at Mama Ngina University College.`),
+    path: `/communities/${encodeURIComponent(slug)}`,
+    keywords: [...community.focusTags, `${community.name} community`, "MNUC technology community", "SPAS computing"],
+  })
+}
 
 export default async function CommunityDetailPage({
   params,
@@ -29,8 +46,28 @@ export default async function CommunityDetailPage({
     notFound()
   }
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${community.name} Community | CIRC`,
+    description: plainTextDescription(community.description),
+    url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke"}/communities/${encodeURIComponent(slug)}`,
+    about: {
+      "@type": "Organization",
+      name: `${community.name} Community`,
+      description: plainTextDescription(community.description),
+      parentOrganization: {
+        "@type": "Organization",
+        name: "Computing Innovation & Research Club (CIRC)",
+        url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke",
+      },
+      knowsAbout: community.focusTags,
+    },
+  }
+
   return (
     <div className="flex flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
       <PageHero
         badge={"COMMUNITY — " + community.name.toUpperCase()}
         title={community.name}

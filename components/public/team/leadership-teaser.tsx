@@ -76,8 +76,8 @@ export function LeadershipTeaser({ members }: LeadershipTeaserProps) {
                 {/* Member details below the circle */}
                 <div className="flex flex-col items-center gap-1 w-full">
                   <p className="font-display text-primary text-sm font-bold truncate w-full">{member.name}</p>
-                  <p className="font-body text-[11px] font-semibold tracking-wide uppercase"
-                    style={{ color: isChair ? "#F97316" : "#1E3A8A" }}>
+                  <p className="font-mono text-[9px] tracking-widest uppercase"
+                    style={{ color: isChair ? "#F97316" : "rgba(56,189,248,0.8)" }}>
                     {formatRole(member.role)}
                   </p>
                 </div>

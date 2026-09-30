@@ -4,9 +4,23 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { ChevronDown } from "lucide-react"
 
+const TERMINAL_LINES = [
+  "> Initializing CIRC...",
+  "> Computing Innovation & Research Club",
+  "> Mama Ngina University College",
+  "> Communities: Web Dev / AI-ML / Web3 / IoT / Data Science / Programming",
+  "> Status: ACTIVE — Join the Movement",
+]
+
+const TERMINAL_FALLBACK_HTML = `${TERMINAL_LINES.map((line) =>
+  `<p class="font-mono text-sm text-accent-green leading-relaxed mb-1">${line
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")}</p>`,
+).join("")}<span aria-hidden="true" class="inline-block w-2 h-4 bg-accent-green ml-0.5 animate-pulse align-middle"></span>`
+
 export function TerminalHero() {
   const terminalRef = useRef<HTMLDivElement>(null)
-  const hasAnimated = useRef(false)
   const [currentSlide, setCurrentSlide] = useState(0)
   const [nextSlide, setNextSlide] = useState(1)
   const [transitioning, setTransitioning] = useState(false)
@@ -20,31 +34,27 @@ export function TerminalHero() {
   ]
 
   useEffect(() => {
-    if (hasAnimated.current) return
-    hasAnimated.current = true
-
     const terminal = terminalRef.current
     if (!terminal) return
 
-    // Clear any existing content first
-    terminal.innerHTML = ""
-
-    const lines = [
-      "> Initializing CIRC...",
-      "> Computing Innovation & Research Club",
-      "> Mama Ngina University College",
-      "> Communities: Web Dev / AI-ML / Web3 / IoT / Data Science / Programming",
-      "> Status: ACTIVE — Join the Movement",
-    ]
+    const lines = TERMINAL_LINES
 
     let lineIndex = 0
     let charIndex = 0
     let currentP: HTMLParagraphElement | null = null
     let cursorSpan: HTMLSpanElement | null = null
+    const timers = new Set<number>()
+
+    const schedule = (callback: () => void, delay: number) => {
+      const timer = window.setTimeout(() => {
+        timers.delete(timer)
+        callback()
+      }, delay)
+      timers.add(timer)
+    }
 
     function typeNextChar() {
       if (lineIndex >= lines.length) {
-        // All lines done — leave final cursor blinking
         if (cursorSpan) {
           cursorSpan.className = "inline-block w-2 h-4 bg-accent-green ml-0.5 animate-pulse align-middle"
         }
@@ -54,13 +64,13 @@ export function TerminalHero() {
       const line = lines[lineIndex]
 
       if (charIndex === 0) {
-        // Start a new line
+        if (lineIndex === 0) terminal.replaceChildren()
         if (cursorSpan) cursorSpan.remove()
         currentP = document.createElement("p")
         currentP.className = "font-mono text-sm text-accent-green leading-relaxed mb-1"
         cursorSpan = document.createElement("span")
         cursorSpan.className = "inline-block w-2 h-4 bg-accent-green ml-0.5 animate-pulse align-middle"
-        terminal!.appendChild(currentP)
+        terminal.appendChild(currentP)
         currentP.appendChild(cursorSpan)
       }
 
@@ -69,21 +79,20 @@ export function TerminalHero() {
           currentP.insertBefore(document.createTextNode(line[charIndex]), cursorSpan)
         }
         charIndex++
-        setTimeout(typeNextChar, 38)
+        schedule(typeNextChar, 38)
       } else {
-        // Line done
         charIndex = 0
         lineIndex++
-        const pause = lineIndex === 1 ? 600 : 400
-        setTimeout(typeNextChar, pause)
+        schedule(typeNextChar, lineIndex === 1 ? 600 : 400)
       }
     }
 
-    const startDelay = setTimeout(typeNextChar, 500)
+    const startDelay = window.setTimeout(typeNextChar, 500)
+    timers.add(startDelay)
 
     return () => {
-      clearTimeout(startDelay)
-      hasAnimated.current = false
+      timers.forEach(timer => window.clearTimeout(timer))
+      terminal.innerHTML = TERMINAL_FALLBACK_HTML
     }
   }, [])
 
@@ -235,7 +244,6 @@ export function TerminalHero() {
             borderRadius: "20px",
             padding: "6px 16px",
             animationDelay: "0.1s",
-            opacity: 0,
           }}
         >
           <div className="w-2 h-2 rounded-full bg-accent-green animate-status-pulse flex-shrink-0" />
@@ -252,7 +260,6 @@ export function TerminalHero() {
             border: "1px solid rgba(56,189,248,0.15)",
             backdropFilter: "blur(8px)",
             animationDelay: "0.3s",
-            opacity: 0,
           }}
         >
           {/* Title bar */}
@@ -273,13 +280,19 @@ export function TerminalHero() {
           </div>
 
           {/* Terminal body — typed text appears here */}
-          <div ref={terminalRef} className="p-6 min-h-[160px] text-left" />
+          <div
+            ref={terminalRef}
+            className="p-6 min-h-[160px] text-left"
+            role="region"
+            aria-label="CIRC live status"
+            dangerouslySetInnerHTML={{ __html: TERMINAL_FALLBACK_HTML }}
+          />
         </div>
 
         {/* CTA buttons */}
         <div
           className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-hero-fade"
-          style={{ animationDelay: "0.6s", opacity: 0 }}
+          style={{ animationDelay: "0.6s" }}
         >
           <Link href="/join" className="btn-primary-lg flex items-center gap-2 group">
             Join CIRC
@@ -316,7 +329,7 @@ export function TerminalHero() {
             <div key={i} className="flex items-center">
               <div
                 className="text-center px-8 animate-metric"
-                style={{ animationDelay: `${0.8 + i * 0.15}s`, opacity: 0 }}
+                style={{ animationDelay: `${0.8 + i * 0.15}s` }}
               >
                 <div className="font-mono font-bold text-white text-2xl">{metric.value}</div>
                 <div

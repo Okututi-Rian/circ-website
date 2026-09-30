@@ -1,6 +1,14 @@
 import { prisma } from "@/lib/prisma"
 import { ApplicationForm } from "@/components/public/join/application-form"
 import { PageHero } from "@/components/public/page-hero"
+import { createPageMetadata } from "@/lib/seo"
+
+export const metadata = createPageMetadata({
+  title: "Join CIRC at Mama Ngina University College",
+  description: "Apply to join the Computing Innovation & Research Club (CIRC) at Mama Ngina University College. Build practical skills in computing, software, AI, data science, and technology.",
+  path: "/join",
+  keywords: ["join technology club Kenya", "MNUC student clubs", "Kenyatta University student technology", "SPAS students", "computing student community"],
+})
 
 export const dynamic = 'force-dynamic'
 
@@ -15,7 +23,7 @@ export default async function JoinPage() {
   })
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen" style={{ background: "#020818" }}>
       <PageHero
         badge="MEMBERSHIP APPLICATION"
         title={

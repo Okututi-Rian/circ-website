@@ -5,6 +5,24 @@ import Link from "next/link"
 import { format } from "date-fns"
 import { Calendar, MapPin, Tag, ExternalLink } from "lucide-react"
 import { PageHero } from "@/components/public/page-hero"
+import { createPageMetadata, plainTextDescription } from "@/lib/seo"
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const event = await prisma.event.findFirst({
+    where: { id, published: true },
+    select: { title: true, description: true, coverImage: true, type: true },
+  })
+  if (!event) return { title: "Event Not Found", robots: { index: false, follow: false } }
+
+  return createPageMetadata({
+    title: event.title,
+    description: plainTextDescription(event.description),
+    path: `/events/${encodeURIComponent(id)}`,
+    image: event.coverImage,
+    keywords: ["CIRC event", `${event.type} event`, "technology event Kenya", "Mama Ngina University College event"],
+  })
+}
 
 export default async function EventDetailPage({
   params,
@@ -13,8 +31,8 @@ export default async function EventDetailPage({
 }) {
   const { id } = await params
 
-  const event = await prisma.event.findUnique({
-    where: { id },
+  const event = await prisma.event.findFirst({
+    where: { id, published: true },
     include: {
       gallery: true,
       community: {
@@ -37,8 +55,32 @@ export default async function EventDetailPage({
     orderBy: { date: "asc" },
   })
 
+  const eventUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke"}/events/${encodeURIComponent(id)}`
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: event.title,
+    description: plainTextDescription(event.description),
+    startDate: new Date(event.date).toISOString(),
+    eventStatus: event.date < new Date() ? "https://schema.org/EventCompleted" : "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    location: {
+      "@type": "Place",
+      name: `${event.venue}, Mama Ngina University College`,
+    },
+    image: new URL(event.coverImage, process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke").toString(),
+    organizer: {
+      "@type": "Organization",
+      name: "Computing Innovation & Research Club (CIRC)",
+      url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke",
+    },
+    url: eventUrl,
+    ...(event.regLink && event.date >= new Date() ? { offers: { "@type": "Offer", url: event.regLink, availability: "https://schema.org/InStock" } } : {}),
+  }
+
   return (
     <div className="flex flex-col bg-surface">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
       <PageHero
         badge={event.type}
         title={event.title}

@@ -1,7 +1,13 @@
+import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { auth } from "@clerk/nextjs/server"
 import { Sidebar } from "@/components/admin/sidebar"
 import { Topbar } from "@/components/admin/topbar"
+
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+}
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const { userId, orgSlug } = await auth()
@@ -16,7 +22,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-surface-2">
+    <div className="flex h-screen overflow-hidden bg-surface-2" data-clarity-mask="true">
       {/* Sidebar — fixed width, full height */}
       <aside className="w-60 flex-shrink-0 h-screen overflow-y-auto">
         <Sidebar />

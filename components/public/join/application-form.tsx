@@ -107,7 +107,7 @@ export function ApplicationForm({ communities }: ApplicationFormProps) {
         </div>
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" data-clarity-mask="true">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div className="mb-0">
             <label className="block font-body text-main text-sm font-medium mb-1.5">Full Name</label>

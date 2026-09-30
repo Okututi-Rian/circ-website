@@ -1,6 +1,14 @@
 import { prisma } from "@/lib/prisma"
 import { EventsClient } from "@/components/public/events/events-client"
 import { PageHero } from "@/components/public/page-hero"
+import { createPageMetadata } from "@/lib/seo"
+
+export const metadata = createPageMetadata({
+  title: "Computing and Technology Events in Kenya",
+  description: "Find CIRC workshops, talks, hackathons, research activities, and technology events at Mama Ngina University College.",
+  path: "/events",
+  keywords: ["technology events Kenya", "student hackathons", "computing workshops", "AI events", "research activities", "Mama Ngina University College events"],
+})
 
 export default async function EventsPage() {
   const now = new Date()
@@ -19,7 +27,7 @@ export default async function EventsPage() {
   const featuredEvent = upcomingEvents[0] ?? null
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen" style={{ background: "#020818" }}>
       <PageHero
         badge="EVENTS & ACTIVITIES"
         title="What's Happening"
