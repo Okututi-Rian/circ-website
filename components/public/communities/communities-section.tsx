@@ -18,7 +18,7 @@ export function CommunitiesSection({ communities }: CommunitiesSectionProps) {
   const totalCount = communities.length
 
   return (
-    <section className="py-24 bg-surface">
+    <section className="py-24 bg-surface-2">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16">
           <p className="font-mono text-accent-sky text-xs tracking-widest uppercase mb-3">
