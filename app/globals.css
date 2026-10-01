@@ -237,3 +237,8 @@
   .animate-mc-blink { animation: mc-blink 1s step-end infinite; }
   .animate-mc-float { animation: mc-float 4s ease-in-out infinite; }
 }
+
+/* Public content widths and gutters scale with the available viewport. */
+.public-site .max-w-7xl { max-width: 98%; }
+.public-site .max-w-6xl { max-width: 96%; }
+.public-site [class*="max-w-"].px-6 { padding-inline: 2.5%; }

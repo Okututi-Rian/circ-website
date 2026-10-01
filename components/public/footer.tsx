@@ -2,8 +2,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { prisma } from "@/lib/prisma"
 import { Github, Twitter, Instagram, Linkedin } from "lucide-react"
-import { CookiePreferencesLink } from "@/components/analytics"
-import Script from "next/script"
 
 export async function Footer() {
   const settings = await prisma.settings.findUnique({
@@ -29,10 +27,6 @@ export async function Footer() {
       className="w-full"
       style={{ background: "#020818", borderTop: "1px solid rgba(56,189,248,0.08)" }}
     >
-      <Script
-        src="https://news.google.com/swg/js/v1/publisher.js"
-        strategy="afterInteractive"
-      />
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
         {/* Column 1 — Brand */}
@@ -55,24 +49,6 @@ export async function Footer() {
           <p className="font-body text-white/30 text-xs mt-2 leading-relaxed">
             {settings?.aboutText || "Computing Innovation and Research Club — Mama Ngina University College."}
           </p>
-          <div className="mt-6">
-            <p className="font-mono text-[#38BDF8] text-[9px] tracking-widest uppercase mb-3">
-              FOLLOW CIRC IN GOOGLE SEARCH
-            </p>
-            <div
-              {...{ "google-add-preferred-source-btn": "" }}
-              data-theme="dark"
-              data-lang="en"
-            />
-            <a
-              href={`https://www.google.com/preferences/source?q=${encodeURIComponent(process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke")}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex mt-2 rounded-full border border-white/20 px-3 py-1.5 font-body text-xs text-white/60 hover:text-white"
-            >
-              Open Google source preferences
-            </a>
-          </div>
         </div>
 
         {/* Column 2 — Navigation */}

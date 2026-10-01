@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
@@ -17,17 +17,10 @@ const navLinks = [
 ]
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
   const { isSignedIn } = useAuth()
   const { signOut } = useClerk()
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/"
@@ -36,12 +29,8 @@ export function Navbar() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      style={
-        scrolled
-          ? { background: "rgba(2,8,24,0.88)", backdropFilter: "blur(14px)", borderBottom: "1px solid rgba(56,189,248,0.1)" }
-          : { background: "transparent", borderBottom: "1px solid transparent" }
-      }
+      className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#020818]/95 shadow-[0_8px_28px_rgba(0,0,0,0.22)] backdrop-blur-xl"
+      style={{ backgroundColor: "rgba(2, 8, 24, 0.97)" }}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between max-w-full">
         {/* Logo */}
@@ -57,7 +46,7 @@ export function Navbar() {
           </div>
           <div className="flex flex-col">
             <span className="font-display text-white text-lg font-bold leading-none">CIRC</span>
-            <span className="font-body text-white/35 text-[10px] leading-none mt-0.5 hidden sm:block">
+            <span className="font-body text-white/70 text-[10px] leading-none mt-0.5 hidden sm:block">
               Mama Ngina University College
             </span>
           </div>
@@ -73,13 +62,13 @@ export function Navbar() {
               style={
                 isActive(link.href)
                   ? { color: "#fff", borderBottom: "2px solid #F97316", paddingBottom: "2px" }
-                  : { color: "rgba(255,255,255,0.5)" }
+                  : { color: "rgba(255,255,255,0.78)" }
               }
               onMouseEnter={(e) => {
                 if (!isActive(link.href)) (e.currentTarget as HTMLElement).style.color = "#fff"
               }}
               onMouseLeave={(e) => {
-                if (!isActive(link.href)) (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.5)"
+                if (!isActive(link.href)) (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.78)"
               }}
             >
               {link.name}
@@ -92,7 +81,7 @@ export function Navbar() {
           {isSignedIn && (
             <button
               onClick={() => signOut({ redirectUrl: "/" })}
-              className="hidden md:block font-body text-xs text-white/40 hover:text-red-400 transition-colors mr-2"
+              className="hidden md:block font-body text-xs text-white/75 hover:text-red-400 transition-colors mr-2"
             >
               Sign out
             </button>
@@ -105,7 +94,7 @@ export function Navbar() {
           </Link>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-white/70 hover:text-white p-1 transition-colors"
+            className="md:hidden text-white/85 hover:text-white p-1 transition-colors"
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>

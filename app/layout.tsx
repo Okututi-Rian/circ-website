@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
-import { Suspense } from "react"
 import { ClerkProvider } from "@clerk/nextjs"
+import { Suspense } from "react"
 import { Analytics } from "@/components/analytics"
 import "./globals.css"
 import "@fontsource/jetbrains-mono/400.css"
