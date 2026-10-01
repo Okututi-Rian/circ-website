@@ -37,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
-    ...events.map(({ id, createdAt }) => ({
+    ...events.map(({ id }) => ({
       url: `${siteUrl}/events/${encodeURIComponent(id)}`,
       changeFrequency: "monthly" as const,
       priority: 0.6,

@@ -64,13 +64,13 @@ export function TerminalHero() {
       const line = lines[lineIndex]
 
       if (charIndex === 0) {
-        if (lineIndex === 0) terminal.replaceChildren()
+        if (lineIndex === 0) terminal!.replaceChildren()
         if (cursorSpan) cursorSpan.remove()
         currentP = document.createElement("p")
         currentP.className = "font-mono text-sm text-accent-green leading-relaxed mb-1"
         cursorSpan = document.createElement("span")
         cursorSpan.className = "inline-block w-2 h-4 bg-accent-green ml-0.5 animate-pulse align-middle"
-        terminal.appendChild(currentP)
+        terminal!.appendChild(currentP)
         currentP.appendChild(cursorSpan)
       }
 
