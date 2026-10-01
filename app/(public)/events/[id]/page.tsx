@@ -6,7 +6,7 @@ import Link from "next/link"
 import { format } from "date-fns"
 import { Calendar, MapPin, Tag, ExternalLink } from "lucide-react"
 import { PageHero } from "@/components/public/page-hero"
-import { createPageMetadata, plainTextDescription } from "@/lib/seo"
+import { createPageMetadata, plainTextDescription, SITE_URL } from "@/lib/seo"
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -56,7 +56,7 @@ export default async function EventDetailPage({
     orderBy: { date: "asc" },
   }))
 
-  const eventUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke"}/events/${encodeURIComponent(id)}`
+  const eventUrl = `${SITE_URL}/events/${encodeURIComponent(id)}`
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -69,11 +69,11 @@ export default async function EventDetailPage({
       "@type": "Place",
       name: `${event.venue}, Mama Ngina University College`,
     },
-    image: new URL(event.coverImage, process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke").toString(),
+    image: new URL(event.coverImage, SITE_URL).toString(),
     organizer: {
       "@type": "Organization",
       name: "Computing Innovation & Research Club (CIRC)",
-      url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke",
+      url: SITE_URL,
     },
     url: eventUrl,
     ...(event.regLink && event.date >= new Date() ? { offers: { "@type": "Offer", url: event.regLink, availability: "https://schema.org/InStock" } } : {}),

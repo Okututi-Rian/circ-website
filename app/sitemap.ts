@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next"
 import { prisma } from "@/lib/prisma"
+import { SITE_URL } from "@/lib/seo"
 
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke").replace(/\/+$/, "")
+const siteUrl = SITE_URL
 
 export const revalidate = 3600
 

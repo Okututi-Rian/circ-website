@@ -2,12 +2,13 @@ import type { Metadata } from "next"
 import { ClerkProvider } from "@clerk/nextjs"
 import { Suspense } from "react"
 import { Analytics } from "@/components/analytics"
+import { SITE_URL } from "@/lib/seo"
 import "./globals.css"
 import "@fontsource/jetbrains-mono/400.css"
 import "@fontsource/jetbrains-mono/700.css"
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "CIRC — Computing & Technology at Mama Ngina University College",
     template: "%s | CIRC",
@@ -91,8 +92,8 @@ export default function RootLayout({
                 "@context": "https://schema.org",
                 "@type": "Organization",
                 name: "Computing Innovation & Research Club (CIRC)",
-                url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke",
-                logo: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke"}/logo.png`,
+                url: SITE_URL,
+                logo: `${SITE_URL}/logo.png`,
                 email: "circ@mnu.ac.ke",
                 description: "A student computing, technology, innovation, and research club at Mama Ngina University College in Kenya.",
                 parentOrganization: {
@@ -111,7 +112,7 @@ export default function RootLayout({
                 "@context": "https://schema.org",
                 "@type": "WebSite",
                 name: "Computing Innovation & Research Club (CIRC)",
-                url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke",
+                url: SITE_URL,
                 inLanguage: "en-KE",
               }).replace(/</g, "\\u003c"),
             }}

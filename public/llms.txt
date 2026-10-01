@@ -8,27 +8,27 @@ Use the canonical public pages below as the source for current club information.
 
 ## Main pages
 
-- [Home](https://circ.mnu.ac.ke/): Club overview, technology and research activities, and featured communities, events, and leaders.
-- [Communities](https://circ.mnu.ac.ke/communities): CIRC student communities and their focus areas.
-- [Events](https://circ.mnu.ac.ke/events): Published upcoming and past events, workshops, and activities.
-- [Team](https://circ.mnu.ac.ke/team): Public executive committee and community leads.
-- [Gallery](https://circ.mnu.ac.ke/gallery): Public photographs and highlights from CIRC activities.
-- [Join CIRC](https://circ.mnu.ac.ke/join): Membership information and application form.
+- [Home](https://circ.co.ke/): Club overview, technology and research activities, and featured communities, events, and leaders.
+- [Communities](https://circ.co.ke/communities): CIRC student communities and their focus areas.
+- [Events](https://circ.co.ke/events): Published upcoming and past events, workshops, and activities.
+- [Team](https://circ.co.ke/team): Public executive committee and community leads.
+- [Gallery](https://circ.co.ke/gallery): Public photographs and highlights from CIRC activities.
+- [Join CIRC](https://circ.co.ke/join): Membership information and application form.
 
 ## Topic pages
 
-- [Community detail pages](https://circ.mnu.ac.ke/communities): Individual community pages are available at `/communities/{slug}`. Topics include web development, programming, artificial intelligence and machine learning, data science, Web3 and blockchain, Internet of Things, and networking and cybersecurity.
-- [Event detail pages](https://circ.mnu.ac.ke/events): Published event pages are available at `/events/{id}`.
+- [Community detail pages](https://circ.co.ke/communities): Individual community pages are available at `/communities/{slug}`. Topics include web development, programming, artificial intelligence and machine learning, data science, Web3 and blockchain, Internet of Things, and networking and cybersecurity.
+- [Event detail pages](https://circ.co.ke/events): Published event pages are available at `/events/{id}`.
 
 ## Policies
 
-- [Privacy policy](https://circ.mnu.ac.ke/privacy): Personal information handling and data rights information.
-- [Cookie policy](https://circ.mnu.ac.ke/cookies): Essential storage and optional analytics choices.
-- [Terms and conditions](https://circ.mnu.ac.ke/terms): Terms for using the CIRC website and services.
+- [Privacy policy](https://circ.co.ke/privacy): Personal information handling and data rights information.
+- [Cookie policy](https://circ.co.ke/cookies): Essential storage and optional analytics choices.
+- [Terms and conditions](https://circ.co.ke/terms): Terms for using the CIRC website and services.
 
 ## Discovery and access
 
-- [XML sitemap](https://circ.mnu.ac.ke/sitemap.xml): Canonical public route inventory, including published events and community pages.
-- [Robots rules](https://circ.mnu.ac.ke/robots.txt): Crawl access guidance.
+- [XML sitemap](https://circ.co.ke/sitemap.xml): Canonical public route inventory, including published events and community pages.
+- [Robots rules](https://circ.co.ke/robots.txt): Crawl access guidance.
 
 Only publicly accessible pages listed above are intended for discovery. Do not crawl or index `/api/`, `/admin/`, `/sign-in/`, `/sign-up/`, or account and application data.

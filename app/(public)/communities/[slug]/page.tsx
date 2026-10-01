@@ -6,7 +6,7 @@ import Link from "next/link"
 import { Github, Linkedin, Twitter, ArrowRight } from "lucide-react"
 import { formatRole } from "@/lib/utils"
 import { PageHero } from "@/components/public/page-hero"
-import { createPageMetadata, plainTextDescription } from "@/lib/seo"
+import { createPageMetadata, plainTextDescription, SITE_URL } from "@/lib/seo"
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -52,7 +52,7 @@ export default async function CommunityDetailPage({
     "@type": "CollectionPage",
     name: `${community.name} Community | CIRC`,
     description: plainTextDescription(community.description),
-    url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke"}/communities/${encodeURIComponent(slug)}`,
+    url: `${SITE_URL}/communities/${encodeURIComponent(slug)}`,
     about: {
       "@type": "Organization",
       name: `${community.name} Community`,
@@ -60,7 +60,7 @@ export default async function CommunityDetailPage({
       parentOrganization: {
         "@type": "Organization",
         name: "Computing Innovation & Research Club (CIRC)",
-        url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke",
+        url: SITE_URL,
       },
       knowsAbout: community.focusTags,
     },

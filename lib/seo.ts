@@ -8,6 +8,8 @@ type PageSeoInput = {
   image?: string
 }
 
+export const SITE_URL = "https://circ.co.ke"
+
 const CORE_KEYWORDS = [
   "Computing Innovation & Research Club",
   "CIRC Kenya",
