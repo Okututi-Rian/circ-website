@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma"
+import { getPublicCached } from "@/lib/redis-cache"
 import { GalleryClient } from "@/components/public/gallery/gallery-client"
 import { PageHero } from "@/components/public/page-hero"
 import { createPageMetadata } from "@/lib/seo"
@@ -15,18 +16,18 @@ export default async function GalleryPage() {
   let eventList: any[] = []
 
   try {
-    images = await prisma.galleryImage.findMany({
+    images = await getPublicCached("gallery:images-with-events", () => prisma.galleryImage.findMany({
       include: {
         event: {
           select: { id: true, title: true }
         }
       },
       orderBy: { createdAt: "desc" },
-    })
-    eventList = await prisma.event.findMany({
+    }))
+    eventList = await getPublicCached("gallery:published-events", () => prisma.event.findMany({
       where: { published: true },
       select: { id: true, title: true },
-    })
+    }))
   } catch (err) {
     console.error("Gallery DB error:", err)
   }

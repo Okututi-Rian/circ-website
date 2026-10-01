@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { revalidatePath } from "next/cache"
 import { prisma } from "@/lib/prisma"
+import { invalidatePublicContentCache } from "@/lib/redis-cache"
 import { successResponse, errorResponse } from "@/lib/api"
 import { requireAdmin } from "@/lib/auth"
 
@@ -15,6 +16,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
       where: { id },
       data: { caption: body.caption ?? null, eventId: body.eventId || null },
     })
+    await invalidatePublicContentCache()
     revalidatePath("/gallery")
     return NextResponse.json({ success: true, data: image })
   } catch (err) {
@@ -29,6 +31,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   try {
     const { id } = await params
     await prisma.galleryImage.delete({ where: { id } })
+    await invalidatePublicContentCache()
     revalidatePath("/gallery")
     return NextResponse.json({ success: true, message: "Gallery image deleted successfully" })
   } catch (err: any) {

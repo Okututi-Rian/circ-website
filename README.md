@@ -34,3 +34,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Redis content cache
+
+The site uses Upstash Redis for server-side cache-aside on public content reads. Cache entries expire after five minutes. A successful admin write to events, communities, team members, gallery images, or site settings invalidates the public content cache; the next read gets fresh data from PostgreSQL and repopulates Redis. Application records and admin-only reads are not cached.
+
+Create an Upstash Redis database and set these server-only variables locally and in Vercel:
+
+```env
+UPSTASH_REDIS_REST_URL=your-upstash-rest-url
+UPSTASH_REDIS_REST_TOKEN=your-upstash-rest-token
+```
+
+For the Vercel Upstash integration, `KV_REST_API_URL` and `KV_REST_API_TOKEN` are also supported. Do not prefix Redis credentials with `NEXT_PUBLIC_`. If the Redis variables are missing or Redis is unavailable, the app falls back to PostgreSQL; Redis caching will begin after valid credentials are configured.

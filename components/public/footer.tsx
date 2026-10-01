@@ -1,17 +1,18 @@
 import Link from "next/link"
 import Image from "next/image"
 import { prisma } from "@/lib/prisma"
+import { getPublicCached } from "@/lib/redis-cache"
 import { Github, Twitter, Instagram, Linkedin } from "lucide-react"
 
 export async function Footer() {
-  const settings = await prisma.settings.findUnique({
+  const settings = await getPublicCached("settings:singleton", () => prisma.settings.findUnique({
     where: { id: "singleton" },
-  })
+  }))
 
-  const communities = await prisma.community.findMany({
+  const communities = await getPublicCached("footer:communities", () => prisma.community.findMany({
     select: { name: true, slug: true },
     take: 6,
-  })
+  }))
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -49,6 +50,15 @@ export async function Footer() {
           <p className="font-body text-white/30 text-xs mt-2 leading-relaxed">
             {settings?.aboutText || "Computing Innovation and Research Club — Mama Ngina University College."}
           </p>
+          <div className="mt-6">
+            <p className="font-mono text-[#38BDF8] text-[9px] tracking-widest uppercase mb-3">
+              PREFERRED SOURCE IN GOOGLE SEARCH
+            </p>
+            <div
+              {...{ "google-add-preferred-source-btn": "" }}
+              data-theme="dark"
+            />
+          </div>
         </div>
 
         {/* Column 2 — Navigation */}

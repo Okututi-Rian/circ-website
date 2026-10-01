@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma"
+import { getPublicCached } from "@/lib/redis-cache"
 import { EventsClient } from "@/components/public/events/events-client"
 import { PageHero } from "@/components/public/page-hero"
 import { createPageMetadata } from "@/lib/seo"
@@ -13,15 +14,15 @@ export const metadata = createPageMetadata({
 export default async function EventsPage() {
   const now = new Date()
 
-  const upcomingEvents = await prisma.event.findMany({
+  const upcomingEvents = await getPublicCached("events:upcoming", () => prisma.event.findMany({
     where: { published: true, date: { gte: now } },
     orderBy: { date: "asc" },
-  })
+  }))
 
-  const pastEvents = await prisma.event.findMany({
+  const pastEvents = await getPublicCached("events:past", () => prisma.event.findMany({
     where: { published: true, date: { lt: now } },
     orderBy: { date: "desc" },
-  })
+  }))
 
   const events = [...upcomingEvents, ...pastEvents]
   const featuredEvent = upcomingEvents[0] ?? null

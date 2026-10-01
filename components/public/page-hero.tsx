@@ -174,7 +174,7 @@ export function PageHero({ badge, title, subtitle, size = "md", children }: Page
           className="font-mono text-[9px] tracking-widest"
           style={{ color: "rgba(56,189,248,0.3)" }}
         >
-          AY 2025/26 // STATUS: ACTIVE
+          AY 2026/27 // STATUS: ACTIVE
         </span>
       </div>
     </section>

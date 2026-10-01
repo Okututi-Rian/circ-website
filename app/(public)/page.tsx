@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma"
+import { getPublicCached } from "@/lib/redis-cache"
 import { TerminalHero } from "@/components/public/hero/terminal-hero"
 import { CommunitiesSection } from "@/components/public/communities/communities-section"
 import { EventsStrip } from "@/components/public/events/events-strip"
@@ -17,17 +18,17 @@ export const metadata = createPageMetadata({
 
 export default async function HomePage() {
   // Fetch communities
-  const communities = await prisma.community.findMany()
+  const communities = await getPublicCached("home:communities", () => prisma.community.findMany())
 
   // Fetch upcoming events (next 3)
-  const upcomingEvents = await prisma.event.findMany({
+  const upcomingEvents = await getPublicCached("home:upcoming-events", () => prisma.event.findMany({
     where: {
       published: true,
       date: { gte: new Date() },
     },
     orderBy: { date: "asc" },
     take: 3,
-  })
+  }))
 
   // Fetch executive team members
   const execRoles = [
@@ -37,12 +38,12 @@ export default async function HomePage() {
     "TREASURER",
     "EVENT_ORGANIZER"
   ]
-  const execs = await prisma.teamMember.findMany({
+  const execs = await getPublicCached("home:executives", () => prisma.teamMember.findMany({
     where: {
       role: { in: execRoles as any },
     },
     orderBy: { displayOrder: "asc" },
-  })
+  }))
 
   return (
     <div className="flex flex-col">

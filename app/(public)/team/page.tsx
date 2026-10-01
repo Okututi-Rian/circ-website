@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma"
+import { getPublicCached } from "@/lib/redis-cache"
 import Image from "next/image"
 import Link from "next/link"
 import { Github, Twitter, Linkedin } from "lucide-react"
@@ -27,16 +28,16 @@ const enumToSlug: Record<string, string> = {
 }
 
 export default async function TeamPage() {
-  const members = await prisma.teamMember.findMany({
+  const members = await getPublicCached("team:members", () => prisma.teamMember.findMany({
     where: { role: { notIn: ["COMMUNITY_LEAD", "COMMUNITY_CO_LEADER"] as any } },
     orderBy: { displayOrder: "asc" },
-  })
+  }))
   const execs = members
 
-  const leads = await prisma.teamMember.findMany({
+  const leads = await getPublicCached("team:community-leads", () => prisma.teamMember.findMany({
     where: { role: { in: ["COMMUNITY_LEAD", "COMMUNITY_CO_LEADER"] as any } },
     orderBy: { displayOrder: "asc" },
-  })
+  }))
 
   return (
     <div className="flex flex-col">

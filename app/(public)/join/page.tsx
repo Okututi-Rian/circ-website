@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma"
+import { getPublicCached } from "@/lib/redis-cache"
 import { ApplicationForm } from "@/components/public/join/application-form"
 import { PageHero } from "@/components/public/page-hero"
 import { createPageMetadata } from "@/lib/seo"
@@ -13,14 +14,14 @@ export const metadata = createPageMetadata({
 export const dynamic = 'force-dynamic'
 
 export default async function JoinPage() {
-  const communities = await prisma.community.findMany({
+  const communities = await getPublicCached("join:communities", () => prisma.community.findMany({
     select: {
       id: true,
       name: true,
       slug: true,
     },
     orderBy: { name: "asc" },
-  })
+  }))
 
   return (
     <div className="flex flex-col min-h-screen" style={{ background: "#020818" }}>

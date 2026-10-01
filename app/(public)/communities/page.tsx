@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma"
+import { getPublicCached } from "@/lib/redis-cache"
 import Image from "next/image"
 import Link from "next/link"
 import { Globe2, BarChart2, Brain, Link2, Code2, Wifi, Shield } from "lucide-react"
@@ -139,11 +140,11 @@ export const metadata = createPageMetadata({
 })
 
 export default async function CommunitiesPage() {
-  const communities = await prisma.community.findMany({
+  const communities = await getPublicCached("communities:with-leads", () => prisma.community.findMany({
     include: {
       lead: true,
     },
-  })
+  }))
 
   return (
     <div className="flex flex-col">

@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma"
+import { getPublicCached } from "@/lib/redis-cache"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
@@ -9,10 +10,10 @@ import { createPageMetadata, plainTextDescription } from "@/lib/seo"
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const community = await prisma.community.findUnique({
+  const community = await getPublicCached(`community:metadata:${slug}`, () => prisma.community.findUnique({
     where: { slug },
     select: { name: true, description: true, focusTags: true },
-  })
+  }))
   if (!community) return { title: "Community Not Found", robots: { index: false, follow: false } }
 
   return createPageMetadata({
@@ -30,7 +31,7 @@ export default async function CommunityDetailPage({
 }) {
   const { slug } = await params
   
-  const community = await prisma.community.findUnique({
+  const community = await getPublicCached(`community:detail:${slug}`, () => prisma.community.findUnique({
     where: { slug },
     include: {
       lead: true,
@@ -40,7 +41,7 @@ export default async function CommunityDetailPage({
         orderBy: { date: "desc" },
       },
     },
-  })
+  }))
 
   if (!community) {
     notFound()

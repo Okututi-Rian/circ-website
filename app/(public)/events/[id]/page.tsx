@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma"
+import { getPublicCached } from "@/lib/redis-cache"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
@@ -9,10 +10,10 @@ import { createPageMetadata, plainTextDescription } from "@/lib/seo"
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const event = await prisma.event.findFirst({
+  const event = await getPublicCached(`event:metadata:${id}`, () => prisma.event.findFirst({
     where: { id, published: true },
     select: { title: true, description: true, coverImage: true, type: true },
-  })
+  }))
   if (!event) return { title: "Event Not Found", robots: { index: false, follow: false } }
 
   return createPageMetadata({
@@ -31,7 +32,7 @@ export default async function EventDetailPage({
 }) {
   const { id } = await params
 
-  const event = await prisma.event.findFirst({
+  const event = await getPublicCached(`event:detail:${id}`, () => prisma.event.findFirst({
     where: { id, published: true },
     include: {
       gallery: true,
@@ -39,13 +40,13 @@ export default async function EventDetailPage({
         select: { name: true, slug: true }
       }
     },
-  })
+  }))
 
   if (!event) {
     notFound()
   }
 
-  const relatedEvents = await prisma.event.findMany({
+  const relatedEvents = await getPublicCached(`event:related:${event.type}:${event.id}`, () => prisma.event.findMany({
     where: {
       type: event.type,
       id: { not: event.id },
@@ -53,7 +54,7 @@ export default async function EventDetailPage({
     },
     take: 3,
     orderBy: { date: "asc" },
-  })
+  }))
 
   const eventUrl = `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://circ.mnu.ac.ke"}/events/${encodeURIComponent(id)}`
   const structuredData = {

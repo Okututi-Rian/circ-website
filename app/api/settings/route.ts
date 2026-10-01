@@ -1,16 +1,16 @@
 import { prisma } from "@/lib/prisma"
+import { getPublicCached, invalidatePublicContentCache } from "@/lib/redis-cache"
 import { NextResponse } from "next/server"
 import { requireAdmin } from "@/lib/auth"
 import { revalidatePath } from "next/cache"
 
 export async function GET() {
   try {
-    let settings = await prisma.settings.findUnique({ where: { id: "singleton" } })
-    if (!settings) {
-      settings = await prisma.settings.create({
-        data: { id: "singleton" }
-      })
-    }
+    const settings = await getPublicCached("api:settings:singleton", async () => {
+      let current = await prisma.settings.findUnique({ where: { id: "singleton" } })
+      if (!current) current = await prisma.settings.create({ data: { id: "singleton" } })
+      return current
+    })
     return NextResponse.json({ success: true, data: settings })
   } catch (err) {
     return NextResponse.json({ success: false, error: "Failed to fetch settings" }, { status: 500 })
@@ -27,6 +27,7 @@ export async function PATCH(req: Request) {
       update: body,
       create: { id: "singleton", ...body },
     })
+    await invalidatePublicContentCache()
     revalidatePath("/")
     revalidatePath("/communities")
     revalidatePath("/events")

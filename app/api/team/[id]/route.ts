@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { getPublicCached, invalidatePublicContentCache } from "@/lib/redis-cache"
 import { requireAdmin } from "@/lib/auth"
 import { revalidatePath } from "next/cache"
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
-    const member = await prisma.teamMember.findUnique({ where: { id } })
+    const member = await getPublicCached(`api:team-member:${id}`, () => prisma.teamMember.findUnique({ where: { id } }))
     if (!member) return NextResponse.json({ success: false, error: "Not found" }, { status: 404 })
     return NextResponse.json({ success: true, data: member })
   } catch {
@@ -29,6 +30,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
       where: { id },
       data: body,
     })
+    await invalidatePublicContentCache()
 
     revalidatePath("/team")
     revalidatePath("/")
@@ -51,6 +53,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
     if (error) return error
 
     await prisma.teamMember.delete({ where: { id } })
+    await invalidatePublicContentCache()
 
     revalidatePath("/team")
     revalidatePath("/")

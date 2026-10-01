@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { invalidatePublicContentCache } from "@/lib/redis-cache"
 import { requireAdmin } from "@/lib/auth"
 import { revalidatePath } from "next/cache"
 
@@ -31,6 +32,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
       where: { id },
       data: body,
     })
+    await invalidatePublicContentCache()
 
     revalidatePath("/events")
     revalidatePath(`/events/${id}`)
@@ -54,6 +56,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
     if (error) return error
 
     await prisma.event.delete({ where: { id } })
+    await invalidatePublicContentCache()
 
     revalidatePath("/events")
     revalidatePath("/")
