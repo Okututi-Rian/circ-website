@@ -39,16 +39,6 @@ function needsClerk(request: NextRequest) {
 }
 
 export default function proxy(request: NextRequest, event: NextFetchEvent) {
-  // Canonicalize the host before Clerk can process the request. This also
-  // keeps Clerk's configured origin out of public-page crawl requests.
-  if (request.nextUrl.hostname.toLowerCase() === "www.circ.co.ke") {
-    const canonicalUrl = request.nextUrl.clone()
-    canonicalUrl.hostname = "circ.co.ke"
-    canonicalUrl.protocol = "https:"
-    canonicalUrl.port = ""
-    return NextResponse.redirect(canonicalUrl, 308)
-  }
-
   // Public content is server-rendered and does not need Clerk session setup.
   if (!needsClerk(request)) {
     return NextResponse.next()
@@ -59,8 +49,7 @@ export default function proxy(request: NextRequest, event: NextFetchEvent) {
 
 export const config = {
   matcher: [
-    // Run the host canonicalizer on page requests, but skip Next internals
-    // and assets. Public paths exit above before Clerk is initialized.
+    // Skip Next internals and assets. Public paths exit above before Clerk is initialized.
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
   ],
 }
