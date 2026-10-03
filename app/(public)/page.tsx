@@ -64,38 +64,38 @@ export default async function HomePage() {
       />
 
       <section
-        className="relative overflow-hidden bg-white py-24 md:py-32"
+        className="relative overflow-hidden bg-white dark:bg-[#09090B] py-24 md:py-32 transition-colors"
         aria-labelledby="circ-about-heading"
       >
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"
+          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 dark:via-white/10 to-transparent"
         />
         <div className="mx-auto grid max-w-7xl items-start gap-12 px-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <div className="lg:sticky lg:top-28">
             <p className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-orange">
               <span className="h-px w-7 bg-accent-orange" /> Who we are
             </p>
-            <h2 id="circ-about-heading" className="mt-5 max-w-lg font-display text-5xl font-bold leading-[0.94] tracking-[-0.06em] text-primary md:text-6xl">
+            <h2 id="circ-about-heading" className="mt-5 max-w-lg font-display text-5xl font-bold leading-[0.94] tracking-[-0.06em] text-primary dark:text-white md:text-6xl transition-colors">
               About <span className="text-accent-orange">CIRC.</span>
             </h2>
-            <p className="mt-6 max-w-sm font-body text-lg leading-relaxed text-muted">
+            <p className="mt-6 max-w-sm font-body text-lg leading-relaxed text-muted dark:text-gray-400 transition-colors">
               A student club for computing, technology and research at MNUC.
             </p>
             <div className="mt-8 h-1 w-16 rounded-full bg-accent-orange" />
-            <p className="mt-6 max-w-sm font-body text-base leading-relaxed text-main">
+            <p className="mt-6 max-w-sm font-body text-base leading-relaxed text-main dark:text-gray-200 transition-colors">
               A place for students to learn together, grow practical skills, and turn curiosity into meaningful work.
             </p>
           </div>
 
-          <div className="divide-y divide-primary/10 border-y border-primary/10">
+          <div className="divide-y divide-primary/10 dark:divide-white/10 border-y border-primary/10 dark:border-white/10">
             <article className="grid gap-5 py-8 md:grid-cols-[4rem_1fr] md:gap-7 md:py-10">
               <span className="font-mono text-xs tracking-widest text-accent-orange">01</span>
               <div>
-                <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-muted">Our community</p>
-                <h3 className="mb-4 font-display text-2xl font-bold tracking-tight text-primary md:text-3xl">Learn, build, and explore together</h3>
-                <p className="font-body text-base leading-8 text-main">
-                CIRC (Computing Innovation and Research Club) is a student club at <a className="font-medium text-primary underline decoration-accent-sky decoration-2 underline-offset-4 hover:text-accent-orange" href="https://mnu.ac.ke/" target="_blank" rel="noreferrer">Mama Ngina University College (MNUC)</a>, a constituent college of <a className="font-medium text-primary underline decoration-accent-sky decoration-2 underline-offset-4 hover:text-accent-orange" href="https://www.ku.ac.ke/ku-history-profile/" target="_blank" rel="noreferrer">Kenyatta University</a>, located in Mutomo, Gatundu South, Kiambu County, Kenya. Formerly known as the Computer Science Club, CIRC brings students together through communities, workshops, events and projects to build practical computing skills and explore technology and research.
+                <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-muted dark:text-gray-400">Our community</p>
+                <h3 className="mb-4 font-display text-2xl font-bold tracking-tight text-primary dark:text-white md:text-3xl">Learn, build, and explore together</h3>
+                <p className="font-body text-base leading-8 text-main dark:text-gray-200">
+                CIRC (Computing Innovation and Research Club) is a student club at <a className="font-medium text-primary dark:text-accent-sky underline decoration-accent-sky decoration-2 underline-offset-4 hover:text-accent-orange" href="https://mnu.ac.ke/" target="_blank" rel="noreferrer">Mama Ngina University College (MNUC)</a>, a constituent college of <a className="font-medium text-primary dark:text-accent-sky underline decoration-accent-sky decoration-2 underline-offset-4 hover:text-accent-orange" href="https://www.ku.ac.ke/ku-history-profile/" target="_blank" rel="noreferrer">Kenyatta University</a>, located in Mutomo, Gatundu South, Kiambu County, Kenya. Formerly known as the Computer Science Club, CIRC brings students together through communities, workshops, events and projects to build practical computing skills and explore technology and research.
                 </p>
               </div>
             </article>
@@ -103,10 +103,10 @@ export default async function HomePage() {
             <article className="grid gap-5 py-8 md:grid-cols-[4rem_1fr] md:gap-7 md:py-10">
               <span className="font-mono text-xs tracking-widest text-accent-orange">02</span>
               <div>
-                <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-muted">What we explore</p>
-                <h3 className="mb-4 font-display text-2xl font-bold tracking-tight text-primary md:text-3xl">Computing across disciplines</h3>
-                <p className="font-body text-base leading-8 text-main">
-                CIRC activities cover web and software development, programming, artificial intelligence and machine learning, data science, cybersecurity, Web3 and the Internet of Things. Students in relevant programmes at the <a className="font-medium text-primary underline decoration-accent-sky decoration-2 underline-offset-4 hover:text-accent-orange" href="https://spas.mnu.ac.ke/" target="_blank" rel="noreferrer">School of Pure and Applied Sciences (SPAS)</a>—including Computer Science, Information Technology, Mathematics and Computer Science, and Statistics and Programming—can explore the club alongside the wider MNUC student community.
+                <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-muted dark:text-gray-400">What we explore</p>
+                <h3 className="mb-4 font-display text-2xl font-bold tracking-tight text-primary dark:text-white md:text-3xl">Computing across disciplines</h3>
+                <p className="font-body text-base leading-8 text-main dark:text-gray-200">
+                CIRC activities cover web and software development, programming, artificial intelligence and machine learning, data science, cybersecurity, Web3 and the Internet of Things. Students in relevant programmes at the <a className="font-medium text-primary dark:text-accent-sky underline decoration-accent-sky decoration-2 underline-offset-4 hover:text-accent-orange" href="https://spas.mnu.ac.ke/" target="_blank" rel="noreferrer">School of Pure and Applied Sciences (SPAS)</a>—including Computer Science, Information Technology, Mathematics and Computer Science, and Statistics and Programming—can explore the club alongside the wider MNUC student community.
                 </p>
               </div>
             </article>

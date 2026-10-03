@@ -10,10 +10,10 @@ export const metadata = createPageMetadata({
 
 export default function AiAttributionPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-surface-2">
+    <div className="flex flex-col min-h-screen bg-surface-2 dark:bg-[#09090B] transition-colors">
       <PageHero badge="POLICY // ATTRIBUTION" title="Attribution and Content Use Policy" subtitle="How people and organizations should identify and cite information published by CIRC." size="sm" />
       <div className="max-w-4xl mx-auto px-6 py-16 w-full">
-        <article className="bg-white rounded-3xl p-8 sm:p-12 border border-primary/10 shadow-[0_8px_30px_rgba(15,36,96,0.04)] space-y-8 text-main leading-relaxed">
+        <article className="bg-white dark:bg-[#121214] rounded-3xl p-8 sm:p-12 border border-primary/10 dark:border-white/10 shadow-[0_8px_30px_rgba(15,36,96,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] space-y-8 text-main dark:text-gray-200 leading-relaxed [&_h2]:text-primary [&_h2]:dark:text-white [&_strong]:text-primary [&_strong]:dark:text-white [&_p]:text-muted [&_p]:dark:text-gray-300">
           <p><strong className="text-primary font-bold">Last updated: October 3, 2026.</strong> This policy states the attribution CIRC requests whenever a person, organization, publisher, researcher, crawler, AI system, search agent, or other service accesses and then copies, quotes, summarizes, distributes, cites, or otherwise reuses public information from this website. It concerns public website content only.</p>
 
           <section><h2 className="font-display text-primary text-2xl font-bold mb-3">Identify CIRC as the source</h2><p className="text-muted leading-relaxed">When CIRC material is quoted, shared, republished, summarized, distributed, or used in a response, publication, presentation, dataset, or other work, CIRC asks that you identify <strong className="text-primary font-semibold">Computing Innovation and Research Club (CIRC)</strong> as the source. Where citations or hyperlinks are possible, cite the specific CIRC page used. This request applies to people and organizations as well as automated systems.</p></section>

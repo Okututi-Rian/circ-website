@@ -19,7 +19,7 @@ interface PageHeroProps {
 export function PageHero({ badge, title, subtitle, size = "md", children, image, imageAlt }: PageHeroProps) {
   return (
     <section
-      className="relative overflow-hidden bg-surface-2 text-main border-b border-primary/10"
+      className="relative overflow-hidden bg-surface-2 dark:bg-[#09090B] text-main dark:text-gray-100 border-b border-primary/10 dark:border-white/10 transition-colors duration-200"
       style={{
         paddingTop: size === "lg" ? "5.5rem" : size === "sm" ? "3.5rem" : "4.5rem",
         paddingBottom: image ? "0" : size === "lg" ? "6rem" : size === "sm" ? "4rem" : "5rem",
@@ -27,14 +27,14 @@ export function PageHero({ badge, title, subtitle, size = "md", children, image,
     >
       {/* Background ambient lighting blobs */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
-        <div className="absolute left-1/2 top-4 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-primary/[0.04] blur-3xl" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-surface-2 to-transparent" />
+        <div className="absolute left-1/2 top-4 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-primary/[0.04] dark:bg-accent-orange/[0.03] blur-3xl" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-surface-2 dark:from-[#09090B] to-transparent" />
       </div>
 
       {/* Main hero content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         {/* Modern landing-style pill badge */}
-        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/10 bg-white/85 px-4 py-1.5 shadow-sm backdrop-blur-sm">
+        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/10 dark:border-white/10 bg-white/85 dark:bg-[#141416]/90 px-4 py-1.5 shadow-sm backdrop-blur-sm">
           <span className="h-2 w-2 rounded-full bg-accent-green" />
           <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-orange">
             {badge}
@@ -43,7 +43,7 @@ export function PageHero({ badge, title, subtitle, size = "md", children, image,
 
         {/* Title */}
         <h1
-          className="font-display text-primary font-bold leading-[0.94] tracking-[-0.05em]"
+          className="font-display text-primary dark:text-white font-bold leading-[0.94] tracking-[-0.05em] transition-colors"
           style={{
             fontSize:
               size === "lg"
@@ -58,7 +58,7 @@ export function PageHero({ badge, title, subtitle, size = "md", children, image,
 
         {/* Subtitle */}
         {subtitle && (
-          <p className="font-body text-muted text-base sm:text-lg max-w-xl mx-auto mt-4 leading-relaxed">
+          <p className="font-body text-muted dark:text-gray-400 text-base sm:text-lg max-w-xl mx-auto mt-4 leading-relaxed transition-colors">
             {subtitle}
           </p>
         )}
@@ -72,24 +72,36 @@ export function PageHero({ badge, title, subtitle, size = "md", children, image,
       </div>
 
       {/* Subtle bottom breadcrumb/location footer */}
-      <div className={`flex items-center justify-center gap-2 font-body text-[10px] font-medium uppercase tracking-[0.16em] text-primary/60 sm:text-xs ${image ? "mt-6 pb-6" : "mt-8"}`}>
+      <div className={`flex items-center justify-center gap-2 font-body text-[10px] font-medium uppercase tracking-[0.16em] text-primary/60 dark:text-gray-400 sm:text-xs ${image ? "mt-6 pb-6" : "mt-8"}`}>
         <MapPin size={13} className="text-accent-orange" />
         CIRC · Mama Ngina University College
       </div>
 
-      {/* Optional photo strip */}
+      {/* Animated glowing, breathing, fading photo strip */}
       {image && (
         <div className="relative w-full overflow-hidden" style={{ height: "340px" }}>
-          <Image
-            src={image}
-            alt={imageAlt ?? "CIRC community photo"}
-            fill
-            className="object-cover object-center"
-            priority
+          {/* Ambient radiant aura that pulses and glows behind the photo */}
+          <div
+            className="pointer-events-none absolute -inset-8 opacity-70 blur-3xl animate-ambient-pulse z-0"
+            style={{
+              background: "radial-gradient(ellipse at center, rgba(249,115,22,0.32) 0%, rgba(56,189,248,0.22) 45%, transparent 75%)"
+            }}
           />
-          {/* Gradient overlays for smooth blend */}
-          <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-surface-2 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-surface-2 to-transparent" />
+
+          {/* Photo container with smooth breathing zoom, glow and fade in & out */}
+          <div className="relative w-full h-full animate-photo-glow z-1">
+            <Image
+              src={image}
+              alt={imageAlt ?? "CIRC community photo"}
+              fill
+              className="object-cover object-center"
+              priority
+            />
+          </div>
+
+          {/* Gradient overlays for smooth blend into surface background in light and dark mode */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-surface-2 dark:from-[#09090B] to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-surface-2 dark:from-[#09090B] to-transparent z-10" />
         </div>
       )}
     </section>

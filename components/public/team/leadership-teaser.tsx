@@ -53,17 +53,17 @@ export function LeadershipTeaser({ members }: LeadershipTeaserProps) {
   const teaserMembers = activeMembers.slice(0, 5)
 
   return (
-    <section className="py-24 bg-surface-2 overflow-hidden">
+    <section className="py-24 bg-surface-2 dark:bg-[#09090B] overflow-hidden border-b border-black/5 dark:border-white/5 transition-colors">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <p className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-orange mb-3">
             <span className="h-px w-6 bg-accent-orange" /> Leadership Team
           </p>
-          <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-primary">
+          <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-primary dark:text-white">
             The People Behind CIRC
           </h2>
-          <p className="mt-4 font-body text-base sm:text-lg text-muted leading-relaxed">
+          <p className="mt-4 font-body text-base sm:text-lg text-muted dark:text-gray-400 leading-relaxed">
             Executive committee and community leads driving the club forward.
           </p>
         </div>
@@ -83,7 +83,7 @@ export function LeadershipTeaser({ members }: LeadershipTeaserProps) {
             return (
               <div
                 key={member.id}
-                className="group relative flex flex-col items-center text-center bg-white rounded-3xl p-6 sm:p-7 border border-primary/10 shadow-[0_8px_30px_rgba(15,36,96,0.05)] hover:shadow-[0_20px_45px_rgba(15,36,96,0.12)] hover:-translate-y-2 transition-all duration-300 overflow-hidden"
+                className="group relative flex flex-col items-center text-center bg-white dark:bg-[#121214] rounded-3xl p-6 sm:p-7 border border-primary/10 dark:border-white/10 shadow-[0_8px_30px_rgba(15,36,96,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_45px_rgba(15,36,96,0.12)] hover:-translate-y-2 transition-all duration-300 overflow-hidden"
               >
                 {/* Circular Profile Avatar */}
                 <div className="relative mb-4">
@@ -99,7 +99,7 @@ export function LeadershipTeaser({ members }: LeadershipTeaserProps) {
 
                   {/* Photo or Initials Avatar */}
                   <div
-                    className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-white shadow-md flex-shrink-0"
+                    className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-white dark:border-[#1E1E24] shadow-md flex-shrink-0"
                     style={{
                       boxShadow: isChair
                         ? "0 10px 25px rgba(249,115,22,0.25)"
@@ -133,7 +133,7 @@ export function LeadershipTeaser({ members }: LeadershipTeaserProps) {
 
                 {/* Member Info */}
                 <div className="flex flex-col items-center gap-2 w-full mt-2">
-                  <h3 className="font-display text-primary text-base sm:text-lg font-bold tracking-tight leading-snug group-hover:text-accent-orange transition-colors">
+                  <h3 className="font-display text-primary dark:text-white text-base sm:text-lg font-bold tracking-tight leading-snug group-hover:text-accent-orange transition-colors">
                     {member.name}
                   </h3>
 
@@ -142,7 +142,7 @@ export function LeadershipTeaser({ members }: LeadershipTeaserProps) {
                     className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wide ${
                       isChair
                         ? "bg-accent-orange/10 text-accent-orange border border-accent-orange/20"
-                        : "bg-primary/5 text-primary/80 border border-primary/10"
+                        : "bg-primary/5 dark:bg-white/10 text-primary/80 dark:text-gray-300 border border-primary/10 dark:border-white/10"
                     }`}
                   >
                     {formatRole(member.role)}
@@ -167,10 +167,10 @@ export function LeadershipTeaser({ members }: LeadershipTeaserProps) {
         <div className="text-center mt-14">
           <Link
             href="/team"
-            className="group inline-flex items-center gap-2.5 rounded-full border border-primary/15 bg-white px-8 py-3.5 font-body text-sm font-semibold text-primary shadow-sm hover:bg-primary hover:text-white hover:border-primary hover:shadow-md transition-all duration-200"
+            className="group inline-flex items-center gap-2.5 rounded-full border border-primary/15 dark:border-white/15 bg-white dark:bg-[#121214] px-8 py-3.5 font-body text-sm font-semibold text-primary dark:text-white shadow-sm hover:bg-primary dark:hover:bg-white hover:text-white dark:hover:text-black hover:border-primary dark:hover:border-white hover:shadow-md transition-all duration-200"
           >
             Meet Our Full Team
-            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1 text-accent-orange group-hover:text-white" />
+            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1 text-accent-orange group-hover:text-white dark:group-hover:text-black" />
           </Link>
         </div>
       </div>

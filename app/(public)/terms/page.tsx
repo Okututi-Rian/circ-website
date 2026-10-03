@@ -10,10 +10,10 @@ export const metadata = createPageMetadata({
 
 export default function TermsPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-surface-2">
+    <div className="flex flex-col min-h-screen bg-surface-2 dark:bg-[#09090B] transition-colors">
       <PageHero badge="LEGAL // TERMS" title="Terms and Conditions" subtitle="The basic terms for using the CIRC website and participating in club activities." size="sm" />
       <div className="max-w-4xl mx-auto px-6 py-16 w-full">
-        <article className="bg-white rounded-3xl p-8 sm:p-12 border border-primary/10 shadow-[0_8px_30px_rgba(15,36,96,0.04)] space-y-8 text-main leading-relaxed">
+        <article className="bg-white dark:bg-[#121214] rounded-3xl p-8 sm:p-12 border border-primary/10 dark:border-white/10 shadow-[0_8px_30px_rgba(15,36,96,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] space-y-8 text-main dark:text-gray-200 leading-relaxed [&_h2]:text-primary [&_h2]:dark:text-white [&_strong]:text-primary [&_strong]:dark:text-white [&_p]:text-muted [&_p]:dark:text-gray-300">
           <p><strong className="text-primary font-bold">Last updated: October 1, 2026.</strong> These terms cover use of the Computing Innovation &amp; Research Club (CIRC) website at Mama Ngina University College. By using the site, you agree to follow these terms and applicable law. If you do not agree, do not use the site.</p>
           <section><h2 className="font-display text-primary text-2xl font-bold mb-3">Acceptable use</h2><p className="text-muted leading-relaxed">Do not misuse the website, attempt unauthorized access, interfere with its operation, submit false or unlawful material, infringe another person’s rights, or use club resources to harm others. Membership and event participation may be subject to additional university or club rules.</p></section>
           <section><h2 className="font-display text-primary text-2xl font-bold mb-3">Applications and accounts</h2><p className="text-muted leading-relaxed">Provide accurate information when applying or using an account, and protect your sign-in credentials. An application does not guarantee membership, event admission, or access to club resources. CIRC may review, approve, or decline applications under its membership process and applicable university rules.</p></section>

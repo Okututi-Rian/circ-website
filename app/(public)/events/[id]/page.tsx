@@ -80,7 +80,7 @@ export default async function EventDetailPage({
   }
 
   return (
-    <div className="flex flex-col bg-surface-2 min-h-screen">
+    <div className="flex flex-col bg-surface-2 dark:bg-[#09090B] min-h-screen transition-colors">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
       <PageHero
         badge={event.type}
@@ -99,48 +99,48 @@ export default async function EventDetailPage({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
             
             {/* Left: Event Details */}
-            <div className="lg:col-span-8 space-y-10 bg-white rounded-3xl p-8 sm:p-12 border border-primary/10 shadow-[0_8px_30px_rgba(15,36,96,0.04)]">
-              <div className="flex flex-wrap items-center gap-6 lg:gap-10 pb-8 border-b border-primary/10">
+            <div className="lg:col-span-8 space-y-10 bg-white dark:bg-[#121214] rounded-3xl p-8 sm:p-12 border border-primary/10 dark:border-white/10 shadow-[0_8px_30px_rgba(15,36,96,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+              <div className="flex flex-wrap items-center gap-6 lg:gap-10 pb-8 border-b border-primary/10 dark:border-white/10">
                 <div className="flex items-center gap-3.5 group">
-                  <div className="w-12 h-12 rounded-2xl bg-surface-2 border border-primary/10 flex items-center justify-center text-accent-orange flex-shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-surface-2 dark:bg-[#1A1A1E] border border-primary/10 dark:border-white/10 flex items-center justify-center text-accent-orange flex-shrink-0">
                     <Calendar size={22} />
                   </div>
                   <div>
-                    <p className="font-mono text-muted text-[10px] uppercase tracking-widest font-semibold mb-0.5">Date</p>
-                    <p className="font-display font-bold text-primary">{format(new Date(event.date), "MMMM do, yyyy")}</p>
+                    <p className="font-mono text-muted dark:text-gray-400 text-[10px] uppercase tracking-widest font-semibold mb-0.5">Date</p>
+                    <p className="font-display font-bold text-primary dark:text-white">{format(new Date(event.date), "MMMM do, yyyy")}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3.5 group">
-                  <div className="w-12 h-12 rounded-2xl bg-surface-2 border border-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-surface-2 dark:bg-[#1A1A1E] border border-primary/10 dark:border-white/10 flex items-center justify-center text-primary dark:text-white flex-shrink-0">
                     <MapPin size={22} className="text-accent-orange" />
                   </div>
                   <div>
-                    <p className="font-mono text-muted text-[10px] uppercase tracking-widest font-semibold mb-0.5">Venue</p>
-                    <p className="font-display font-bold text-primary">{event.venue}</p>
+                    <p className="font-mono text-muted dark:text-gray-400 text-[10px] uppercase tracking-widest font-semibold mb-0.5">Venue</p>
+                    <p className="font-display font-bold text-primary dark:text-white">{event.venue}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3.5 group">
-                  <div className="w-12 h-12 rounded-2xl bg-surface-2 border border-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-surface-2 dark:bg-[#1A1A1E] border border-primary/10 dark:border-white/10 flex items-center justify-center text-primary dark:text-white flex-shrink-0">
                     <Tag size={22} className="text-accent-orange" />
                   </div>
                   <div>
-                    <p className="font-mono text-muted text-[10px] uppercase tracking-widest font-semibold mb-0.5">Category</p>
-                    <p className="font-display font-bold text-primary">{event.type}</p>
+                    <p className="font-mono text-muted dark:text-gray-400 text-[10px] uppercase tracking-widest font-semibold mb-0.5">Category</p>
+                    <p className="font-display font-bold text-primary dark:text-white">{event.type}</p>
                   </div>
                 </div>
               </div>
 
               <div
-                className="prose prose-sm max-w-none font-body text-main leading-relaxed [&>p]:mb-4 [&>h2]:font-display [&>h2]:text-primary [&>ul]:list-disc [&>ul]:pl-5 [&>ol]:list-decimal [&>ol]:pl-5"
+                className="prose prose-sm dark:prose-invert max-w-none font-body text-main dark:text-gray-200 leading-relaxed [&>p]:mb-4 [&>h2]:font-display [&>h2]:text-primary [&>h2]:dark:text-white [&>ul]:list-disc [&>ul]:pl-5 [&>ol]:list-decimal [&>ol]:pl-5"
                 dangerouslySetInnerHTML={{ __html: event.description }}
               />
 
               {event.gallery.length > 0 && (
-                <div className="space-y-6 pt-10 border-t border-primary/10">
-                  <h2 className="font-display text-primary text-2xl font-bold">Event Photos</h2>
+                <div className="space-y-6 pt-10 border-t border-primary/10 dark:border-white/10">
+                  <h2 className="font-display text-primary dark:text-white text-2xl font-bold">Event Photos</h2>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {event.gallery.map((img) => (
-                      <div key={img.id} className="relative aspect-square rounded-2xl overflow-hidden group border border-primary/10 shadow-sm">
+                      <div key={img.id} className="relative aspect-square rounded-2xl overflow-hidden group border border-primary/10 dark:border-white/10 shadow-sm">
                         <Image 
                           src={img.url} 
                           alt={img.caption || event.title}
@@ -157,12 +157,12 @@ export default async function EventDetailPage({
 
             {/* Right: Sidebar Actions */}
             <div className="lg:col-span-4">
-              <div className="p-8 bg-white border border-primary/10 rounded-3xl sticky top-24 shadow-[0_8px_30px_rgba(15,36,96,0.04)]">
+              <div className="p-8 bg-white dark:bg-[#121214] border border-primary/10 dark:border-white/10 rounded-3xl sticky top-24 shadow-[0_8px_30px_rgba(15,36,96,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
                 <p className="font-mono text-accent-orange text-[10px] font-semibold uppercase tracking-[0.2em] mb-2">
                   Registration
                 </p>
-                <h3 className="font-display text-primary text-2xl font-bold mb-4">Event RSVP</h3>
-                <p className="font-body text-muted text-sm leading-relaxed mb-6">
+                <h3 className="font-display text-primary dark:text-white text-2xl font-bold mb-4">Event RSVP</h3>
+                <p className="font-body text-muted dark:text-gray-400 text-sm leading-relaxed mb-6">
                   Reserve your spot to participate in this CIRC session and gain practical experience.
                 </p>
                 
@@ -177,8 +177,8 @@ export default async function EventDetailPage({
                     <ExternalLink size={16} />
                   </a>
                 ) : (
-                  <div className="bg-surface-2 rounded-2xl p-4 text-center border border-primary/10">
-                    <p className="font-body text-muted text-sm">Free entry for all MNUC students. Walk-ins welcome.</p>
+                  <div className="bg-surface-2 dark:bg-[#1A1A1E] rounded-2xl p-4 text-center border border-primary/10 dark:border-white/10">
+                    <p className="font-body text-muted dark:text-gray-400 text-sm">Free entry for all MNUC students. Walk-ins welcome.</p>
                   </div>
                 )}
               </div>
@@ -189,18 +189,18 @@ export default async function EventDetailPage({
 
       {/* Suggested Events */}
       {relatedEvents.length > 0 && (
-        <section className="bg-surface-2 py-20 border-t border-primary/10">
+        <section className="bg-surface-2 dark:bg-[#09090B] py-20 border-t border-primary/10 dark:border-white/10 transition-colors">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <p className="font-mono text-accent-orange text-[10px] font-semibold uppercase tracking-[0.2em] mb-2">
               Explore More
             </p>
-            <h2 className="font-display text-primary text-3xl font-bold mb-10">Related Events</h2>
+            <h2 className="font-display text-primary dark:text-white text-3xl font-bold mb-10">Related Events</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedEvents.map((related) => (
                 <Link 
                   key={related.id} 
                   href={`/events/${related.id}`}
-                  className="group bg-white rounded-3xl border border-primary/10 overflow-hidden shadow-[0_8px_30px_rgba(15,36,96,0.04)] hover:shadow-[0_20px_45px_rgba(15,36,96,0.1)] hover:-translate-y-1 transition-all duration-300 p-6 flex flex-col"
+                  className="group bg-white dark:bg-[#121214] rounded-3xl border border-primary/10 dark:border-white/10 overflow-hidden shadow-[0_8px_30px_rgba(15,36,96,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_45px_rgba(15,36,96,0.1)] dark:hover:shadow-[0_20px_45px_rgba(0,0,0,0.8)] hover:-translate-y-1 transition-all duration-300 p-6 flex flex-col"
                 >
                   <div className="relative h-44 -mx-6 -mt-6 mb-5 overflow-hidden">
                     <Image src={related.coverImage} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px" className="object-cover group-hover:scale-105 transition-transform duration-500" alt={related.title} />
@@ -208,7 +208,7 @@ export default async function EventDetailPage({
                   <p className="font-mono text-accent-orange text-[10px] font-bold uppercase tracking-wider mb-2">
                     {format(new Date(related.date), "MMM d, yyyy")}
                   </p>
-                  <h4 className="font-display font-bold text-primary group-hover:text-accent-orange transition-colors line-clamp-2 text-lg">
+                  <h4 className="font-display font-bold text-primary dark:text-white group-hover:text-accent-orange transition-colors line-clamp-2 text-lg">
                     {related.title}
                   </h4>
                 </Link>

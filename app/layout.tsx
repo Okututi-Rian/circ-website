@@ -75,8 +75,32 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var mql = window.matchMedia('(prefers-color-scheme: dark)');
+                  function applyTheme(isDark) {
+                    if (isDark) {
+                      document.documentElement.classList.add('dark');
+                    } else {
+                      document.documentElement.classList.remove('dark');
+                    }
+                  }
+                  applyTheme(mql.matches);
+                  if (mql.addEventListener) {
+                    mql.addEventListener('change', function(e) { applyTheme(e.matches); });
+                  } else if (mql.addListener) {
+                    mql.addListener(function(e) { applyTheme(e.matches); });
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap"
           rel="stylesheet"

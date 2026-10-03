@@ -29,21 +29,21 @@ export function CommunitiesSection({ communities }: CommunitiesSectionProps) {
   const totalCount = communities.length
 
   return (
-    <section className="overflow-hidden bg-surface-2 py-24 md:py-32">
+    <section className="overflow-hidden bg-surface-2 dark:bg-[#09090B] py-24 md:py-32 border-b border-black/5 dark:border-white/5 transition-colors">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between md:mb-16">
           <div>
             <p className="mb-4 inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-orange">
               <span className="h-px w-7 bg-accent-orange" /> Find your people
             </p>
-            <h2 className="max-w-3xl font-display text-4xl font-bold leading-[0.98] tracking-[-0.06em] text-primary sm:text-5xl md:text-6xl">
+            <h2 className="max-w-3xl font-display text-4xl font-bold leading-[0.98] tracking-[-0.06em] text-primary dark:text-white sm:text-5xl md:text-6xl">
               {totalCount} communities.<br className="hidden sm:block" /> One mission.
             </h2>
-            <p className="mt-5 max-w-xl font-body text-base leading-relaxed text-muted md:text-lg">
+            <p className="mt-5 max-w-xl font-body text-base leading-relaxed text-muted dark:text-gray-400 md:text-lg">
               Find your discipline. Build with purpose. Connect with people who think like you.
             </p>
           </div>
-          <Link href="/communities" className="group inline-flex w-fit items-center gap-3 rounded-full border border-primary/15 bg-white px-5 py-3 font-body text-sm font-semibold text-primary transition-colors hover:border-primary/40 hover:bg-primary hover:text-white">
+          <Link href="/communities" className="group inline-flex w-fit items-center gap-3 rounded-full border border-primary/15 dark:border-white/15 bg-white dark:bg-[#121214] px-5 py-3 font-body text-sm font-semibold text-primary dark:text-gray-200 transition-colors hover:border-primary/40 dark:hover:border-white/30 hover:bg-primary dark:hover:bg-white hover:text-white dark:hover:text-black">
             All {totalCount} communities <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
           </Link>
         </div>

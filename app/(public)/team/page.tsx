@@ -51,20 +51,20 @@ export default async function TeamPage() {
       />
 
       {/* Executive Committee section */}
-      <section className="bg-surface-2 py-20">
+      <section className="bg-surface-2 dark:bg-[#09090B] py-20 transition-colors">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-12">
             <p className="font-mono text-accent-orange text-[10px] font-semibold tracking-[0.2em] uppercase mb-2">
               EXECUTIVE COMMITTEE
             </p>
-            <h2 className="font-display text-primary text-3xl sm:text-4xl font-bold tracking-tight">Club Officers</h2>
+            <h2 className="font-display text-primary dark:text-white text-3xl sm:text-4xl font-bold tracking-tight">Club Officers</h2>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {execs.map((member) => {
               const isChair = member.role === "CHAIRPERSON"
               return (
-                <div key={member.id} className="group bg-white rounded-3xl border border-primary/10 p-7 flex flex-col items-center text-center hover:-translate-y-2 hover:shadow-[0_20px_45px_rgba(15,36,96,0.12)] transition-all duration-300 relative overflow-hidden">
+                <div key={member.id} className="group bg-white dark:bg-[#121214] rounded-3xl border border-primary/10 dark:border-white/10 p-7 flex flex-col items-center text-center hover:-translate-y-2 hover:shadow-[0_20px_45px_rgba(15,36,96,0.12)] dark:hover:shadow-[0_20px_45px_rgba(0,0,0,0.8)] transition-all duration-300 relative overflow-hidden">
 
                   {/* Chairperson only — orange accent badge */}
                   {isChair && (
@@ -86,7 +86,7 @@ export default async function TeamPage() {
 
                     {/* Photo circle */}
                     <div
-                      className="relative rounded-full overflow-hidden border-4 border-white shadow-md flex-shrink-0"
+                      className="relative rounded-full overflow-hidden border-4 border-white dark:border-[#202025] shadow-md flex-shrink-0"
                       style={{
                         width: isChair ? "124px" : "110px",
                         height: isChair ? "124px" : "110px",
@@ -120,20 +120,20 @@ export default async function TeamPage() {
 
                   {/* Member details below the circle */}
                   <div className="flex flex-col items-center gap-1.5 flex-1 w-full">
-                    <h3 className="font-display text-primary text-lg font-bold leading-tight group-hover:text-accent-orange transition-colors">
+                    <h3 className="font-display text-primary dark:text-white text-lg font-bold leading-tight group-hover:text-accent-orange transition-colors">
                       {member.name}
                     </h3>
                     <span
                       className={`inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide ${
                         isChair
                           ? "bg-accent-orange/10 text-accent-orange border border-accent-orange/20"
-                          : "bg-primary/5 text-primary/80 border border-primary/10"
+                          : "bg-primary/5 dark:bg-white/5 text-primary/80 dark:text-gray-300 border border-primary/10 dark:border-white/10"
                       }`}
                     >
                       {formatRole(member.role)}
                     </span>
                     {member.bio && (
-                      <p className="font-body text-muted text-xs leading-relaxed line-clamp-2 mt-2 max-w-[220px]">
+                      <p className="font-body text-muted dark:text-gray-400 text-xs leading-relaxed line-clamp-2 mt-2 max-w-[220px]">
                         {member.bio}
                       </p>
                     )}
@@ -143,21 +143,21 @@ export default async function TeamPage() {
                       <div className="flex items-center justify-center gap-2 mt-4">
                         {member.linkedin && (
                           <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
-                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 hover:text-accent-orange bg-surface-2 hover:bg-white transition-colors border border-primary/10"
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 dark:text-gray-300 hover:text-accent-orange bg-surface-2 dark:bg-[#1C1C20] hover:bg-white dark:hover:bg-[#25252B] transition-colors border border-primary/10 dark:border-white/10"
                             aria-label="LinkedIn">
                             <Linkedin size={13} />
                           </a>
                         )}
                         {member.github && (
                           <a href={member.github} target="_blank" rel="noopener noreferrer"
-                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 hover:text-accent-orange bg-surface-2 hover:bg-white transition-colors border border-primary/10"
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 dark:text-gray-300 hover:text-accent-orange bg-surface-2 dark:bg-[#1C1C20] hover:bg-white dark:hover:bg-[#25252B] transition-colors border border-primary/10 dark:border-white/10"
                             aria-label="GitHub">
                             <Github size={13} />
                           </a>
                         )}
                         {member.twitter && (
                           <a href={member.twitter} target="_blank" rel="noopener noreferrer"
-                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 hover:text-accent-orange bg-surface-2 hover:bg-white transition-colors border border-primary/10"
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 dark:text-gray-300 hover:text-accent-orange bg-surface-2 dark:bg-[#1C1C20] hover:bg-white dark:hover:bg-[#25252B] transition-colors border border-primary/10 dark:border-white/10"
                             aria-label="Twitter / X">
                             <Twitter size={13} />
                           </a>
@@ -183,13 +183,13 @@ export default async function TeamPage() {
       </section>
 
       {/* Community Leads Section */}
-      <section className="py-20 bg-surface-2 border-t border-primary/10">
+      <section className="py-20 bg-surface-2 dark:bg-[#09090B] border-t border-primary/10 dark:border-white/10 transition-colors">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-12">
             <p className="font-mono text-accent-orange text-[10px] font-semibold tracking-[0.2em] uppercase mb-2">
               COMMUNITY LEADS
             </p>
-            <h2 className="font-display text-primary text-3xl sm:text-4xl font-bold tracking-tight">Domain Specialists</h2>
+            <h2 className="font-display text-primary dark:text-white text-3xl sm:text-4xl font-bold tracking-tight">Domain Specialists</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -198,7 +198,7 @@ export default async function TeamPage() {
               return (
                 <div
                   key={member.id}
-                  className="group bg-white rounded-3xl p-7 flex flex-col items-center text-center hover:-translate-y-2 hover:shadow-[0_20px_45px_rgba(15,36,96,0.1)] transition-all duration-300 relative overflow-hidden border border-primary/10"
+                  className="group bg-white dark:bg-[#121214] rounded-3xl p-7 flex flex-col items-center text-center hover:-translate-y-2 hover:shadow-[0_20px_45px_rgba(15,36,96,0.1)] dark:hover:shadow-[0_20px_45px_rgba(0,0,0,0.8)] transition-all duration-300 relative overflow-hidden border border-primary/10 dark:border-white/10"
                 >
                   {/* Circular photo */}
                   <div className="relative mb-5">
@@ -208,7 +208,7 @@ export default async function TeamPage() {
                     />
                     {/* Photo circle */}
                     <div
-                      className="relative rounded-full overflow-hidden border-4 border-white shadow-md flex-shrink-0 w-28 h-28"
+                      className="relative rounded-full overflow-hidden border-4 border-white dark:border-[#202025] shadow-md flex-shrink-0 w-28 h-28"
                     >
                       {member.photo ? (
                         <Image
@@ -233,7 +233,7 @@ export default async function TeamPage() {
 
                   {/* Member details below the circle */}
                   <div className="flex flex-col items-center gap-1.5 flex-1 w-full">
-                    <h3 className="font-display text-primary text-lg font-bold leading-tight group-hover:text-accent-orange transition-colors">
+                    <h3 className="font-display text-primary dark:text-white text-lg font-bold leading-tight group-hover:text-accent-orange transition-colors">
                       {member.name}
                     </h3>
                     <span className="inline-block font-mono text-[10px] tracking-wider uppercase font-semibold text-accent-orange">
@@ -242,7 +242,7 @@ export default async function TeamPage() {
                     
                     {member.community && (
                       <span
-                        className="inline-block font-mono text-[9px] font-bold px-3 py-1 rounded-full mt-1 border border-primary/10"
+                        className="inline-block font-mono text-[9px] font-bold px-3 py-1 rounded-full mt-1 border border-primary/10 dark:border-white/10"
                         style={{
                           background: COMMUNITY_COLORS[communitySlug]?.bg ?? "#F0F4FF",
                           color: COMMUNITY_COLORS[communitySlug]?.text ?? "#1E3A8A",
@@ -253,7 +253,7 @@ export default async function TeamPage() {
                     )}
 
                     {member.bio && (
-                      <p className="font-body text-muted text-xs leading-relaxed line-clamp-2 mt-2 max-w-[220px]">
+                      <p className="font-body text-muted dark:text-gray-400 text-xs leading-relaxed line-clamp-2 mt-2 max-w-[220px]">
                         {member.bio}
                       </p>
                     )}
@@ -263,21 +263,21 @@ export default async function TeamPage() {
                       <div className="flex items-center justify-center gap-2 mt-4">
                         {member.linkedin && (
                           <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
-                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 hover:text-accent-orange bg-surface-2 hover:bg-white transition-colors border border-primary/10"
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 dark:text-gray-300 hover:text-accent-orange bg-surface-2 dark:bg-[#1C1C20] hover:bg-white dark:hover:bg-[#25252B] transition-colors border border-primary/10 dark:border-white/10"
                             aria-label="LinkedIn">
                             <Linkedin size={13} />
                           </a>
                         )}
                         {member.github && (
                           <a href={member.github} target="_blank" rel="noopener noreferrer"
-                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 hover:text-accent-orange bg-surface-2 hover:bg-white transition-colors border border-primary/10"
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 dark:text-gray-300 hover:text-accent-orange bg-surface-2 dark:bg-[#1C1C20] hover:bg-white dark:hover:bg-[#25252B] transition-colors border border-primary/10 dark:border-white/10"
                             aria-label="GitHub">
                             <Github size={13} />
                           </a>
                         )}
                         {member.twitter && (
                           <a href={member.twitter} target="_blank" rel="noopener noreferrer"
-                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 hover:text-accent-orange bg-surface-2 hover:bg-white transition-colors border border-primary/10"
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 dark:text-gray-300 hover:text-accent-orange bg-surface-2 dark:bg-[#1C1C20] hover:bg-white dark:hover:bg-[#25252B] transition-colors border border-primary/10 dark:border-white/10"
                             aria-label="Twitter / X">
                             <Twitter size={13} />
                           </a>

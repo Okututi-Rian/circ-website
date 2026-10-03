@@ -17,7 +17,7 @@ export function EventCard({ id, title, description, date, coverImage, type }: Ev
   const badgeClass = `badge-type-${typeKey}`
 
   return (
-    <div className="group flex h-full w-full flex-col overflow-hidden rounded-3xl bg-white border border-primary/10 p-0 shadow-[0_8px_30px_rgba(15,36,96,0.04)] hover:shadow-[0_20px_45px_rgba(15,36,96,0.1)] hover:-translate-y-1 transition-all duration-300">
+    <div className="group flex h-full w-full flex-col overflow-hidden rounded-3xl bg-white dark:bg-[#121214] border border-primary/10 dark:border-white/10 p-0 shadow-[0_8px_30px_rgba(15,36,96,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_45px_rgba(15,36,96,0.1)] dark:hover:shadow-[0_20px_45px_rgba(0,0,0,0.8)] hover:-translate-y-1 transition-all duration-300">
       <div className="relative h-48 w-full overflow-hidden" suppressHydrationWarning>
         <Image
           src={coverImage}
@@ -30,16 +30,16 @@ export function EventCard({ id, title, description, date, coverImage, type }: Ev
           <span className="inline-block rounded-full bg-accent-orange px-3 py-1 font-mono text-[10px] font-bold text-white shadow-sm">
             {format(date, "MMM dd")}
           </span>
-          <span className="inline-block rounded-full bg-white/90 backdrop-blur-sm border border-primary/10 px-3 py-1 font-mono text-[10px] font-bold uppercase text-primary">
+          <span className="inline-block rounded-full bg-white/90 dark:bg-[#18181B]/90 backdrop-blur-sm border border-primary/10 dark:border-white/10 px-3 py-1 font-mono text-[10px] font-bold uppercase text-primary dark:text-white">
             {type}
           </span>
         </div>
       </div>
       <div className="flex flex-1 flex-col p-6">
-        <h3 className="mb-2 line-clamp-2 font-display text-lg font-bold text-primary group-hover:text-accent-orange transition-colors">
+        <h3 className="mb-2 line-clamp-2 font-display text-lg font-bold text-primary dark:text-white group-hover:text-accent-orange transition-colors">
           {title}
         </h3>
-        <p className="mb-5 line-clamp-2 font-body text-sm text-muted leading-relaxed">
+        <p className="mb-5 line-clamp-2 font-body text-sm text-muted dark:text-gray-400 leading-relaxed transition-colors">
           {stripHtml(description).slice(0, 120)}...
         </p>
         <Link 

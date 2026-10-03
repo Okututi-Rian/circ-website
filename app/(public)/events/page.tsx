@@ -28,7 +28,7 @@ export default async function EventsPage() {
   const featuredEvent = upcomingEvents[0] ?? null
 
   return (
-    <div className="flex flex-col min-h-screen bg-surface-2">
+    <div className="flex flex-col min-h-screen bg-surface-2 dark:bg-[#09090B] transition-colors">
       <PageHero
         badge="EVENTS & ACTIVITIES"
         title="What's Happening"

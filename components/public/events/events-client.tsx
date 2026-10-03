@@ -110,7 +110,7 @@ export function EventsClient({ events, featuredEvent }: EventsClientProps) {
       )}
 
       {/* Filter controls */}
-      <div className="bg-surface-2/90 backdrop-blur-md border-b border-primary/10 sticky top-16 z-40">
+      <div className="bg-surface-2/90 dark:bg-[#0C0C0E]/90 backdrop-blur-md border-b border-primary/10 dark:border-white/10 sticky top-16 z-40 transition-colors">
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-wrap gap-2.5 overflow-x-auto no-scrollbar">
           {types.map((type) => (
             <button
@@ -119,8 +119,8 @@ export function EventsClient({ events, featuredEvent }: EventsClientProps) {
               className={cn(
                 "font-body text-xs sm:text-sm font-semibold px-5 py-2 rounded-full border transition-all duration-200 whitespace-nowrap shadow-sm",
                 activeTab === type 
-                  ? "bg-primary text-white border-primary shadow-md" 
-                  : "bg-white/80 text-primary/70 border-primary/10 hover:border-primary/30 hover:bg-white hover:text-primary"
+                  ? "bg-primary text-white border-primary shadow-md dark:bg-white dark:text-black dark:border-white" 
+                  : "bg-white/80 dark:bg-[#18181B] text-primary/70 dark:text-gray-300 border-primary/10 dark:border-white/10 hover:border-primary/30 dark:hover:border-white/30 hover:bg-white dark:hover:bg-[#222226] hover:text-primary dark:hover:text-white"
               )}
             >
               {type === "ALL" ? "All Events" : type.charAt(0) + type.slice(1).toLowerCase()}
@@ -138,8 +138,8 @@ export function EventsClient({ events, featuredEvent }: EventsClientProps) {
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-primary/20">
-            <p className="font-body text-muted italic text-base">No events found matching this filter.</p>
+          <div className="text-center py-20 bg-white dark:bg-[#121214] rounded-3xl border border-dashed border-primary/20 dark:border-white/15">
+            <p className="font-body text-muted dark:text-gray-400 italic text-base">No events found matching this filter.</p>
           </div>
         )}
       </section>

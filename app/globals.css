@@ -38,6 +38,17 @@
     --mc-glow:      rgba(56, 189, 248, 0.08);
   }
 
+  .dark {
+    color-scheme: dark;
+    --color-primary: #60A5FA;
+    --color-primary-dark: #3B82F6;
+    --color-surface: #080809;
+    --color-surface-2: #0E0E11;
+    --color-text-primary: #F3F4F6;
+    --color-text-muted: #9CA3AF;
+    --color-border: rgba(255, 255, 255, 0.1);
+  }
+
   * { box-sizing: border-box; }
 
   html, body {
@@ -50,13 +61,22 @@
   }
 
   body {
-    @apply font-body text-main bg-surface;
+    @apply font-body text-main bg-surface transition-colors duration-200;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
+  .dark body {
+    background-color: #080809;
+    color: #F3F4F6;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-display text-primary;
+  }
+
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: #FFFFFF;
   }
 }
 
@@ -272,3 +292,39 @@
   animation: hero-photo-loop 15s linear infinite;
   will-change: transform;
 }
+
+/* ── Hero Photo Breathing Glow & Fade Animation ── */
+@keyframes photo-fade-glow {
+  0%, 100% {
+    opacity: 0.86;
+    transform: scale(1);
+    filter: brightness(0.96) contrast(1.02);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.035);
+    filter: brightness(1.08) contrast(1.06) drop-shadow(0 0 25px rgba(249, 115, 22, 0.28));
+  }
+}
+
+@keyframes ambient-glow-pulse {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.08);
+  }
+}
+
+.animate-photo-glow {
+  animation: photo-fade-glow 6s ease-in-out infinite;
+  will-change: transform, opacity, filter;
+}
+
+.animate-ambient-pulse {
+  animation: ambient-glow-pulse 5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+

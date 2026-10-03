@@ -26,21 +26,20 @@ export async function Footer() {
 
   return (
     <footer
-      className="w-full"
-      style={{ background: "#020818", borderTop: "1px solid rgba(56,189,248,0.08)" }}
+      className="w-full bg-[#070708] border-t border-white/10"
     >
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
         {/* Column 1 — Brand */}
         <div>
           <div className="flex items-center gap-3 mb-3">
-            <div className="relative w-8 h-8 flex-shrink-0">
+            <div className="relative w-9 h-7 flex-shrink-0">
               <Image
-                src="/logo.png"
+                src="/circ-logo-white.png"
                 alt="CIRC Logo"
                 fill
                 className="object-contain"
-                sizes="32px"
+                sizes="36px"
               />
             </div>
             <span className="font-display text-white text-xl font-bold">CIRC</span>

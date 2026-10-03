@@ -41,7 +41,7 @@ export default async function GalleryPage() {
   ).sort()
 
   return (
-    <div className="flex flex-col min-h-screen bg-surface-2">
+    <div className="flex flex-col min-h-screen bg-surface-2 dark:bg-[#09090B] transition-colors">
       <PageHero
         badge="CIRC IN ACTION"
         title="Event & Project Gallery"
@@ -53,12 +53,12 @@ export default async function GalleryPage() {
 
       {images.length === 0 ? (
         <div className="max-w-2xl mx-auto my-20 px-6">
-          <div className="py-24 text-center bg-white rounded-3xl border border-dashed border-primary/20 shadow-sm">
+          <div className="py-24 text-center bg-white dark:bg-[#121214] rounded-3xl border border-dashed border-primary/20 dark:border-white/15 shadow-sm">
             <p className="font-mono text-[10px] tracking-widest uppercase font-bold text-accent-orange mb-3">
               GALLERY ARCHIVE
             </p>
-            <h3 className="font-display text-primary text-xl font-bold mb-2">No Photos Published Yet</h3>
-            <p className="font-body text-muted text-sm max-w-sm mx-auto">
+            <h3 className="font-display text-primary dark:text-white text-xl font-bold mb-2">No Photos Published Yet</h3>
+            <p className="font-body text-muted dark:text-gray-400 text-sm max-w-sm mx-auto">
               Check back soon for photos from our upcoming workshops and community sessions.
             </p>
           </div>

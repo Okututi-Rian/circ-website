@@ -135,7 +135,7 @@ export default async function CommunitiesPage() {
       />
 
       {/* Communities 2-column grid */}
-      <section className="bg-surface-2 py-20">
+      <section className="bg-surface-2 dark:bg-[#09090B] py-20 transition-colors">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {communities.map((community) => {
@@ -154,38 +154,38 @@ export default async function CommunitiesPage() {
               return (
                 <div
                   key={community.id}
-                  className="bg-white rounded-3xl border border-primary/10 p-7 flex flex-col shadow-[0_8px_30px_rgba(15,36,96,0.04)] hover:shadow-[0_20px_45px_rgba(15,36,96,0.08)] hover:-translate-y-1 transition-all duration-300"
+                  className="bg-white dark:bg-[#121214] rounded-3xl border border-primary/10 dark:border-white/10 p-7 flex flex-col shadow-[0_8px_30px_rgba(15,36,96,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_45px_rgba(15,36,96,0.08)] dark:hover:shadow-[0_20px_45px_rgba(0,0,0,0.8)] hover:-translate-y-1 transition-all duration-300"
                 >
                   {/* Icon + Name */}
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-2xl bg-surface-2 border border-primary/10 flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-surface-2 dark:bg-[#1A1A1E] border border-primary/10 dark:border-white/10 flex items-center justify-center flex-shrink-0">
                       <Icon size={22} className="text-accent-orange" />
                     </div>
-                    <h2 className="font-display text-primary text-xl font-bold leading-tight">
+                    <h2 className="font-display text-primary dark:text-white text-xl font-bold leading-tight transition-colors">
                       {community.name}
                     </h2>
                   </div>
 
                   {/* Description */}
-                  <p className="font-body text-muted text-sm leading-relaxed mb-5 flex-1">
+                  <p className="font-body text-muted dark:text-gray-400 text-sm leading-relaxed mb-5 flex-1 transition-colors">
                     {community.description}
                   </p>
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-1.5 mb-5">
                     {community.focusTags.map((tag) => (
-                      <span key={tag} className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-primary/5 text-primary/80 border border-primary/10">
+                      <span key={tag} className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-primary/5 dark:bg-white/5 text-primary/80 dark:text-gray-300 border border-primary/10 dark:border-white/10">
                         {tag}
                       </span>
                     ))}
                   </div>
 
                   {/* Lead + CTA row */}
-                  <div className="flex items-center justify-between gap-3 pt-4 border-t border-primary/5">
+                  <div className="flex items-center justify-between gap-3 pt-4 border-t border-primary/5 dark:border-white/10">
                     {community.lead ? (
                       <div className="flex items-center gap-2.5">
                         {community.lead.photo ? (
-                          <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-white shadow-sm flex-shrink-0">
+                          <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-white dark:border-[#222226] shadow-sm flex-shrink-0">
                             <Image
                               src={community.lead.photo}
                               alt={community.lead.name}
@@ -200,7 +200,7 @@ export default async function CommunitiesPage() {
                           </div>
                         )}
                         <div className="min-w-0">
-                          <p className="font-body text-main text-xs font-semibold truncate leading-tight">
+                          <p className="font-body text-main dark:text-white text-xs font-semibold truncate leading-tight">
                             {community.lead.name}
                           </p>
                           <span className="font-body text-accent-orange text-[10px] font-semibold uppercase tracking-wider">
@@ -209,7 +209,7 @@ export default async function CommunitiesPage() {
                         </div>
                       </div>
                     ) : (
-                      <p className="font-body text-muted text-xs italic">Lead to be announced</p>
+                      <p className="font-body text-muted dark:text-gray-400 text-xs italic">Lead to be announced</p>
                     )}
 
                     <Link

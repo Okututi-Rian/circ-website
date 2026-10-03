@@ -25,7 +25,7 @@ export default async function JoinPage() {
   }), FALLBACK_COMMUNITIES)
 
   return (
-    <div className="flex flex-col min-h-screen bg-surface-2">
+    <div className="flex flex-col min-h-screen bg-surface-2 dark:bg-[#09090B] transition-colors">
       <PageHero
         badge="MEMBERSHIP APPLICATION"
         title={
@@ -42,7 +42,7 @@ export default async function JoinPage() {
           {["Workshops", "Hackathons", "Mentorship", "Industry Connections", "Real Projects", "Community"].map((b) => (
             <span
               key={b}
-              className="font-body text-xs font-medium px-3.5 py-1.5 rounded-full bg-white/80 border border-primary/10 text-primary/80 shadow-sm"
+              className="font-body text-xs font-medium px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-[#141416]/90 border border-primary/10 dark:border-white/10 text-primary/80 dark:text-gray-300 shadow-sm"
             >
               {b}
             </span>
@@ -50,9 +50,9 @@ export default async function JoinPage() {
         </div>
       </PageHero>
 
-      <section className="bg-surface-2 py-16">
+      <section className="bg-surface-2 dark:bg-[#09090B] py-16 transition-colors">
         <div className="max-w-2xl mx-auto px-6">
-          <div className="bg-white rounded-3xl p-8 sm:p-12 border border-primary/10 shadow-[0_10px_35px_rgba(15,36,96,0.05)]">
+          <div className="bg-white dark:bg-[#121214] rounded-3xl p-8 sm:p-12 border border-primary/10 dark:border-white/10 shadow-[0_10px_35px_rgba(15,36,96,0.05)] dark:shadow-[0_10px_35px_rgba(0,0,0,0.6)]">
             <ApplicationForm communities={communities} />
           </div>
         </div>
