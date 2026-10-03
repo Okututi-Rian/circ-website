@@ -11,7 +11,7 @@ import { createPageMetadata } from "@/lib/seo"
 
 export const metadata = createPageMetadata({
   title: "Computing & Technology at Mama Ngina University College",
-  description: "Join CIRC, the Computing Innovation & Research Club at Mama Ngina University College, a constituent college of Kenyatta University. Explore technology communities, events, and student projects in Kenya.",
+  description: "CIRC (Computing Innovation and Research Club) is a student club at Mama Ngina University College (MNUC), a constituent college of Kenyatta University in Mutomo, Gatundu South, Kiambu County, Kenya. Formerly known as the Computer Science Club, CIRC supports student communities, events, and research.",
   path: "/",
   keywords: ["MNUC", "SPAS", "School of Pure and Applied Sciences", "software development", "AI and machine learning", "data science", "cybersecurity", "Web3", "Internet of Things", "student technology club Kenya"],
 })
@@ -68,7 +68,7 @@ export default async function HomePage() {
               About <span className="text-accent-orange">Us</span>
             </h1>
             <p className="mt-5 max-w-sm font-body text-lg leading-relaxed text-muted">
-              Computing, technology and research at MNUC.
+              A student club for computing, technology and research at MNUC.
             </p>
             <div className="mt-7 h-1 w-16 rounded-full bg-accent-orange" />
             <p className="mt-6 max-w-sm font-body text-base leading-relaxed text-main">
@@ -85,7 +85,7 @@ export default async function HomePage() {
                 Learn, build, and explore together
               </h2>
               <p className="font-body text-base leading-8 text-main">
-                The Computing Innovation &amp; Research Club (CIRC) brings students together at <a className="font-medium text-primary underline decoration-accent-sky decoration-2 underline-offset-4 hover:text-accent-orange" href="https://mnu.ac.ke/" target="_blank" rel="noreferrer">Mama Ngina University College (MNUC)</a>, a constituent college of <a className="font-medium text-primary underline decoration-accent-sky decoration-2 underline-offset-4 hover:text-accent-orange" href="https://www.ku.ac.ke/ku-history-profile/" target="_blank" rel="noreferrer">Kenyatta University</a>. Through student communities, workshops, events and projects, members build practical computing skills and explore technology and research.
+                CIRC (Computing Innovation and Research Club) is a student club at <a className="font-medium text-primary underline decoration-accent-sky decoration-2 underline-offset-4 hover:text-accent-orange" href="https://mnu.ac.ke/" target="_blank" rel="noreferrer">Mama Ngina University College (MNUC)</a>, a constituent college of <a className="font-medium text-primary underline decoration-accent-sky decoration-2 underline-offset-4 hover:text-accent-orange" href="https://www.ku.ac.ke/ku-history-profile/" target="_blank" rel="noreferrer">Kenyatta University</a>, located in Mutomo, Gatundu South, Kiambu County, Kenya. Formerly known as the Computer Science Club, CIRC brings students together through communities, workshops, events and projects to build practical computing skills and explore technology and research.
               </p>
             </article>
 

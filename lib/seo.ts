@@ -14,6 +14,9 @@ const CORE_KEYWORDS = [
   "Computing Innovation & Research Club",
   "CIRC Kenya",
   "Mama Ngina University College",
+  "Computer Science Club",
+  "MNUC Computer Science Club",
+  "Mutomo, Gatundu South, Kiambu County, Kenya",
   "Kenyatta University",
 ]
 
