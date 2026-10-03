@@ -27,12 +27,12 @@ export function createPageMetadata({
   keywords = [],
   image = "/android-chrome-512x512.png",
 }: PageSeoInput): Metadata {
-  const pageTitle = `${title} | CIRC`
+  const pageTitle = path === "/" ? title : `${title} | CIRC`
   const pageDescription = plainTextDescription(description) || `Learn about ${title} at Mama Ngina University College.`
   const pageKeywords = [...new Set([...CORE_KEYWORDS, ...keywords])]
 
   return {
-    title,
+    title: pageTitle,
     description: pageDescription,
     keywords: pageKeywords,
     robots: {
