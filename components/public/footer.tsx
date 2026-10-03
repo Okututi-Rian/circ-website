@@ -74,6 +74,7 @@ export async function Footer() {
             <Link href="/privacy" className="font-body text-white/30 text-xs hover:text-white/70 transition-colors">Privacy</Link>
             <Link href="/terms" className="font-body text-white/30 text-xs hover:text-white/70 transition-colors">Terms</Link>
             <Link href="/cookies" className="font-body text-white/30 text-xs hover:text-white/70 transition-colors">Cookies</Link>
+            <Link href="/ai-attribution" className="font-body text-white/30 text-xs hover:text-white/70 transition-colors">Attribution Policy</Link>
           </div>
         </div>
 
