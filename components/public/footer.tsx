@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma"
 import { getPublicCached } from "@/lib/redis-cache"
 import { Github, Twitter, Instagram, Linkedin } from "lucide-react"
 import { FALLBACK_COMMUNITIES } from "@/lib/public-fallbacks"
+import { SITE_URL } from "@/lib/seo"
 
 export async function Footer() {
   const settings = await getPublicCached("settings:singleton", () => prisma.settings.findUnique({
@@ -132,6 +133,9 @@ export async function Footer() {
         <span className="font-mono text-[9px] tracking-widest text-white/20">
           © {new Date().getFullYear()} CIRC — MAMA NGINA UNIVERSITY COLLEGE
         </span>
+        <Link href={SITE_URL} className="font-mono text-[9px] tracking-widest text-white/40 hover:text-white/75 transition-colors">
+          Official website: www.circ.co.ke
+        </Link>
         <span className="font-mono text-[9px] tracking-widest text-white/20">
           AY 2025/26 // ALL RIGHTS RESERVED
         </span>

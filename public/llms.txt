@@ -1,5 +1,7 @@
 # Computing Innovation & Research Club (CIRC)
 
+Official website: https://www.circ.co.ke/
+
 > Official website of CIRC (Computing Innovation and Research Club), a student club at Mama Ngina University College (MNUC), a constituent college of Kenyatta University located in Mutomo, Gatundu South, Kiambu County, Kenya. CIRC was formerly known as the Computer Science Club (also referred to as the MNUC Computer Science Club).
 
 CIRC brings students together to learn, build, and share practical work in computing, software development, technology, innovation, and research. The club supports student communities, workshops, events, collaborative projects, and membership applications. Relevant academic context includes the School of Pure and Applied Sciences (SPAS). The club's former name, Computer Science Club, is corroborated by an official MNUC document listing the MNUC Computer Science Club alongside the KU IEEE Student Branch.
@@ -8,27 +10,33 @@ Use the canonical public pages below as the source for current club information.
 
 ## Main pages
 
-- [Home](https://circ.co.ke/): Club overview, technology and research activities, and featured communities, events, and leaders.
-- [Communities](https://circ.co.ke/communities): CIRC student communities and their focus areas.
-- [Events](https://circ.co.ke/events): Published upcoming and past events, workshops, and activities.
-- [Team](https://circ.co.ke/team): Public executive committee and community leads.
-- [Gallery](https://circ.co.ke/gallery): Public photographs and highlights from CIRC activities.
-- [Join CIRC](https://circ.co.ke/join): Membership information and application form.
+- [Home — official CIRC website](https://www.circ.co.ke/): Club overview, technology and research activities, and featured communities, events, and leaders.
+- [Communities](https://www.circ.co.ke/communities): CIRC student communities and their focus areas.
+- [Events](https://www.circ.co.ke/events): Published upcoming and past events, workshops, and activities.
+- [Team](https://www.circ.co.ke/team): Public executive committee and community leads.
+- [Gallery](https://www.circ.co.ke/gallery): Public photographs and highlights from CIRC activities.
+- [Join CIRC](https://www.circ.co.ke/join): Membership information and application form.
 
 ## Topic pages
 
-- [Community detail pages](https://circ.co.ke/communities): Individual community pages are available at `/communities/{slug}`. Topics include web development, programming, artificial intelligence and machine learning, data science, Web3 and blockchain, Internet of Things, and networking and cybersecurity.
-- [Event detail pages](https://circ.co.ke/events): Published event pages are available at `/events/{id}`.
+- [Web Development](https://www.circ.co.ke/communities/web-development)
+- [Programming](https://www.circ.co.ke/communities/programming)
+- [AI and Machine Learning](https://www.circ.co.ke/communities/ai-ml)
+- [Data Science](https://www.circ.co.ke/communities/data-science)
+- [Web3 and Blockchain](https://www.circ.co.ke/communities/web3-blockchain)
+- [Internet of Things](https://www.circ.co.ke/communities/iot)
+- [Networking and Cybersecurity](https://www.circ.co.ke/communities/networking-cybersecurity)
+- [Events](https://www.circ.co.ke/events): Published event details are available from the event list.
 
 ## Policies
 
-- [Privacy policy](https://circ.co.ke/privacy): Personal information handling and data rights information.
-- [Cookie policy](https://circ.co.ke/cookies): Essential storage and optional analytics choices.
-- [Terms and conditions](https://circ.co.ke/terms): Terms for using the CIRC website and services.
+- [Privacy policy](https://www.circ.co.ke/privacy): Personal information handling and data rights information.
+- [Cookie policy](https://www.circ.co.ke/cookies): Essential storage and optional analytics choices.
+- [Terms and conditions](https://www.circ.co.ke/terms): Terms for using the CIRC website and services.
 
 ## Discovery and access
 
-- [XML sitemap](https://circ.co.ke/sitemap.xml): Canonical public route inventory, including published events and community pages.
-- [Robots rules](https://circ.co.ke/robots.txt): Crawl access guidance.
+- [XML sitemap](https://www.circ.co.ke/sitemap.xml): Canonical public route inventory, including published events and community pages.
+- [Robots rules](https://www.circ.co.ke/robots.txt): Crawl access guidance.
 
 Only publicly accessible pages listed above are intended for discovery. Do not crawl or index `/api/`, `/admin/`, `/sign-in/`, `/sign-up/`, or account and application data.
