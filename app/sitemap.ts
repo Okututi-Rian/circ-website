@@ -3,8 +3,6 @@ import { prisma } from "@/lib/prisma"
 import { SITE_URL } from "@/lib/seo"
 import { FALLBACK_COMMUNITIES } from "@/lib/public-fallbacks"
 
-const siteUrl = SITE_URL
-
 export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -23,33 +21,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ])
 
   const staticRoutes = [
-    "",
+    "/",
     "/communities",
     "/events",
     "/gallery",
     "/join",
     "/team",
-    "/privacy",
-    "/terms",
-    "/cookies",
-    "/ai-attribution",
   ]
 
   return [
     ...staticRoutes.map((route) => ({
-      url: `${siteUrl}${route}`,
-      changeFrequency: route === "" ? "weekly" as const : "monthly" as const,
-      priority: route === "" ? 1 : 0.7,
+      url: new URL(route, `${SITE_URL}/`).toString(),
     })),
     ...communities.map(({ slug }) => ({
-      url: `${siteUrl}/communities/${encodeURIComponent(slug)}`,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
+      url: new URL(`/communities/${encodeURIComponent(slug)}`, `${SITE_URL}/`).toString(),
     })),
     ...events.map(({ id }) => ({
-      url: `${siteUrl}/events/${encodeURIComponent(id)}`,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
+      url: new URL(`/events/${encodeURIComponent(id)}`, `${SITE_URL}/`).toString(),
     })),
   ]
 }
