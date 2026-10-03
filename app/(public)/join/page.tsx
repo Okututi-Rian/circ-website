@@ -25,27 +25,24 @@ export default async function JoinPage() {
   }), FALLBACK_COMMUNITIES)
 
   return (
-    <div className="flex flex-col min-h-screen" style={{ background: "#020818" }}>
+    <div className="flex flex-col min-h-screen bg-surface-2">
       <PageHero
         badge="MEMBERSHIP APPLICATION"
         title={
           <>
-            Become a <span className="text-[#F97316]">CIRC</span> Member
+            Become a <span className="text-accent-orange font-extrabold italic">CIRC</span> Member
           </>
         }
         subtitle="Join a community of innovators, researchers, and builders. Applications are reviewed on a rolling basis."
         size="md"
+        image="/hero/hero-bg-1.jpg"
+        imageAlt="CIRC members working together"
       >
         <div className="flex flex-wrap justify-center gap-2 mt-2">
           {["Workshops", "Hackathons", "Mentorship", "Industry Connections", "Real Projects", "Community"].map((b) => (
             <span
               key={b}
-              className="font-body text-[11px] px-3 py-1.5 rounded-full"
-              style={{
-                background: "rgba(56,189,248,0.07)",
-                border: "1px solid rgba(56,189,248,0.15)",
-                color: "rgba(255,255,255,0.65)",
-              }}
+              className="font-body text-xs font-medium px-3.5 py-1.5 rounded-full bg-white/80 border border-primary/10 text-primary/80 shadow-sm"
             >
               {b}
             </span>
@@ -53,9 +50,11 @@ export default async function JoinPage() {
         </div>
       </PageHero>
 
-      <section className="bg-surface">
-        <div className="max-w-2xl mx-auto px-6 py-16">
-          <ApplicationForm communities={communities} />
+      <section className="bg-surface-2 py-16">
+        <div className="max-w-2xl mx-auto px-6">
+          <div className="bg-white rounded-3xl p-8 sm:p-12 border border-primary/10 shadow-[0_10px_35px_rgba(15,36,96,0.05)]">
+            <ApplicationForm communities={communities} />
+          </div>
         </div>
       </section>
     </div>

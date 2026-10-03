@@ -28,14 +28,16 @@ export default async function EventsPage() {
   const featuredEvent = upcomingEvents[0] ?? null
 
   return (
-    <div className="flex flex-col min-h-screen" style={{ background: "#020818" }}>
+    <div className="flex flex-col min-h-screen bg-surface-2">
       <PageHero
         badge="EVENTS & ACTIVITIES"
         title="What's Happening"
         subtitle="Hackathons, workshops, talks, and mentorship sessions — built for people who build things."
         size="md"
+        image="/hero/hero-bg-3.jpg"
+        imageAlt="CIRC event photo"
       />
-      <div className="bg-white flex-1 pb-20 lg:pb-32">
+      <div className="flex-1 pb-20 lg:pb-32">
         <EventsClient events={events} featuredEvent={featuredEvent} />
       </div>
     </div>

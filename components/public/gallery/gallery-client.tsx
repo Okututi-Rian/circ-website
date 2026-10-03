@@ -30,17 +30,17 @@ export function GalleryClient({ images, eventNames }: GalleryClientProps) {
   return (
     <div className="flex flex-col">
       {/* Filter bar */}
-      <div className="bg-surface border-b border-border py-4 sticky top-16 z-40">
-        <div className="max-w-7xl mx-auto px-6 flex flex-wrap gap-3 overflow-x-auto no-scrollbar">
+      <div className="bg-surface-2/90 backdrop-blur-md border-b border-primary/10 py-4 sticky top-16 z-40">
+        <div className="max-w-7xl mx-auto px-6 flex flex-wrap gap-2.5 overflow-x-auto no-scrollbar">
           {["All Photos", ...eventNames].map((name) => (
             <button
               key={name}
               onClick={() => setActiveFilter(name)}
               className={cn(
-                "font-body text-sm px-5 py-2 rounded-full border border-border transition-all duration-150 whitespace-nowrap",
+                "font-body text-xs sm:text-sm font-semibold px-5 py-2 rounded-full border transition-all duration-200 whitespace-nowrap shadow-sm",
                 activeFilter === name 
-                  ? "bg-primary text-white border-primary" 
-                  : "text-muted hover:border-primary hover:text-primary"
+                  ? "bg-primary text-white border-primary shadow-md" 
+                  : "bg-white/80 text-primary/70 border-primary/10 hover:border-primary/30 hover:bg-white hover:text-primary"
               )}
             >
               {name}
@@ -56,7 +56,7 @@ export function GalleryClient({ images, eventNames }: GalleryClientProps) {
             {filteredImages.map((img, index) => (
               <div 
                 key={img.id}
-                className="relative group overflow-hidden rounded-xl break-inside-avoid cursor-pointer bg-surface-2"
+                className="relative group overflow-hidden rounded-3xl break-inside-avoid cursor-pointer bg-white border border-primary/10 shadow-[0_8px_30px_rgba(15,36,96,0.04)] hover:shadow-[0_20px_45px_rgba(15,36,96,0.12)] hover:-translate-y-1.5 transition-all duration-300"
                 onClick={() => setLightboxIndex(index)}
               >
                 <Image 

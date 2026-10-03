@@ -31,7 +31,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticRoutes.map((route) => ({
-      url: new URL(route, `${SITE_URL}/`).toString(),
+      // Keep the homepage URL byte-for-byte aligned with the emitted canonical.
+      url: route === "/" ? SITE_URL : new URL(route, `${SITE_URL}/`).toString(),
     })),
     ...communities.map(({ slug }) => ({
       url: new URL(`/communities/${encodeURIComponent(slug)}`, `${SITE_URL}/`).toString(),

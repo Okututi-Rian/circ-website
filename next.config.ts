@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
     }
     return config
   },
+  allowedDevOrigins: ["192.168.0.102"],
   images: {
     remotePatterns: [
       {

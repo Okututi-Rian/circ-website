@@ -17,89 +17,98 @@ export const metadata = createPageMetadata({
   keywords: ["MNUC", "SPAS", "School of Pure and Applied Sciences", "software development", "AI and machine learning", "data science", "cybersecurity", "Web3", "Internet of Things", "student technology club Kenya"],
 })
 
+export const revalidate = 300
+
 export default async function HomePage() {
-  // Fetch communities
-  const communities = await getPublicCached("home:communities", () => prisma.community.findMany(), FALLBACK_COMMUNITIES)
+  const [communities, upcomingEvents, execs, memberCount, communityCount, eventCount, galleryImages] = await Promise.all([
+    getPublicCached("home:communities", () => prisma.community.findMany(), FALLBACK_COMMUNITIES),
+    getPublicCached("home:upcoming-events", () => prisma.event.findMany({
+      where: {
+        published: true,
+        date: { gte: new Date() },
+      },
+      orderBy: { date: "asc" },
+      take: 3,
+    }), []),
+    getPublicCached("home:executives", () => prisma.teamMember.findMany({
+      where: {
+        role: { in: ["CHAIRPERSON", "VICE_CHAIRPERSON", "SECRETARY", "TREASURER", "EVENT_ORGANIZER"] as any },
+      },
+      orderBy: { displayOrder: "asc" },
+    }), []),
+    getPublicCached("home:member-count", () => prisma.teamMember.count(), 120),
+    getPublicCached("home:community-count", () => prisma.community.count(), 6),
+    getPublicCached("home:event-count", () => prisma.event.count({ where: { published: true } }), 30),
+    getPublicCached("home:gallery-images", () => prisma.galleryImage.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 6,
+      select: { url: true },
+    }), []),
 
-  // Fetch upcoming events (next 3)
-  const upcomingEvents = await getPublicCached("home:upcoming-events", () => prisma.event.findMany({
-    where: {
-      published: true,
-      date: { gte: new Date() },
-    },
-    orderBy: { date: "asc" },
-    take: 3,
-  }), [])
+  ])
 
-  // Fetch executive team members
-  const execRoles = [
-    "CHAIRPERSON",
-    "VICE_CHAIRPERSON",
-    "SECRETARY",
-    "TREASURER",
-    "EVENT_ORGANIZER"
-  ]
-  const execs = await getPublicCached("home:executives", () => prisma.teamMember.findMany({
-    where: {
-      role: { in: execRoles as any },
-    },
-    orderBy: { displayOrder: "asc" },
-  }), [])
+  // Use only DB images — the carousel handles repeating them if < 6
+  const heroSlides = galleryImages.map((image) => image.url)
 
   return (
-    <div className="flex flex-col">
+    <div className="circ-home-design flex flex-col">
       <Suspense><UnauthorizedToast /></Suspense>
-      {/* Section A: Hero (stats are embedded in TerminalHero metrics bar) */}
-      <TerminalHero />
+      <TerminalHero
+        slides={heroSlides}
+        stats={{
+          members: memberCount,
+          communities: communityCount,
+          eventsRun: eventCount,
+          projectsBuilt: 30,
+        }}
+      />
 
       <section
-        className="relative overflow-hidden bg-surface py-16 md:py-24"
+        className="relative overflow-hidden bg-white py-24 md:py-32"
         aria-labelledby="circ-about-heading"
       >
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent-sky via-primary to-accent-orange opacity-70"
+          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"
         />
-        <div className="mx-auto grid max-w-6xl items-start gap-10 px-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+        <div className="mx-auto grid max-w-7xl items-start gap-12 px-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <div className="lg:sticky lg:top-28">
-            <p className="inline-flex rounded-full border border-primary/10 bg-surface-2 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
-              Who we are
+            <p className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-orange">
+              <span className="h-px w-7 bg-accent-orange" /> Who we are
             </p>
-            <h1 id="circ-about-heading" className="mt-5 font-display text-4xl font-bold leading-tight text-primary md:text-5xl">
-              About <span className="text-accent-orange">Us</span>
-            </h1>
-            <p className="mt-5 max-w-sm font-body text-lg leading-relaxed text-muted">
+            <h2 id="circ-about-heading" className="mt-5 max-w-lg font-display text-5xl font-bold leading-[0.94] tracking-[-0.06em] text-primary md:text-6xl">
+              About <span className="text-accent-orange">CIRC.</span>
+            </h2>
+            <p className="mt-6 max-w-sm font-body text-lg leading-relaxed text-muted">
               A student club for computing, technology and research at MNUC.
             </p>
-            <div className="mt-7 h-1 w-16 rounded-full bg-accent-orange" />
+            <div className="mt-8 h-1 w-16 rounded-full bg-accent-orange" />
             <p className="mt-6 max-w-sm font-body text-base leading-relaxed text-main">
               A place for students to learn together, grow practical skills, and turn curiosity into meaningful work.
             </p>
           </div>
 
-          <div className="space-y-5">
-            <article className="rounded-3xl border border-border bg-surface-2 p-6 shadow-card md:p-8">
-              <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-accent-orange">
-                Our community
-              </p>
-              <h2 className="mb-4 font-display text-2xl font-bold text-primary">
-                Learn, build, and explore together
-              </h2>
-              <p className="font-body text-base leading-8 text-main">
+          <div className="divide-y divide-primary/10 border-y border-primary/10">
+            <article className="grid gap-5 py-8 md:grid-cols-[4rem_1fr] md:gap-7 md:py-10">
+              <span className="font-mono text-xs tracking-widest text-accent-orange">01</span>
+              <div>
+                <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-muted">Our community</p>
+                <h3 className="mb-4 font-display text-2xl font-bold tracking-tight text-primary md:text-3xl">Learn, build, and explore together</h3>
+                <p className="font-body text-base leading-8 text-main">
                 CIRC (Computing Innovation and Research Club) is a student club at <a className="font-medium text-primary underline decoration-accent-sky decoration-2 underline-offset-4 hover:text-accent-orange" href="https://mnu.ac.ke/" target="_blank" rel="noreferrer">Mama Ngina University College (MNUC)</a>, a constituent college of <a className="font-medium text-primary underline decoration-accent-sky decoration-2 underline-offset-4 hover:text-accent-orange" href="https://www.ku.ac.ke/ku-history-profile/" target="_blank" rel="noreferrer">Kenyatta University</a>, located in Mutomo, Gatundu South, Kiambu County, Kenya. Formerly known as the Computer Science Club, CIRC brings students together through communities, workshops, events and projects to build practical computing skills and explore technology and research.
-              </p>
+                </p>
+              </div>
             </article>
 
-            <article className="rounded-3xl border border-border bg-white p-6 shadow-card md:p-8">
-              <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-accent-sky">
-                What we explore
-              </p>
-              <h2 className="mb-4 font-display text-2xl font-bold text-primary">
-                Computing across disciplines
-              </h2>
-              <p className="font-body text-base leading-8 text-main">
+            <article className="grid gap-5 py-8 md:grid-cols-[4rem_1fr] md:gap-7 md:py-10">
+              <span className="font-mono text-xs tracking-widest text-accent-orange">02</span>
+              <div>
+                <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-muted">What we explore</p>
+                <h3 className="mb-4 font-display text-2xl font-bold tracking-tight text-primary md:text-3xl">Computing across disciplines</h3>
+                <p className="font-body text-base leading-8 text-main">
                 CIRC activities cover web and software development, programming, artificial intelligence and machine learning, data science, cybersecurity, Web3 and the Internet of Things. Students in relevant programmes at the <a className="font-medium text-primary underline decoration-accent-sky decoration-2 underline-offset-4 hover:text-accent-orange" href="https://spas.mnu.ac.ke/" target="_blank" rel="noreferrer">School of Pure and Applied Sciences (SPAS)</a>—including Computer Science, Information Technology, Mathematics and Computer Science, and Statistics and Programming—can explore the club alongside the wider MNUC student community.
-              </p>
+                </p>
+              </div>
             </article>
           </div>
         </div>

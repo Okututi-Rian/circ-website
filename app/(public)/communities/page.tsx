@@ -3,7 +3,6 @@ import { getPublicCached } from "@/lib/redis-cache"
 import Image from "next/image"
 import Link from "next/link"
 import { Globe2, BarChart2, Brain, Link2, Code2, Wifi, Shield } from "lucide-react"
-import { formatRole } from "@/lib/utils"
 import { PageHero } from "@/components/public/page-hero"
 import { createPageMetadata } from "@/lib/seo"
 import { FALLBACK_COMMUNITIES } from "@/lib/public-fallbacks"
@@ -17,17 +16,6 @@ const iconMap: Record<string, any> = {
   IOT: Wifi,
   NETWORKING_CYBERSECURITY: Shield,
 }
-
-// ... in the map function
-            const typeMap: Record<string, string> = {
-              "web-development": "WEB_DEV",
-              "data-science-and-modelling": "DATA_SCIENCE",
-              "ai-and-machine-learning": "AI_ML",
-              "web3-and-blockchain": "WEB3_BLOCKCHAIN",
-              "programming-community": "PROGRAMMING",
-              "internet-of-things": "IOT",
-              "networking-cybersecurity": "NETWORKING_CYBERSECURITY",
-            }
 
 const TECH_TAGS = [
   {
@@ -106,18 +94,6 @@ const TECH_TAGS = [
     ),
   },
   {
-    name: "Rust",
-    color: "#CE412B",
-    bgColor: "rgba(206,65,43,0.1)",
-    borderColor: "rgba(206,65,43,0.25)",
-    delay: "0.8s", duration: "9.5s", top: "50%", right: "5%",
-    logo: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="#CE412B">
-        <path d="M23.83 11.67l-1.03-.64a12.18 12.18 0 0 0-.1-1.33l.89-.8a.37.37 0 0 0-.1-.6l-1.12-.44a12.2 12.2 0 0 0-.4-1.28l.72-.95a.37.37 0 0 0-.2-.57l-1.18-.2a12.2 12.2 0 0 0-.68-1.18l.52-1.07a.37.37 0 0 0-.3-.52l-1.2.04a12.18 12.18 0 0 0-.94-1.04l.29-1.16a.37.37 0 0 0-.4-.44l-1.16.27a12.17 12.17 0 0 0-1.15-.85l.04-1.2a.37.37 0 0 0-.52-.3L15.5 1.4A12.18 12.18 0 0 0 14.29.72L14.09-.48a.37.37 0 0 0-.57-.2l-.95.72A12.2 12.2 0 0 0 11.29.64L10.85-.48a.37.37 0 0 0-.6-.1l-.8.89A12.18 12.18 0 0 0 9.12.21L8.48-.82a.37.37 0 0 0-.6.1L7.44.4A12 12 0 0 0 12 0a12 12 0 1 0 11.83 11.67z" opacity="0.8"/>
-      </svg>
-    ),
-  },
-  {
     name: "SQL",
     color: "#F29111",
     bgColor: "rgba(242,145,17,0.1)",
@@ -154,99 +130,99 @@ export default async function CommunitiesPage() {
         title="Our Communities"
         subtitle="Seven disciplines. One shared mission. Find your people and build something meaningful."
         size="lg"
+        image="/hero/hero-bg-2.jpg"
+        imageAlt="CIRC community members collaborating"
       />
 
-      {/* Communities list */}
-      <section className="bg-surface py-20">
-        <div className="max-w-5xl mx-auto px-6">
-        <div className="space-y-6">
-          {communities.map((community) => {
-            const typeMap: Record<string, string> = {
-              "web-development": "WEB_DEV",
-              "data-science-and-modelling": "DATA_SCIENCE",
-              "ai-and-machine-learning": "AI_ML",
-              "web3-and-blockchain": "WEB3_BLOCKCHAIN",
-              "programming-community": "PROGRAMMING",
-              "internet-of-things": "IOT",
-            }
-            const type = typeMap[community.slug] || "PROGRAMMING"
-            const Icon = iconMap[type] || Code2
+      {/* Communities 2-column grid */}
+      <section className="bg-surface-2 py-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {communities.map((community) => {
+              const typeMap: Record<string, string> = {
+                "web-development": "WEB_DEV",
+                "data-science-and-modelling": "DATA_SCIENCE",
+                "ai-and-machine-learning": "AI_ML",
+                "web3-and-blockchain": "WEB3_BLOCKCHAIN",
+                "programming-community": "PROGRAMMING",
+                "internet-of-things": "IOT",
+                "networking-cybersecurity": "NETWORKING_CYBERSECURITY",
+              }
+              const type = typeMap[community.slug] || "PROGRAMMING"
+              const Icon = iconMap[type] || Code2
 
-            return (
-              <div 
-                key={community.id}
-                className="bg-surface rounded-2xl border border-border p-8 flex flex-col md:flex-row gap-8 hover:shadow-card-hover transition-all duration-300"
-              >
-                {/* Left section */}
-                <div className="flex-1">
+              return (
+                <div
+                  key={community.id}
+                  className="bg-white rounded-3xl border border-primary/10 p-7 flex flex-col shadow-[0_8px_30px_rgba(15,36,96,0.04)] hover:shadow-[0_20px_45px_rgba(15,36,96,0.08)] hover:-translate-y-1 transition-all duration-300"
+                >
+                  {/* Icon + Name */}
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-14 h-14 rounded-2xl bg-surface-2 flex items-center justify-center text-primary flex-shrink-0">
-                      <Icon size={28} />
+                    <div className="w-12 h-12 rounded-2xl bg-surface-2 border border-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Icon size={22} className="text-accent-orange" />
                     </div>
-                    <h2 className="font-display text-primary text-2xl font-bold">
+                    <h2 className="font-display text-primary text-xl font-bold leading-tight">
                       {community.name}
                     </h2>
                   </div>
-                  <p className="font-body text-muted text-base leading-relaxed mb-6">
+
+                  {/* Description */}
+                  <p className="font-body text-muted text-sm leading-relaxed mb-5 flex-1">
                     {community.description}
                   </p>
-                  <div className="flex flex-wrap gap-2">
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-5">
                     {community.focusTags.map((tag) => (
-                      <span key={tag} className="tag-sky">
+                      <span key={tag} className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-primary/5 text-primary/80 border border-primary/10">
                         {tag}
                       </span>
                     ))}
                   </div>
-                </div>
 
-                {/* Right section */}
-                <div className="md:w-64 flex flex-col justify-between">
-                  {community.lead ? (
-                    <div className="flex items-center gap-3 bg-surface-2 rounded-xl p-3 mb-4">
-                      {community.lead.photo ? (
-                        <div className="w-10 h-10 rounded-full overflow-hidden border border-border">
-                          <Image 
-                            src={community.lead.photo} 
-                            alt={community.lead.name}
-                            width={40}
-                            height={40}
-                            className="object-cover"
-                          />
+                  {/* Lead + CTA row */}
+                  <div className="flex items-center justify-between gap-3 pt-4 border-t border-primary/5">
+                    {community.lead ? (
+                      <div className="flex items-center gap-2.5">
+                        {community.lead.photo ? (
+                          <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-white shadow-sm flex-shrink-0">
+                            <Image
+                              src={community.lead.photo}
+                              alt={community.lead.name}
+                              width={36}
+                              height={36}
+                              className="object-cover object-top"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                            {community.lead.name[0]}
+                          </div>
+                        )}
+                        <div className="min-w-0">
+                          <p className="font-body text-main text-xs font-semibold truncate leading-tight">
+                            {community.lead.name}
+                          </p>
+                          <span className="font-body text-accent-orange text-[10px] font-semibold uppercase tracking-wider">
+                            Community Lead
+                          </span>
                         </div>
-                      ) : (
-                        <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold">
-                          {community.lead.name[0]}
-                        </div>
-                      )}
-                      <div>
-                        <p className="font-body text-main text-sm font-medium leading-none">
-                          {community.lead.name}
-                        </p>
-                        <span className="font-body text-muted text-[10px] uppercase tracking-wider">
-                          {formatRole(community.lead.role)}
-                        </span>
                       </div>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-3 bg-surface-2 rounded-xl p-3 mb-4 opacity-50">
-                      <div className="w-10 h-10 rounded-full bg-border flex items-center justify-center text-muted font-display font-bold">
-                        ?
-                      </div>
-                      <p className="font-body text-muted text-sm italic">Lead to be announced</p>
-                    </div>
-                  )}
-                  
-                  <Link 
-                    href={`/communities/${community.slug}`}
-                    className="btn-primary w-full justify-center text-sm"
-                  >
-                    Explore Community
-                  </Link>
+                    ) : (
+                      <p className="font-body text-muted text-xs italic">Lead to be announced</p>
+                    )}
+
+                    <Link
+                      href={`/communities/${community.slug}`}
+                      className="inline-flex items-center justify-center gap-1.5 rounded-full bg-accent-orange px-5 py-2.5 font-body text-xs font-semibold text-white shadow-[0_8px_20px_rgba(249,115,22,0.22)] transition-all hover:bg-orange-600 hover:-translate-y-0.5 active:scale-95 flex-shrink-0"
+                    >
+                      Explore
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            )
-          })}
-        </div>
+              )
+            })}
+          </div>
         </div>
       </section>
     </div>

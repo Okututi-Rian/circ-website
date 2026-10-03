@@ -1,4 +1,6 @@
+import Image from "next/image"
 import Link from "next/link"
+import { ArrowUpRight, ArrowRight } from "lucide-react"
 import { COMMUNITY_ICONS, COMMUNITY_COLORS } from "./community-icons"
 
 interface Community {
@@ -7,115 +9,100 @@ interface Community {
   slug: string
   description: string
   focusTags: string[]
+  heroImage?: string | null
 }
 
 interface CommunitiesSectionProps {
   communities: Community[]
 }
 
+const COMMUNITY_PHOTOS = [
+  "/hero/hero-bg-3.jpg",
+  "/hero/hero-bg-4.jpg",
+  "/hero/hero-bg-2.jpg",
+  "/hero/hero-bg-5.jpg",
+  "/hero/hero-bg-1.jpg",
+]
+
 export function CommunitiesSection({ communities }: CommunitiesSectionProps) {
   const visibleCommunities = communities.slice(0, 6)
   const totalCount = communities.length
 
   return (
-    <section className="py-24 bg-surface-2">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <p className="font-mono text-accent-sky text-xs tracking-widest uppercase mb-3">
-            — our communities —
-          </p>
-          <h2 className="section-heading text-4xl lg:text-5xl">
-            Seven Communities.<br />One Mission.
-          </h2>
-          <p className="section-subheading mt-4 max-w-xl mx-auto">
-            Find your discipline. Build with purpose. Connect with people who think like you.
-          </p>
+    <section className="overflow-hidden bg-surface-2 py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between md:mb-16">
+          <div>
+            <p className="mb-4 inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-orange">
+              <span className="h-px w-7 bg-accent-orange" /> Find your people
+            </p>
+            <h2 className="max-w-3xl font-display text-4xl font-bold leading-[0.98] tracking-[-0.06em] text-primary sm:text-5xl md:text-6xl">
+              {totalCount} communities.<br className="hidden sm:block" /> One mission.
+            </h2>
+            <p className="mt-5 max-w-xl font-body text-base leading-relaxed text-muted md:text-lg">
+              Find your discipline. Build with purpose. Connect with people who think like you.
+            </p>
+          </div>
+          <Link href="/communities" className="group inline-flex w-fit items-center gap-3 rounded-full border border-primary/15 bg-white px-5 py-3 font-body text-sm font-semibold text-primary transition-colors hover:border-primary/40 hover:bg-primary hover:text-white">
+            All {totalCount} communities <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {visibleCommunities.map((community) => {
-            const colors = COMMUNITY_COLORS[community.slug] ?? COMMUNITY_COLORS["programming"]
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {visibleCommunities.map((community, index) => {
+            const colors = COMMUNITY_COLORS[community.slug] ?? COMMUNITY_COLORS.programming
             const Icon = COMMUNITY_ICONS[community.slug]
+            const image = community.heroImage || COMMUNITY_PHOTOS[index % COMMUNITY_PHOTOS.length]
 
             return (
               <Link
                 key={community.id}
-                href={"/communities/" + community.slug}
-                className="group relative bg-surface border border-border rounded-2xl p-6 hover:-translate-y-1.5 hover:shadow-[0_12px_32px_rgba(30,58,138,0.12)] transition-all duration-300 overflow-hidden cursor-pointer block"
+                href={`/communities/${community.slug}`}
+                className="group relative isolate flex min-h-[390px] flex-col justify-between overflow-hidden rounded-[1.35rem] bg-primary p-6 text-white shadow-[0_12px_35px_rgba(15,36,96,0.12)] transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_55px_rgba(15,36,96,0.22)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent-orange/50 sm:min-h-[430px] sm:p-7"
               >
-                {/* Hover accent line — left border that slides up */}
-                <div
-                  className="absolute left-0 top-0 bottom-0 w-0.5 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-bottom rounded-l-2xl"
-                  style={{ background: colors.icon }}
-                />
+                <Image src={image} alt="" fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="-z-20 object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-primary-dark/55 via-primary-dark/30 to-primary-dark/95" />
 
-                {/* Icon */}
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: colors.bg }}
-                >
+                <div className="flex items-start justify-between gap-4">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-primary/30 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.16em] text-white/90 backdrop-blur-md">
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent-green" /> CIRC community
+                  </span>
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/45 bg-white/10 text-white backdrop-blur transition duration-300 group-hover:border-accent-orange group-hover:bg-accent-orange">
+                    <ArrowUpRight size={18} />
+                  </span>
+                </div>
+
+                <div className="mt-10">
                   {Icon && (
-                    <Icon
-                      className="w-6 h-6"
-                      style={{ color: colors.icon } as React.CSSProperties}
-                    />
+                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-white/30 shadow-sm backdrop-blur-sm" style={{ backgroundColor: colors.bg }}>
+                      <Icon className="h-6 w-6" style={{ color: colors.icon }} />
+                    </div>
                   )}
+                  <h3 className="font-display text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl">
+                    {community.name}
+                  </h3>
+                  <p className="mt-3 line-clamp-2 max-w-md font-body text-sm leading-relaxed text-white/80 sm:text-base">
+                    {community.description}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {community.focusTags.slice(0, 3).map((tag) => (
+                      <span key={tag} className="rounded-full border border-white/30 bg-white/10 px-3 py-1.5 font-body text-[10px] font-medium text-white/90 backdrop-blur-sm">
+                        {tag}
+                      </span>
+                    ))}
+                    {community.focusTags.length > 3 && (
+                      <span className="rounded-full border border-white/25 px-3 py-1.5 font-body text-[10px] text-white/75">+{community.focusTags.length - 3}</span>
+                    )}
+                  </div>
+                  <div className="mt-6 inline-flex items-center gap-2 font-body text-sm font-semibold text-white transition-colors group-hover:text-orange-200">
+                    Explore community <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
+                  </div>
                 </div>
-
-                {/* Name */}
-                <h3 className="font-display text-primary text-lg font-bold mb-2 group-hover:text-accent-orange transition-colors duration-200">
-                  {community.name}
-                </h3>
-
-                {/* Description */}
-                <p className="font-body text-muted text-sm leading-relaxed line-clamp-2 mb-4">
-                  {community.description}
-                </p>
-
-                {/* Focus tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {community.focusTags.slice(0, 3).map(tag => (
-                    <span
-                      key={tag}
-                      className="font-body text-[11px] font-medium px-2.5 py-1 rounded-full"
-                      style={{ background: colors.bg, color: colors.text }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                  {community.focusTags.length > 3 && (
-                    <span className="font-body text-[11px] text-muted px-2.5 py-1">
-                      +{community.focusTags.length - 3} more
-                    </span>
-                  )}
-                </div>
-
-                {/* Footer */}
-                <div className="flex items-center gap-1 font-body text-sm font-medium transition-all duration-200 group-hover:gap-2"
-                  style={{ color: colors.icon }}>
-                  Explore
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-1">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </div>
+                <span aria-hidden="true" className="absolute bottom-0 left-0 h-1 w-full origin-left scale-x-0 bg-accent-orange transition-transform duration-500 group-hover:scale-x-100" />
               </Link>
             )
           })}
         </div>
-
-        {totalCount > 6 && (
-          <div className="text-center mt-8">
-            <Link
-              href="/communities"
-              className="inline-flex items-center gap-2 font-body text-sm font-medium px-6 py-3 rounded-xl border border-border text-primary hover:bg-surface-2 hover:border-primary transition-all duration-200"
-            >
-              Explore All {totalCount} Communities
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </Link>
-          </div>
-        )}
       </div>
     </section>
   )

@@ -46,46 +46,50 @@ export default async function TeamPage() {
         title="The People Behind CIRC"
         subtitle="Executive committee and community leads driving innovation, research, and community forward."
         size="md"
+        image="/hero/hero-bg-4.jpg"
+        imageAlt="CIRC team photo"
       />
 
       {/* Executive Committee section */}
-      <section className="bg-surface py-20">
+      <section className="bg-surface-2 py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-12">
-            <p className="font-mono text-accent-sky text-[10px] tracking-widest uppercase mb-2">EXECUTIVE COMMITTEE</p>
-            <h2 className="font-display text-primary text-3xl font-bold">Club Officers</h2>
+            <p className="font-mono text-accent-orange text-[10px] font-semibold tracking-[0.2em] uppercase mb-2">
+              EXECUTIVE COMMITTEE
+            </p>
+            <h2 className="font-display text-primary text-3xl sm:text-4xl font-bold tracking-tight">Club Officers</h2>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {execs.map((member) => {
               const isChair = member.role === "CHAIRPERSON"
               return (
-                <div key={member.id} className="group bg-surface rounded-2xl border border-border p-6 flex flex-col items-center text-center hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(30,58,138,0.12)] transition-all duration-300 relative overflow-hidden">
+                <div key={member.id} className="group bg-white rounded-3xl border border-primary/10 p-7 flex flex-col items-center text-center hover:-translate-y-2 hover:shadow-[0_20px_45px_rgba(15,36,96,0.12)] transition-all duration-300 relative overflow-hidden">
 
                   {/* Chairperson only — orange accent badge */}
                   {isChair && (
-                    <div className="absolute top-3 right-3 bg-accent-orange text-white font-mono text-[9px] font-bold px-2.5 py-1 rounded-full tracking-wider z-10">
+                    <div className="absolute top-4 right-4 bg-accent-orange text-white font-mono text-[9px] font-bold px-3 py-1 rounded-full tracking-wider z-10 shadow-sm">
                       CHAIR
                     </div>
                   )}
 
-                  {/* Circular photo — the key element */}
+                  {/* Circular photo */}
                   <div className="relative mb-5">
                     {/* Outer glow ring — animates on hover */}
-                    <div className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    <div className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"
                       style={{
                         background: isChair
-                          ? "linear-gradient(135deg, #F97316, #1E3A8A)"
+                          ? "linear-gradient(135deg, #F97316, #EA580C)"
                           : "linear-gradient(135deg, #1E3A8A, #38BDF8)"
                       }}
                     />
 
                     {/* Photo circle */}
                     <div
-                      className="relative rounded-full overflow-hidden border-4 border-surface flex-shrink-0"
+                      className="relative rounded-full overflow-hidden border-4 border-white shadow-md flex-shrink-0"
                       style={{
-                        width: isChair ? "120px" : "96px",
-                        height: isChair ? "120px" : "96px",
+                        width: isChair ? "124px" : "110px",
+                        height: isChair ? "124px" : "110px",
                       }}
                     >
                       {member.photo ? (
@@ -93,17 +97,20 @@ export default async function TeamPage() {
                           src={member.photo}
                           alt={member.name}
                           fill
-                          sizes="120px"
-                          className="object-cover object-top"
+                          sizes="124px"
+                          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                         />
                       ) : (
                         /* Fallback: initials on gradient background */
                         <div
                           className="w-full h-full flex items-center justify-center"
-                          style={{ background: "linear-gradient(135deg, #0F2460, #1E3A8A)" }}
+                          style={{
+                            background: isChair
+                              ? "linear-gradient(135deg, #1E3A8A, #F97316)"
+                              : "linear-gradient(135deg, #0F2460, #1E3A8A)",
+                          }}
                         >
-                          <span className="font-display text-white font-bold"
-                            style={{ fontSize: isChair ? "36px" : "28px" }}>
+                          <span className="font-display text-white font-extrabold text-2xl">
                             {member.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2).toUpperCase()}
                           </span>
                         </div>
@@ -112,55 +119,60 @@ export default async function TeamPage() {
                   </div>
 
                   {/* Member details below the circle */}
-                  <div className="flex flex-col items-center gap-1 flex-1">
-                    <h3 className="font-display text-primary text-base font-bold leading-tight">
+                  <div className="flex flex-col items-center gap-1.5 flex-1 w-full">
+                    <h3 className="font-display text-primary text-lg font-bold leading-tight group-hover:text-accent-orange transition-colors">
                       {member.name}
                     </h3>
-                    <p className="font-mono text-[10px] tracking-widest uppercase"
-                      style={{ color: isChair ? "#F97316" : "rgba(56,189,248,0.8)" }}>
+                    <span
+                      className={`inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-wide ${
+                        isChair
+                          ? "bg-accent-orange/10 text-accent-orange border border-accent-orange/20"
+                          : "bg-primary/5 text-primary/80 border border-primary/10"
+                      }`}
+                    >
                       {formatRole(member.role)}
-                    </p>
+                    </span>
                     {member.bio && (
-                      <p className="font-body text-muted text-xs leading-relaxed line-clamp-2 mt-2 max-w-[180px]">
+                      <p className="font-body text-muted text-xs leading-relaxed line-clamp-2 mt-2 max-w-[220px]">
                         {member.bio}
                       </p>
                     )}
 
-                    {/* Social links — conditional, only shown if values exist */}
+                    {/* Social links */}
                     {(member.linkedin || member.github || member.twitter) && (
-                      <div className="flex items-center justify-center gap-2 mt-3">
+                      <div className="flex items-center justify-center gap-2 mt-4">
                         {member.linkedin && (
                           <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
-                            className="w-7 h-7 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface-2 transition-colors border border-border"
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 hover:text-accent-orange bg-surface-2 hover:bg-white transition-colors border border-primary/10"
                             aria-label="LinkedIn">
-                            <Linkedin size={12} />
+                            <Linkedin size={13} />
                           </a>
                         )}
                         {member.github && (
                           <a href={member.github} target="_blank" rel="noopener noreferrer"
-                            className="w-7 h-7 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface-2 transition-colors border border-border"
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 hover:text-accent-orange bg-surface-2 hover:bg-white transition-colors border border-primary/10"
                             aria-label="GitHub">
-                            <Github size={12} />
+                            <Github size={13} />
                           </a>
                         )}
                         {member.twitter && (
                           <a href={member.twitter} target="_blank" rel="noopener noreferrer"
-                            className="w-7 h-7 rounded-lg flex items-center justify-center text-muted hover:text-primary hover:bg-surface-2 transition-colors border border-border"
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 hover:text-accent-orange bg-surface-2 hover:bg-white transition-colors border border-primary/10"
                             aria-label="Twitter / X">
-                            <Twitter size={12} />
+                            <Twitter size={13} />
                           </a>
                         )}
                       </div>
                     )}
                   </div>
 
-                  {/* Bottom accent line — slides in on hover */}
+                  {/* Bottom accent line */}
                   <div
-                    className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+                    className="absolute bottom-0 left-0 right-0 h-1 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"
                     style={{
                       background: isChair
-                        ? "#F97316"
-                        : "linear-gradient(90deg, #1E3A8A, #38BDF8)"
+                        ? "linear-gradient(90deg, #F97316, #FB923C)"
+                        : "linear-gradient(90deg, #1E3A8A, #38BDF8)",
                     }}
                   />
                 </div>
@@ -170,17 +182,14 @@ export default async function TeamPage() {
         </div>
       </section>
 
-      {/* Divider */}
-      <div className="max-w-7xl mx-auto px-6 w-full">
-        <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      </div>
-
       {/* Community Leads Section */}
-      <section className="py-20" style={{ background: "#020818" }}>
+      <section className="py-20 bg-surface-2 border-t border-primary/10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-12">
-            <p className="font-mono text-[#38BDF8] text-[10px] tracking-widest uppercase mb-2">COMMUNITY LEADS</p>
-            <h2 className="font-display text-white text-3xl font-bold">Domain Specialists</h2>
+            <p className="font-mono text-accent-orange text-[10px] font-semibold tracking-[0.2em] uppercase mb-2">
+              COMMUNITY LEADS
+            </p>
+            <h2 className="font-display text-primary text-3xl sm:text-4xl font-bold tracking-tight">Domain Specialists</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -189,34 +198,32 @@ export default async function TeamPage() {
               return (
                 <div
                   key={member.id}
-                  className="group rounded-2xl p-6 flex flex-col items-center text-center hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden group-hover:border-[rgba(56,189,248,0.3)] border border-[rgba(56,189,248,0.1)]"
-                  style={{ background: "#0A1628" }}
+                  className="group bg-white rounded-3xl p-7 flex flex-col items-center text-center hover:-translate-y-2 hover:shadow-[0_20px_45px_rgba(15,36,96,0.1)] transition-all duration-300 relative overflow-hidden border border-primary/10"
                 >
                   {/* Circular photo */}
                   <div className="relative mb-5">
                     {/* Outer glow ring */}
-                    <div className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    <div className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"
                       style={{ background: "linear-gradient(135deg, #1E3A8A, #38BDF8)" }}
                     />
                     {/* Photo circle */}
                     <div
-                      className="relative rounded-full overflow-hidden border-4 border-[#0A1628] flex-shrink-0"
-                      style={{ width: "96px", height: "96px" }}
+                      className="relative rounded-full overflow-hidden border-4 border-white shadow-md flex-shrink-0 w-28 h-28"
                     >
                       {member.photo ? (
                         <Image
                           src={member.photo}
                           alt={member.name}
                           fill
-                          sizes="96px"
-                          className="object-cover object-top"
+                          sizes="112px"
+                          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                         />
                       ) : (
                         <div
                           className="w-full h-full flex items-center justify-center"
                           style={{ background: "linear-gradient(135deg, #0F2460, #1E3A8A)" }}
                         >
-                          <span className="font-display text-white font-bold" style={{ fontSize: "28px" }}>
+                          <span className="font-display text-white font-extrabold text-2xl">
                             {member.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2).toUpperCase()}
                           </span>
                         </div>
@@ -225,17 +232,17 @@ export default async function TeamPage() {
                   </div>
 
                   {/* Member details below the circle */}
-                  <div className="flex flex-col items-center gap-1 flex-1">
-                    <h3 className="font-display text-white text-base font-bold leading-tight">
+                  <div className="flex flex-col items-center gap-1.5 flex-1 w-full">
+                    <h3 className="font-display text-primary text-lg font-bold leading-tight group-hover:text-accent-orange transition-colors">
                       {member.name}
                     </h3>
-                    <p className="font-mono text-[10px] tracking-widest uppercase text-[rgba(56,189,248,0.8)]">
+                    <span className="inline-block font-mono text-[10px] tracking-wider uppercase font-semibold text-accent-orange">
                       {formatRole(member.role)}
-                    </p>
+                    </span>
                     
                     {member.community && (
                       <span
-                        className="inline-block font-mono text-[9px] font-bold px-2.5 py-1 rounded-full mt-1"
+                        className="inline-block font-mono text-[9px] font-bold px-3 py-1 rounded-full mt-1 border border-primary/10"
                         style={{
                           background: COMMUNITY_COLORS[communitySlug]?.bg ?? "#F0F4FF",
                           color: COMMUNITY_COLORS[communitySlug]?.text ?? "#1E3A8A",
@@ -246,33 +253,33 @@ export default async function TeamPage() {
                     )}
 
                     {member.bio && (
-                      <p className="font-body text-white/50 text-xs leading-relaxed line-clamp-2 mt-2 max-w-[180px]">
+                      <p className="font-body text-muted text-xs leading-relaxed line-clamp-2 mt-2 max-w-[220px]">
                         {member.bio}
                       </p>
                     )}
 
                     {/* Social links */}
                     {(member.linkedin || member.github || member.twitter) && (
-                      <div className="flex items-center justify-center gap-2 mt-3">
+                      <div className="flex items-center justify-center gap-2 mt-4">
                         {member.linkedin && (
                           <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
-                            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors border border-[rgba(56,189,248,0.1)] text-[rgba(56,189,248,0.5)] hover:text-[rgba(56,189,248,0.9)] bg-[rgba(56,189,248,0.07)]"
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 hover:text-accent-orange bg-surface-2 hover:bg-white transition-colors border border-primary/10"
                             aria-label="LinkedIn">
-                            <Linkedin size={12} />
+                            <Linkedin size={13} />
                           </a>
                         )}
                         {member.github && (
                           <a href={member.github} target="_blank" rel="noopener noreferrer"
-                            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors border border-[rgba(56,189,248,0.1)] text-[rgba(56,189,248,0.5)] hover:text-[rgba(56,189,248,0.9)] bg-[rgba(56,189,248,0.07)]"
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 hover:text-accent-orange bg-surface-2 hover:bg-white transition-colors border border-primary/10"
                             aria-label="GitHub">
-                            <Github size={12} />
+                            <Github size={13} />
                           </a>
                         )}
                         {member.twitter && (
                           <a href={member.twitter} target="_blank" rel="noopener noreferrer"
-                            className="w-7 h-7 rounded-lg flex items-center justify-center transition-colors border border-[rgba(56,189,248,0.1)] text-[rgba(56,189,248,0.5)] hover:text-[rgba(56,189,248,0.9)] bg-[rgba(56,189,248,0.07)]"
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-primary/70 hover:text-accent-orange bg-surface-2 hover:bg-white transition-colors border border-primary/10"
                             aria-label="Twitter / X">
-                            <Twitter size={12} />
+                            <Twitter size={13} />
                           </a>
                         )}
                       </div>
@@ -281,7 +288,7 @@ export default async function TeamPage() {
 
                   {/* Bottom accent line */}
                   <div
-                    className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
+                    className="absolute bottom-0 left-0 right-0 h-1 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"
                     style={{ background: "linear-gradient(90deg, #1E3A8A, #38BDF8)" }}
                   />
                 </div>

@@ -25,11 +25,8 @@ export function Navbar() {
   }
 
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#020818]/95 shadow-[0_8px_28px_rgba(0,0,0,0.22)] backdrop-blur-xl"
-      style={{ backgroundColor: "rgba(2, 8, 24, 0.97)" }}
-    >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between max-w-full">
+    <nav className="fixed left-0 right-0 top-0 z-50 border-b border-primary/10 backdrop-blur-xl transition-colors" style={{ background: "rgba(255,255,255,0.92)", boxShadow: "0 8px 28px rgba(15,36,96,0.05)" }}>
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 flex-shrink-0">
           <div className="relative w-8 h-8 flex-shrink-0">
@@ -42,8 +39,8 @@ export function Navbar() {
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-display text-white text-lg font-bold leading-none">CIRC</span>
-            <span className="font-body text-white/70 text-[10px] leading-none mt-0.5 hidden sm:block">
+            <span className="font-display text-lg font-bold leading-none text-primary">CIRC</span>
+            <span className="mt-0.5 hidden font-body text-[10px] leading-none sm:block text-muted">
               Mama Ngina University College
             </span>
           </div>
@@ -58,14 +55,14 @@ export function Navbar() {
               className="font-body text-sm transition-colors duration-200"
               style={
                 isActive(link.href)
-                  ? { color: "#fff", borderBottom: "2px solid #F97316", paddingBottom: "2px" }
-                  : { color: "rgba(255,255,255,0.78)" }
+                  ? { color: "#1E3A8A", borderBottom: "2px solid #F97316", paddingBottom: "2px" }
+                  : { color: "rgba(30,58,138,0.72)" }
               }
               onMouseEnter={(e) => {
-                if (!isActive(link.href)) (e.currentTarget as HTMLElement).style.color = "#fff"
+                if (!isActive(link.href)) (e.currentTarget as HTMLElement).style.color = "#1E3A8A"
               }}
               onMouseLeave={(e) => {
-                if (!isActive(link.href)) (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.78)"
+                if (!isActive(link.href)) (e.currentTarget as HTMLElement).style.color = "rgba(30,58,138,0.72)"
               }}
             >
               {link.name}
@@ -83,7 +80,7 @@ export function Navbar() {
           </Link>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-white/85 hover:text-white p-1 transition-colors"
+            className="p-1 transition-colors md:hidden text-primary/80 hover:text-primary"
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -100,9 +97,9 @@ export function Navbar() {
             left: 0,
             right: 0,
             zIndex: 50,
-            background: "#020818",
-            borderBottom: "1px solid rgba(56,189,248,0.12)",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.6)",
+            background: "#FFFFFF",
+            borderBottom: "1px solid rgba(30,58,138,0.1)",
+            boxShadow: "0 8px 32px rgba(15,36,96,0.12)",
           }}
         >
           {navLinks.map((link) => (
@@ -112,9 +109,9 @@ export function Navbar() {
               onClick={() => setMobileOpen(false)}
               className="flex items-center px-6 py-4 font-body text-sm border-b transition-colors"
               style={{
-                borderBottomColor: "rgba(56,189,248,0.07)",
-                color: isActive(link.href) ? "#38BDF8" : "rgba(255,255,255,0.7)",
-                background: isActive(link.href) ? "rgba(56,189,248,0.05)" : "transparent",
+                borderBottomColor: "rgba(30,58,138,0.08)",
+                color: isActive(link.href) ? "#1E3A8A" : "rgba(31,41,55,0.76)",
+                background: isActive(link.href) ? "rgba(30,58,138,0.05)" : "transparent",
               }}
             >
               {link.name}

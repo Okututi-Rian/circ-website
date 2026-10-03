@@ -41,25 +41,27 @@ export default async function GalleryPage() {
   ).sort()
 
   return (
-    <div className="flex flex-col min-h-screen" style={{ background: "#020818" }}>
+    <div className="flex flex-col min-h-screen bg-surface-2">
       <PageHero
         badge="CIRC IN ACTION"
-        title="Gallery"
+        title="Event & Project Gallery"
         subtitle="Moments from our events, workshops, hackathons, and community activities."
         size="sm"
+        image="/hero/hero-bg-5.jpg"
+        imageAlt="CIRC gallery photo"
       />
 
       {images.length === 0 ? (
-        <div className="py-32 text-center" style={{ background: "#020818" }}>
-          <div
-            className="font-mono text-[10px] tracking-widest mb-4"
-            style={{ color: "rgba(56,189,248,0.2)" }}
-          >
-            NO IMAGES FOUND
+        <div className="max-w-2xl mx-auto my-20 px-6">
+          <div className="py-24 text-center bg-white rounded-3xl border border-dashed border-primary/20 shadow-sm">
+            <p className="font-mono text-[10px] tracking-widest uppercase font-bold text-accent-orange mb-3">
+              GALLERY ARCHIVE
+            </p>
+            <h3 className="font-display text-primary text-xl font-bold mb-2">No Photos Published Yet</h3>
+            <p className="font-body text-muted text-sm max-w-sm mx-auto">
+              Check back soon for photos from our upcoming workshops and community sessions.
+            </p>
           </div>
-          <p className="font-body text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>
-            No photos yet. Check back after our next event.
-          </p>
         </div>
       ) : (
         <GalleryClient

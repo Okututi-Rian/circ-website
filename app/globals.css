@@ -1,6 +1,22 @@
 @import "tailwindcss";
 @config "../tailwind.config.ts";
 
+@font-face {
+  font-family: "InterDisplay";
+  src: url("https://cdn.prod.website-files.com/696b260b2c87366dbac9f403/696ddd081992556af69f35c8_InterDisplay-BoldItalic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "InterDisplay";
+  src: url("https://cdn.prod.website-files.com/696b260b2c87366dbac9f403/696ddd083ee370e920c7f1a0_InterDisplay-ExtraBoldItalic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --color-primary: #1E3A8A;
@@ -242,3 +258,17 @@
 .public-site .max-w-7xl { max-width: 98%; }
 .public-site .max-w-6xl { max-width: 96%; }
 .public-site [class*="max-w-"].px-6 { padding-inline: 2.5%; }
+
+/* The editorial Inter look is limited to the landing page. */
+.circ-home-design .font-display { font-family: "InterDisplay", "Inter", "Clash Display", sans-serif; }
+.circ-home-design .font-body { font-family: "Inter", "InterDisplay", "Satoshi", sans-serif; }
+
+@keyframes hero-photo-loop {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.hero-photo-marquee {
+  animation: hero-photo-loop 15s linear infinite;
+  will-change: transform;
+}
