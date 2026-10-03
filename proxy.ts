@@ -1,16 +1,48 @@
 import { clerkMiddleware } from "@clerk/nextjs/server"
+import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server"
 
-export default clerkMiddleware()
+const clerkProxy = clerkMiddleware()
+
+const clerkOnlyPrefixes = [
+  "/admin",
+  "/admin-entry",
+  "/api",
+  "/trpc",
+  "/sign-in",
+  "/sign-up",
+  "/access-denied",
+  "/__clerk",
+]
+
+function needsClerk(pathname: string) {
+  return clerkOnlyPrefixes.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  )
+}
+
+export default function proxy(request: NextRequest, event: NextFetchEvent) {
+  // Canonicalize the host before Clerk can process the request. This also
+  // keeps Clerk's configured origin out of public-page crawl requests.
+  if (request.nextUrl.hostname.toLowerCase() === "www.circ.co.ke") {
+    const canonicalUrl = request.nextUrl.clone()
+    canonicalUrl.hostname = "circ.co.ke"
+    canonicalUrl.protocol = "https:"
+    canonicalUrl.port = ""
+    return NextResponse.redirect(canonicalUrl, 308)
+  }
+
+  // Public content is server-rendered and does not need Clerk session setup.
+  if (!needsClerk(request.nextUrl.pathname)) {
+    return NextResponse.next()
+  }
+
+  return clerkProxy(request, event)
+}
 
 export const config = {
   matcher: [
-    "/admin/:path*",
-    "/admin-entry/:path*",
-    "/api/:path*",
-    "/trpc/:path*",
-    "/sign-in/:path*",
-    "/sign-up/:path*",
-    "/access-denied",
-    "/__clerk/:path*",
+    // Run the host canonicalizer on page requests, but skip Next internals
+    // and assets. Public paths exit above before Clerk is initialized.
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
   ],
 }
