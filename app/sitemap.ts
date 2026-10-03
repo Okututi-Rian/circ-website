@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next"
 import { prisma } from "@/lib/prisma"
 import { SITE_URL } from "@/lib/seo"
+import { FALLBACK_COMMUNITIES } from "@/lib/public-fallbacks"
 
 const siteUrl = SITE_URL
 
@@ -8,10 +9,16 @@ export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [communities, events] = await Promise.all([
-    prisma.community.findMany({ select: { slug: true } }),
+    prisma.community.findMany({ select: { slug: true } }).catch((error) => {
+      console.error("Sitemap community query failed; using known public communities.", error)
+      return FALLBACK_COMMUNITIES.map(({ slug }) => ({ slug }))
+    }),
     prisma.event.findMany({
       where: { published: true },
       select: { id: true },
+    }).catch((error) => {
+      console.error("Sitemap event query failed; publishing static routes only.", error)
+      return []
     }),
   ])
 

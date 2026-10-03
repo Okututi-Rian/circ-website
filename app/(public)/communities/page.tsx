@@ -6,6 +6,7 @@ import { Globe2, BarChart2, Brain, Link2, Code2, Wifi, Shield } from "lucide-rea
 import { formatRole } from "@/lib/utils"
 import { PageHero } from "@/components/public/page-hero"
 import { createPageMetadata } from "@/lib/seo"
+import { FALLBACK_COMMUNITIES } from "@/lib/public-fallbacks"
 
 const iconMap: Record<string, any> = {
   WEB_DEV: Globe2,
@@ -144,7 +145,7 @@ export default async function CommunitiesPage() {
     include: {
       lead: true,
     },
-  }))
+  }), FALLBACK_COMMUNITIES)
 
   return (
     <div className="flex flex-col">

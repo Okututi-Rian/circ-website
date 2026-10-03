@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache"
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
-    const member = await getPublicCached(`api:team-member:${id}`, () => prisma.teamMember.findUnique({ where: { id } }))
+    const member = await getPublicCached(`api:team-member:${id}`, () => prisma.teamMember.findUnique({ where: { id } }), null)
     if (!member) return NextResponse.json({ success: false, error: "Not found" }, { status: 404 })
     return NextResponse.json({ success: true, data: member })
   } catch {

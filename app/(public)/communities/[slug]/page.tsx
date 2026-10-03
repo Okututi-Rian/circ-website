@@ -7,13 +7,14 @@ import { Github, Linkedin, Twitter, ArrowRight } from "lucide-react"
 import { formatRole } from "@/lib/utils"
 import { PageHero } from "@/components/public/page-hero"
 import { createPageMetadata, plainTextDescription, SITE_URL } from "@/lib/seo"
+import { FALLBACK_COMMUNITIES } from "@/lib/public-fallbacks"
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const community = await getPublicCached(`community:metadata:${slug}`, () => prisma.community.findUnique({
     where: { slug },
     select: { name: true, description: true, focusTags: true },
-  }))
+  }), FALLBACK_COMMUNITIES.find((item) => item.slug === slug) ?? null)
   if (!community) return { title: "Community Not Found", robots: { index: false, follow: false } }
 
   return createPageMetadata({
@@ -41,7 +42,7 @@ export default async function CommunityDetailPage({
         orderBy: { date: "desc" },
       },
     },
-  }))
+  }), FALLBACK_COMMUNITIES.find((item) => item.slug === slug) ?? null)
 
   if (!community) {
     notFound()

@@ -10,7 +10,7 @@ export async function GET() {
       let current = await prisma.settings.findUnique({ where: { id: "singleton" } })
       if (!current) current = await prisma.settings.create({ data: { id: "singleton" } })
       return current
-    })
+    }, null)
     return NextResponse.json({ success: true, data: settings })
   } catch (err) {
     return NextResponse.json({ success: false, error: "Failed to fetch settings" }, { status: 500 })

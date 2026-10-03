@@ -8,6 +8,7 @@ import { JoinCTA } from "@/components/public/home/join-cta"
 import { Suspense } from "react"
 import { UnauthorizedToast } from "@/components/public/unauthorized-toast"
 import { createPageMetadata } from "@/lib/seo"
+import { FALLBACK_COMMUNITIES } from "@/lib/public-fallbacks"
 
 export const metadata = createPageMetadata({
   title: "Computing & Technology at Mama Ngina University College",
@@ -18,7 +19,7 @@ export const metadata = createPageMetadata({
 
 export default async function HomePage() {
   // Fetch communities
-  const communities = await getPublicCached("home:communities", () => prisma.community.findMany())
+  const communities = await getPublicCached("home:communities", () => prisma.community.findMany(), FALLBACK_COMMUNITIES)
 
   // Fetch upcoming events (next 3)
   const upcomingEvents = await getPublicCached("home:upcoming-events", () => prisma.event.findMany({
@@ -28,7 +29,7 @@ export default async function HomePage() {
     },
     orderBy: { date: "asc" },
     take: 3,
-  }))
+  }), [])
 
   // Fetch executive team members
   const execRoles = [
@@ -43,7 +44,7 @@ export default async function HomePage() {
       role: { in: execRoles as any },
     },
     orderBy: { displayOrder: "asc" },
-  }))
+  }), [])
 
   return (
     <div className="flex flex-col">

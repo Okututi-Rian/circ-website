@@ -17,12 +17,12 @@ export default async function EventsPage() {
   const upcomingEvents = await getPublicCached("events:upcoming", () => prisma.event.findMany({
     where: { published: true, date: { gte: now } },
     orderBy: { date: "asc" },
-  }))
+  }), [])
 
   const pastEvents = await getPublicCached("events:past", () => prisma.event.findMany({
     where: { published: true, date: { lt: now } },
     orderBy: { date: "desc" },
-  }))
+  }), [])
 
   const events = [...upcomingEvents, ...pastEvents]
   const featuredEvent = upcomingEvents[0] ?? null

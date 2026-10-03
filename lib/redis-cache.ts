@@ -54,10 +54,22 @@ function restoreDates<T>(value: T): T {
 export async function getPublicCached<T>(
   key: string,
   loadFromDatabase: () => Promise<T>,
+  fallback: T,
   ttlSeconds = DEFAULT_TTL_SECONDS,
 ): Promise<T> {
+  let databaseFailed = false
+  const loadWithFallback = async () => {
+    try {
+      return await loadFromDatabase()
+    } catch (error) {
+      databaseFailed = true
+      console.error(`Public content query failed for ${key}; rendering fallback content.`, error)
+      return fallback
+    }
+  }
+
   const redis = getRedis()
-  if (!redis) return loadFromDatabase()
+  if (!redis) return loadWithFallback()
 
   let epoch = 0
   try {
@@ -65,7 +77,7 @@ export async function getPublicCached<T>(
     if (!Number.isFinite(epoch)) epoch = 0
   } catch (error) {
     warnRedis()
-    return loadFromDatabase()
+    return loadWithFallback()
   }
 
   const redisKey = `${CACHE_PREFIX}:${epoch}:${key}`
@@ -84,17 +96,19 @@ export async function getPublicCached<T>(
     }
   } catch (error) {
     warnRedis()
-    return loadFromDatabase()
+    return loadWithFallback()
   }
 
-  const value = await loadFromDatabase()
-  try {
-    const cacheValue = value === null ? NULL_SENTINEL : (value as RedisValue)
-    await redis.set(redisKey, cacheValue, { ex: ttlSeconds })
-    await redis.sadd(INDEX_KEY, redisKey)
-    await redis.expire(INDEX_KEY, Math.max(ttlSeconds + 60, 3600))
-  } catch (error) {
-    warnRedis()
+  const value = await loadWithFallback()
+  if (!databaseFailed) {
+    try {
+      const cacheValue = value === null ? NULL_SENTINEL : (value as RedisValue)
+      await redis.set(redisKey, cacheValue, { ex: ttlSeconds })
+      await redis.sadd(INDEX_KEY, redisKey)
+      await redis.expire(INDEX_KEY, Math.max(ttlSeconds + 60, 3600))
+    } catch (error) {
+      warnRedis()
+    }
   }
   return value
 }

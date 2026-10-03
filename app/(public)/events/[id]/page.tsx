@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const event = await getPublicCached(`event:metadata:${id}`, () => prisma.event.findFirst({
     where: { id, published: true },
     select: { title: true, description: true, coverImage: true, type: true },
-  }))
+  }), null)
   if (!event) return { title: "Event Not Found", robots: { index: false, follow: false } }
 
   return createPageMetadata({
@@ -40,7 +40,7 @@ export default async function EventDetailPage({
         select: { name: true, slug: true }
       }
     },
-  }))
+  }), null)
 
   if (!event) {
     notFound()
@@ -54,7 +54,7 @@ export default async function EventDetailPage({
     },
     take: 3,
     orderBy: { date: "asc" },
-  }))
+  }), [])
 
   const eventUrl = `${SITE_URL}/events/${encodeURIComponent(id)}`
   const structuredData = {

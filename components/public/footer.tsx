@@ -3,16 +3,17 @@ import Image from "next/image"
 import { prisma } from "@/lib/prisma"
 import { getPublicCached } from "@/lib/redis-cache"
 import { Github, Twitter, Instagram, Linkedin } from "lucide-react"
+import { FALLBACK_COMMUNITIES } from "@/lib/public-fallbacks"
 
 export async function Footer() {
   const settings = await getPublicCached("settings:singleton", () => prisma.settings.findUnique({
     where: { id: "singleton" },
-  }))
+  }), null)
 
   const communities = await getPublicCached("footer:communities", () => prisma.community.findMany({
     select: { name: true, slug: true },
     take: 6,
-  }))
+  }), FALLBACK_COMMUNITIES.slice(0, 6))
 
   const navLinks = [
     { name: "Home", href: "/" },

@@ -10,7 +10,7 @@ export async function GET() {
   try {
     const team = await getPublicCached("api:team:members", () => prisma.teamMember.findMany({
       orderBy: { displayOrder: "asc" },
-    }))
+    }), [])
     return successResponse(team)
   } catch (error: any) {
     return errorResponse(error.message, 500)

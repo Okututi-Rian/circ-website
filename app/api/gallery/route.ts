@@ -15,7 +15,7 @@ export async function GET(req: Request) {
       where: eventId ? { eventId } : undefined,
       include: { event: { select: { id: true, title: true } } },
       orderBy: { createdAt: "desc" },
-    }))
+    }), [])
 
     return NextResponse.json({ success: true, data: images ?? [] })
   } catch (err) {

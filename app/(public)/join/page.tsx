@@ -3,6 +3,7 @@ import { getPublicCached } from "@/lib/redis-cache"
 import { ApplicationForm } from "@/components/public/join/application-form"
 import { PageHero } from "@/components/public/page-hero"
 import { createPageMetadata } from "@/lib/seo"
+import { FALLBACK_COMMUNITIES } from "@/lib/public-fallbacks"
 
 export const metadata = createPageMetadata({
   title: "Join CIRC at Mama Ngina University College",
@@ -21,7 +22,7 @@ export default async function JoinPage() {
       slug: true,
     },
     orderBy: { name: "asc" },
-  }))
+  }), FALLBACK_COMMUNITIES)
 
   return (
     <div className="flex flex-col min-h-screen" style={{ background: "#020818" }}>

@@ -14,7 +14,25 @@ const clerkOnlyPrefixes = [
   "/__clerk",
 ]
 
-function needsClerk(pathname: string) {
+function needsClerk(request: NextRequest) {
+  const { pathname, searchParams } = request.nextUrl
+
+  if (pathname.startsWith("/api/")) {
+    const isPublicRead = request.method === "GET" && [
+      /^\/api\/communities(?:\/[^/]+)?$/,
+      /^\/api\/events(?:\/[^/]+)?$/,
+      /^\/api\/team(?:\/[^/]+)?$/,
+      /^\/api\/gallery$/,
+      /^\/api\/settings$/,
+    ].some((route) => route.test(pathname))
+      && !(pathname === "/api/events" && searchParams.get("all") === "true")
+
+    // Membership applications are intentionally submitted by signed-out users.
+    if (isPublicRead || (pathname === "/api/applications" && request.method === "POST")) {
+      return false
+    }
+  }
+
   return clerkOnlyPrefixes.some(
     (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
   )
@@ -32,7 +50,7 @@ export default function proxy(request: NextRequest, event: NextFetchEvent) {
   }
 
   // Public content is server-rendered and does not need Clerk session setup.
-  if (!needsClerk(request.nextUrl.pathname)) {
+  if (!needsClerk(request)) {
     return NextResponse.next()
   }
 

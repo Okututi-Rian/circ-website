@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
       where: { published: true },
       orderBy: { date: "asc" },
       include: { gallery: true },
-    }))
+    }), [])
     return successResponse(events)
   } catch (error: any) {
     const status = error.message === "Unauthorized" ? 401 : error.message === "Forbidden" ? 403 : 500

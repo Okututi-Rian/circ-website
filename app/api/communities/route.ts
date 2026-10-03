@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import { getPublicCached } from "@/lib/redis-cache"
 import { successResponse, errorResponse } from "@/lib/api"
+import { FALLBACK_COMMUNITIES } from "@/lib/public-fallbacks"
 
 export async function GET() {
   try {
@@ -11,7 +12,7 @@ export async function GET() {
           select: { events: true }
         }
       }
-    }))
+    }), FALLBACK_COMMUNITIES.map((community) => ({ ...community, _count: { events: 0 } })))
     return successResponse(communities)
   } catch (error: any) {
     return errorResponse(error.message, 500)

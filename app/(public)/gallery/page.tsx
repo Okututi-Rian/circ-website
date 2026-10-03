@@ -23,11 +23,11 @@ export default async function GalleryPage() {
         }
       },
       orderBy: { createdAt: "desc" },
-    }))
+    }), [])
     eventList = await getPublicCached("gallery:published-events", () => prisma.event.findMany({
       where: { published: true },
       select: { id: true, title: true },
-    }))
+    }), [])
   } catch (err) {
     console.error("Gallery DB error:", err)
   }
