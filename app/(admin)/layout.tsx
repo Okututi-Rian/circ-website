@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { auth } from "@clerk/nextjs/server"
+import { ClerkProvider } from "@clerk/nextjs"
 import { Sidebar } from "@/components/admin/sidebar"
 import { Topbar } from "@/components/admin/topbar"
 
@@ -22,19 +23,21 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-surface-2" data-clarity-mask="true">
-      {/* Sidebar — fixed width, full height */}
-      <aside className="w-60 flex-shrink-0 h-screen overflow-y-auto">
-        <Sidebar />
-      </aside>
+    <ClerkProvider>
+      <div className="flex h-screen overflow-hidden bg-surface-2" data-clarity-mask="true">
+        {/* Sidebar — fixed width, full height */}
+        <aside className="w-60 flex-shrink-0 h-screen overflow-y-auto">
+          <Sidebar />
+        </aside>
 
-      {/* Main area — fills remaining space, scrolls independently */}
-      <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
-        <Topbar />
-        <main className="flex-1 overflow-y-auto p-6">
-          {children}
-        </main>
+        {/* Main area — fills remaining space, scrolls independently */}
+        <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
+          <Topbar />
+          <main className="flex-1 overflow-y-auto p-6">
+            {children}
+          </main>
+        </div>
       </div>
-    </div>
+    </ClerkProvider>
   )
 }

@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import { ClerkProvider } from "@clerk/nextjs"
 import { Suspense } from "react"
 import { Analytics } from "@/components/analytics"
 import { SITE_URL } from "@/lib/seo"
@@ -76,53 +75,51 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en" data-scroll-behavior="smooth">
-        <head>
-          <link
-            href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap"
-            rel="stylesheet"
-          />
-        </head>
-        <body className="font-body antialiased">
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Organization",
-                name: "Computing Innovation & Research Club (CIRC)",
-                url: SITE_URL,
-                logo: `${SITE_URL}/logo.png`,
-                email: "circ@mnu.ac.ke",
-                description: "A student computing, technology, innovation, and research club at Mama Ngina University College in Kenya.",
-                parentOrganization: {
-                  "@type": "CollegeOrUniversity",
-                  name: "Mama Ngina University College",
-                  url: "https://mnu.ac.ke/",
-                },
-                knowsAbout: ["Computing", "Software development", "Artificial intelligence", "Data science", "Cybersecurity", "Internet of Things", "Technology research"],
-              }).replace(/</g, "\\u003c"),
-            }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                name: "Computing Innovation & Research Club (CIRC)",
-                url: SITE_URL,
-                inLanguage: "en-KE",
-              }).replace(/</g, "\\u003c"),
-            }}
-          />
-          {children}
-          <Suspense fallback={null}>
-            <Analytics />
-          </Suspense>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" data-scroll-behavior="smooth">
+      <head>
+        <link
+          href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="font-body antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Computing Innovation & Research Club (CIRC)",
+              url: SITE_URL,
+              logo: `${SITE_URL}/logo.png`,
+              email: "circ@mnu.ac.ke",
+              description: "A student computing, technology, innovation, and research club at Mama Ngina University College in Kenya.",
+              parentOrganization: {
+                "@type": "CollegeOrUniversity",
+                name: "Mama Ngina University College",
+                url: "https://mnu.ac.ke/",
+              },
+              knowsAbout: ["Computing", "Software development", "Artificial intelligence", "Data science", "Cybersecurity", "Internet of Things", "Technology research"],
+            }).replace(/</g, "\\u003c"),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Computing Innovation & Research Club (CIRC)",
+              url: SITE_URL,
+              inLanguage: "en-KE",
+            }).replace(/</g, "\\u003c"),
+          }}
+        />
+        {children}
+        <Suspense fallback={null}>
+          <Analytics />
+        </Suspense>
+      </body>
+    </html>
   )
 }

@@ -1,3 +1,4 @@
+import { ClerkProvider } from "@clerk/nextjs"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -6,5 +7,5 @@ export const metadata: Metadata = {
 }
 
 export default function PrivateRouteLayout({ children }: { children: React.ReactNode }) {
-  return children
+  return <ClerkProvider>{children}</ClerkProvider>
 }

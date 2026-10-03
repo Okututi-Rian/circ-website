@@ -5,7 +5,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
-import { useAuth, useClerk } from "@clerk/nextjs"
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -19,8 +18,6 @@ const navLinks = [
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
-  const { isSignedIn } = useAuth()
-  const { signOut } = useClerk()
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/"
@@ -78,14 +75,6 @@ export function Navbar() {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
-          {isSignedIn && (
-            <button
-              onClick={() => signOut({ redirectUrl: "/" })}
-              className="hidden md:block font-body text-xs text-white/75 hover:text-red-400 transition-colors mr-2"
-            >
-              Sign out
-            </button>
-          )}
           <Link
             href="/join"
             className="hidden md:inline-flex btn-primary text-xs px-4 py-2"

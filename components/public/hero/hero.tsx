@@ -39,10 +39,10 @@ export function Hero() {
           </div>
 
           <h1 className="font-display text-white font-bold leading-tight text-4xl sm:text-5xl lg:text-[3.25rem]">
-            Empowering Students Through Computing Innovation
+            Empowering Students Through Computing Innovation and Research
           </h1>
           <p className="font-body text-white/70 text-lg leading-relaxed mt-5 max-w-xl mx-auto lg:mx-0">
-            The Computing Innovation &amp; Research Club at Mama Ngina University College — where students
+            The Computing Innovation &amp; Research Club at Mama Ngina University College - where students
             build practical skills in software, data, and emerging technology.
           </p>
 

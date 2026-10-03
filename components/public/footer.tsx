@@ -50,15 +50,6 @@ export async function Footer() {
           <p className="font-body text-white/30 text-xs mt-2 leading-relaxed">
             {settings?.aboutText || "Computing Innovation and Research Club — Mama Ngina University College."}
           </p>
-          <div className="mt-6">
-            <p className="font-mono text-[#38BDF8] text-[9px] tracking-widest uppercase mb-3">
-              PREFERRED SOURCE IN GOOGLE SEARCH
-            </p>
-            <div
-              {...{ "google-add-preferred-source-btn": "" }}
-              data-theme="dark"
-            />
-          </div>
         </div>
 
         {/* Column 2 — Navigation */}
