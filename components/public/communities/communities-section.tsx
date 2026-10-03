@@ -29,7 +29,7 @@ export function CommunitiesSection({ communities }: CommunitiesSectionProps) {
   const totalCount = communities.length
 
   return (
-    <section className="overflow-hidden bg-surface-2 dark:bg-[#09090B] py-24 md:py-32 border-b border-black/5 dark:border-white/5 transition-colors">
+    <section className="overflow-hidden bg-surface-2 dark:bg-[#080809] py-24 md:py-32 border-b border-black/5 dark:border-white/10 transition-colors">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between md:mb-16">
           <div>

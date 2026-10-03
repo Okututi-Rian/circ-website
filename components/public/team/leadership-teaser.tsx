@@ -53,7 +53,7 @@ export function LeadershipTeaser({ members }: LeadershipTeaserProps) {
   const teaserMembers = activeMembers.slice(0, 5)
 
   return (
-    <section className="py-24 bg-surface-2 dark:bg-[#09090B] overflow-hidden border-b border-black/5 dark:border-white/5 transition-colors">
+    <section className="py-24 bg-surface-2 dark:bg-[#080809] overflow-hidden border-b border-black/5 dark:border-white/10 transition-colors">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">

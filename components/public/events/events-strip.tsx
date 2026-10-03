@@ -17,7 +17,7 @@ interface EventsStripProps {
 
 export function EventsStrip({ events }: EventsStripProps) {
   return (
-    <section className="overflow-hidden bg-white dark:bg-[#080809] py-24 md:py-32 border-b border-black/5 dark:border-white/5 transition-colors">
+    <section className="overflow-hidden bg-white dark:bg-[#121215] py-24 md:py-32 border-b border-black/5 dark:border-white/10 transition-colors">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between md:mb-16">
           <div>

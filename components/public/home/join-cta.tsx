@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export function JoinCTA() {
   return (
-    <section className="bg-primary dark:bg-[#070708] py-24 relative overflow-hidden border-t border-black/5 dark:border-white/5 transition-colors">
+    <section className="bg-primary dark:bg-[radial-gradient(ellipse_at_top,_#181822_0%,_#111116_65%,_#0B0B0E_100%)] py-24 relative overflow-hidden border-t border-black/10 dark:border-white/10 transition-colors">
       {/* Background SVG grid */}
       <svg className="absolute inset-0 w-full h-full opacity-5 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
         <defs>

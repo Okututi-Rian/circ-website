@@ -360,11 +360,11 @@ export function TerminalHero({
   }, [])
 
   return (
-    <section className="relative w-full min-h-screen overflow-hidden bg-surface-2 dark:bg-[#09090B] text-main dark:text-gray-100 transition-colors">
+    <section className="relative w-full min-h-screen overflow-hidden bg-surface-2 dark:bg-[#080809] text-main dark:text-gray-100 transition-colors">
       {/* Background soft glow and fade matching surface-2 */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
         <div className="absolute left-1/2 top-12 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-primary/[0.04] dark:bg-accent-orange/[0.03] blur-3xl" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-surface-2 dark:from-[#09090B] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-surface-2 dark:from-[#080809] to-transparent" />
       </div>
 
       <div className="relative mx-auto flex min-h-screen max-w-[1600px] items-center px-5 py-10 sm:px-8 lg:px-12">

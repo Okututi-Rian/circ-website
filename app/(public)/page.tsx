@@ -64,12 +64,12 @@ export default async function HomePage() {
       />
 
       <section
-        className="relative overflow-hidden bg-white dark:bg-[#09090B] py-24 md:py-32 transition-colors"
+        className="relative overflow-hidden bg-white dark:bg-[#121215] py-24 md:py-32 border-y border-black/5 dark:border-white/10 transition-colors"
         aria-labelledby="circ-about-heading"
       >
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 dark:via-white/10 to-transparent"
+          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 dark:via-white/15 to-transparent"
         />
         <div className="mx-auto grid max-w-7xl items-start gap-12 px-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <div className="lg:sticky lg:top-28">
